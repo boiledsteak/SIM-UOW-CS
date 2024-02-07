@@ -1,0 +1,19 @@
+// The range of 'horizontal' indices, inclusive
+// E.g. if the range is 0-4, then the indices are 0, 1, 2, 3, 4
+GridX_IdxRange=0-8
+
+// The range of 'vertical' indices, inclusive
+// E.g. if the range is 0-3, then the indices are 0, 1, 2, 3
+GridY_IdxRange=0-8
+
+// [x,y] grid-areas which are occupied by cities
+citylocation.txt
+
+// "next day" forecasted cloud coverage (%) for 
+// each [x,y] grid-area
+cloudcover.txt
+
+// "next day" forecasted atmospheric pressure intensity (%) for
+// each [x,y] grid-area
+pressure.txt
+

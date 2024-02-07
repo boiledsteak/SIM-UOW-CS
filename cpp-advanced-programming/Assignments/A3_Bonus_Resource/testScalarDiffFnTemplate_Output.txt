@@ -1,0 +1,68 @@
+
+pt2D_a   : [2, 8], distFrOrigin : 8.246
+pt2D_b   : [5, 10], distFrOrigin : 11.180
+pt2D_c   : [16, 17], distFrOrigin : 23.345
+pt2D_d   : [23, 26], distFrOrigin : 34.713
+
+
+-------------------------------------------------------------
+scalar_difference () for Point2D objects returns the absolute
+difference in distFrOrigin of its 1st and 2nd parameters! 
+-------------------------------------------------------------
+
+scalar_difference (pt2D_a, pt2D_b) returns a 'double' value : 2.934
+
+scalar_difference (pt2D_b, pt2D_a) returns a 'double' value : 2.934
+
+
+Line2D_1 is made up of pt2D_a, and pt2D_b
+line2D_1 : ( [2, 8], distFrOrigin : 8.246 to [5, 10], distFrOrigin : 11.180 ), length : 3.606
+
+Line2D_2 is made up of pt2D_c, and pt2D_d
+line2D_2 : ( [16, 17], distFrOrigin : 23.345 to [23, 26], distFrOrigin : 34.713 ), length : 11.402
+
+
+
+-------------------------------------------------------------
+scalar_difference () for Line2D objects returns the absolute
+difference in length of its 1st and 2nd parameters! 
+-------------------------------------------------------------
+
+scalar_difference (line2D_1, line2D_2) returns a 'double' value : 7.796
+
+scalar_difference (line2D_2, line2D_1) returns a 'double' value : 7.796
+
+
+pt3D_a   : [29, 38, 15], distFrOrigin : 50.100
+pt3D_b   : [15, 10, 13], distFrOrigin : 22.226
+pt3D_c   : [16, 17, 10], distFrOrigin : 25.397
+pt3D_d   : [23, 26, 16], distFrOrigin : 38.223
+
+
+-------------------------------------------------------------
+scalar_difference () for Point3D objects returns the absolute
+difference in distFrOrigin of its 1st and 2nd parameters! 
+-------------------------------------------------------------
+
+scalar_difference (pt3D_a, pt3D_b) returns a 'double' value : 27.874
+
+scalar_difference (pt3D_b, pt3D_a) returns a 'double' value : 27.874
+
+
+Line3D_1 is made up of pt3D_a, and pt3D_b
+line3D_1 : ( [29, 38, 15], distFrOrigin : 50.100 to [15, 10, 13], distFrOrigin : 22.226 ), length : 31.369
+
+Line3D_2 is made up of pt3D_c, and pt3D_d
+line3D_2 : ( [16, 17, 10], distFrOrigin : 25.397 to [23, 26, 16], distFrOrigin : 38.223 ), length : 12.884
+
+
+
+-------------------------------------------------------------
+scalar_difference () for Line3D objects returns the absolute
+difference in length of its 1st and 2nd parameters! 
+-------------------------------------------------------------
+
+scalar_difference (line3D_1, line3D_2) returns a 'double' value : 18.485
+
+scalar_difference (line3D_2, line3D_1) returns a 'double' value : 18.485
+

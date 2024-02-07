@@ -1,0 +1,11 @@
+
+How to read line by line from a file?
+
+How to break up a line, according to delimiters?
+
+How to store the data into structs?
+
+How to access global variables like array of structs?
+
+
+

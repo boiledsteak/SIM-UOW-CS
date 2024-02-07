@@ -1,0 +1,16 @@
+
+Horizontal_X_Range=0-8
+
+Vertical_Y_Range=0-8
+
+// a filename
+city.txt
+
+// another filename
+cloud.txt
+
+// yet another filename
+press.txt
+
+
+
