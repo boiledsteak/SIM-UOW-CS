@@ -1,10 +1,10 @@
 # SIM-UOW-CS
 SIM UOW computer science cybersecurity + digital systems security
 
-- 3 months = 1 sem
-- 1 sem = 2 modules
+* 3 months = 1 sem
+* 1 sem = 2 modules
 
-sem break during last 3 weeks of 3rd month. so actually there's enough time to do assignments
+Sem break during last 3 weeks of 3rd month. So actually there's enough time to do assignments
 
 
 
