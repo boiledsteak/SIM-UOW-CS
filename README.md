@@ -1,10 +1,12 @@
 # SIM-UOW-CS
 SIM UOW computer science cybersecurity + digital systems security
-3 months = 1 sem
-1 sem = 2 modules
-sem break  during last 3 weeks of 3rd month
 
-so actually there's enough time to do assignments
+- 3 months = 1 sem
+- 1 sem = 2 modules
+
+sem break during last 3 weeks of 3rd month. so actually there's enough time to do assignments
+
+
 
 ## CSCI251 : Advanced programming
 Basically a C++ module that goes quite deep. NOT an introduction to C++ lol
