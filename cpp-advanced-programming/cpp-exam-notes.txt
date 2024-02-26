@@ -1,0 +1,108 @@
+interpreting and explaining exception handling code
+ie. syntax, output, flow of control
+1. what is the syntax for simple throw catch ?
+2. when is throw used? give example
+3. Can throw be used without a calling a function? give example
+4. what exceptions does catch (exception e) catch?
+5. what is the catch all block? write example
+6. what happens when an error is thrown but there's no matching catch block ?
+7. how to throw within a catch? write example
+8. are destructors called in a try catch block? give example
+9. write a class that deals with exception
+10. write a function that deals with exception
+11. Is it possible to throw a void function?
+
+
+namespace ("using", scope, unmaed, nested)
+1. how to call nested namespace? Write example
+2. show example of class prototype within a namespace
+3. show example of function prototype within a namespace
+4. show example of extending namespace
+5. what is the purpose of unnamed namespace ? show example
+6. can objects created within a namespace from a .h file, be accessed in main() ?
+7. in a nested namespace, who can access what? show example
+8. show example of namespace alias
+
+
+function template, concepts, purpose, coding it, using it in declaration (explicit specification of type <>)
+1. write a simple function template
+2. write a simple function class
+3. set defualt type for a template
+4. show example of template function specialisation
+5. show example of template class specialisation
+6. show example of explicitly specifying data type while calling template function
+7. show example of explicitly specifying data type while calling template class
+
+
+difference between dependency/ association/ aggregation/ composition
+
+how to prevent inheritence
+
+different meaning/ usage of & and *
+
+friend function, concepts, purpose, coding it, how its combined with << and >> operator overloading
+
+operator overloading - 2 ways. As class member function VS friend function. Ways to overloading binary operators, ways to invoke them, how to code
+
+difference between single vs multiple inheritance
+
+difference between acess modifiers ie. public/ protected/ private,
+and their meaning when
+- used within a class declaration
+- used with "child : private parent"
+
+difference between class default/ copy/ destructors. when are they used and how are they declared
+
+difference between 3 ways in which 'virtual' is used
+- to declare virtual / pure virtual functions
+- to prevent diamond multiple inheritance
+
+valid ways to declare iterators for a container like vector ie. const, non-const, forward, reverse
+
+list major components of STL ie containers, geneeric algo, adapters. Briefly explain their purpose
+
+diff between method overloading vs overriding
+
+meaning of * and -> when used with 'this'
+ie.
+(*this).variable
+this->variable
+*this->variable
+
+what is abstract class and how to declare
+
+difference between class vs struct, in terms of variable access
+
+writing declaration and implementation for structs
+
+implementing functions  that use
+- struct variables
+- array of struct
+
+exception handling: basic concepts - try, throw, catch, writing exception class, throwing exception objects
+
+operator overloading
+- relational
+- binary
+- IO operators
+- << and >> , how theyre associated with a class and how they're implemented
+
+writing declaration and implementation for classes
+- encapsulation
+== using .h, .cpp for each class, using header guards
+== using private protected public when needed
+- inheritance
+== how to specify parent child classes, what files to #include
+- polymorphism
+== how to implement function overrding
+== dynamic vs static binding
+
+function/ class template
+- how to declare simple class templates
+- writing implementation code for function/ class template
+
+how to declare and correctly use
+- STL containers like vector
+- generic algo like find
+- iterators like forward/reverse iterator for vector
+- default random engine (within #include<random>)

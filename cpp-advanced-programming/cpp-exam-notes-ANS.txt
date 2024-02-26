@@ -1,0 +1,603 @@
+interpreting and explaining exception handling code
+ie. syntax, output, flow of control
+https://www.geeksforgeeks.org/exception-handling-using-classes-in-cpp/?ref=lbp
+1. what is the syntax for simple throw catch ?
+
+	try
+	{
+	// something
+	}
+	catch (exception e)
+	{
+		cout << e.what();
+	}
+
+2. when is throw used? give example
+	
+	throw is used when want to explicitly specify an error and how to handle it as opposed to relying on the default error caught by try catch blocks
+
+	try
+	{
+		if (x == 2)
+		{
+			throw someError();
+		}
+	}
+	catch (exception e)
+	{
+		cout << e.what();
+	}
+
+3. Can throw be used without a calling a function? give example
+
+	yes. Can just throw then the catch with the matching data type.
+
+	try
+	{
+		int a=5;
+		throw a
+	}
+	catch (int x)
+	{
+		cout << "something caught";
+	}
+
+4. what exceptions does catch (exception e) catch?
+	
+	it catches some of the common exceptions, specified in the STD exception class.
+
+5. what is the catch all block? write example
+
+	try
+	{
+	// something
+	}
+	catch (...)
+	{
+	// do something
+	}
+
+	the catch all block catches all exceptions that are not explicitly caught in the code
+
+
+6. what happens when an error is thrown but there's no matching catch block ?
+
+	the program will terminate
+
+7. how to throw within a catch? write example
+
+	within a try catch block, the catch block can contain throw as well. The thrown error will look for the next matching catch block
+		
+		try
+		{
+			try
+			{
+				throw 5;
+			}
+			catch (int x)
+			{
+				throw;
+			}
+		}
+		catch (int y)
+		{
+		// do something
+		}
+		catch (...)
+		{
+		// do nothing
+		}
+
+8. are destructors called in a try catch block? give example
+
+	yes. If a className object is declared within a try block, and theres a throw line, the object's destructor is called before the throw line is executed
+
+	class Cars
+	{
+		private:
+			int wheels;
+		public:
+			// constructor
+			Cars()
+			{
+				wheels = 4;
+			}
+			// destructor
+			~Cars()
+			{
+				cout << "Destroying!!";
+			}
+	}
+
+	int main()
+	{
+		try
+		{
+			Cars toyota;
+			throw 5;
+		}
+		catch (int x)
+		{
+		// do something
+		}
+
+
+		return 0;
+	}
+
+	in the above code, "Destorying!!" will be printed before throw occurs
+
+9. write a class that deals with exception
+
+	class myE
+	{
+		private:
+			string emsg = "something went wrong";
+
+		public:
+			// default constructor
+			myE() {}
+
+			getemsg()
+			{
+				return emsg;
+			}
+	}
+
+	int main()
+	{
+		try
+		{
+			myE obj;
+			throw obj
+		}
+		catch (myE x)
+		{
+			// something went wrong will be printed here 
+		}
+	}
+
+10. write a function that deals with exception
+
+	int ehandler()
+	{
+		cout << "Something went wrong lah";
+		return 0
+	}
+
+	int main()
+	{
+		try
+		{
+			throw ehandler();
+		}
+		catch (int x)
+		{
+			cout << "something happened here too";
+		}
+		catch(...)
+		{
+			//do nth
+		}
+	}
+
+	in the above code, something went wrong and something happened will run
+
+11. Is it possible to throw a void function?
+	no. Unless within the void function there's another throw
+
+
+
+namespace ("using", scope, unamed, nested)
+https://www.geeksforgeeks.org/namespace-in-c/
+1. how to call nested namespace? Write example
+
+	namespace ns1
+	{
+		void func()
+		{
+			cout << "do this 1";
+		}
+
+		namespace ns2
+		{
+			void func()
+			{
+				cout << "do this 2";
+			}
+		}
+	}
+
+	int main()
+	{
+		ns1::ns2::func(); //do this 2 will be printed
+		return 0;
+	}
+
+2. show example of class prototype within a namespace
+	
+	namespace ns1
+	{
+		class c1;
+	}
+
+	class ns1::c1
+	{
+		public:
+			c1() {cout<<"something";}
+	}
+
+	int main()
+	{
+		ns1::c1 obj;
+		return 0;
+	}
+
+3. show example of function prototype within a namespace
+	
+	namespace ns1
+	{
+		void fn();
+	}
+
+	void ns1::fn()
+	{
+		cout << "do something";
+	}
+
+	int main()
+	{
+		ns1::fn();
+		return 0;
+	}
+
+4. show example of extending namespace
+	
+	namespace ns1
+	{
+		int numb1 = 5;
+	}
+
+	namespace ns1
+	{
+		int numb2 = 10;
+	}
+
+	int main()
+	{
+		cout << ns1::numb1 << ns1::numb2;
+		return 0;
+	}
+
+5. what is the purpose of unnamed namespace ? show example
+	
+	namespace
+	{
+		int x = 5;
+	}
+
+	is to encapsulate the objects created in the unnamed namespace, within the file it is declared in (and all the other .h .cpp files included)
+
+6. can objects created within a namespace from a .h file, be accessed in main() ?
+	
+	yes
+
+
+7. in a nested namespace, who can access what? show example
+
+	namespace ns1 
+	{
+	    int numb1=5;
+
+	    namespace ns2 
+	    {
+	        int numb2=10;
+	        int numb4 = numb1 + numb2;
+	    }
+	    int numb3 = numb1 + ns2::numb2;
+
+	}
+
+	int main() 
+	{
+	    cout << ns1::numb3 << "\n";
+	    cout << ns1::ns2::numb4 << "\n\n\n";
+	    
+	    return 0;
+	}
+
+8. show example of namespace alias
+
+	namespace alias1 = ns1::ns2;
+
+
+function template, concepts, purpose, coding it, using it in declaration (explicit specification of type <>)
+https://www.geeksforgeeks.org/templates-cpp/
+
+1. write a simple function template
+	
+	template <typename t>
+	string formatpoint(t point)
+	{
+		return str(point.setprecision(3));
+	}
+
+2. write a simple function class
+
+	template <typename t>
+	class MyClass
+	{
+		public:
+			MyClass(t obj)
+			{
+				cout << obj;
+			}
+	}
+
+3. set defualt type for a template
+
+	template <typename t = double>
+	string formatpoint(t point)
+	{
+		return str(point.setprecision(3));
+	}
+
+4. show example of template function specialisation
+
+	template <>
+	string formatpoint<double>(double point)
+	{
+		return str(point.setprecision(3));
+	}
+
+	the following code means that if the formatpoint() function is called with a double parameter, it will run the above code instead of using the generic formatpoint() that takes in any data type
+
+5. show example of template class specialisation
+
+	template <typename t>
+	class class1
+	{
+		public:
+			class1(t x)
+			{
+				cout << x;
+			}
+	}
+
+	template <>
+	class class1<int>
+	{
+		public:
+			class1(int value)
+			{
+				cout value;
+			}
+	}
+
+6. show example of explicitly specifying data type while calling template function
+
+	string str = formatpoint<double>(200.51)
+
+7. show example of explicitly specifying data type while calling template class
+
+	cars<doubkle> toyota(1999.50)
+
+
+difference between dependency/ association/ aggregation/ composition
+class relations
+weakest to strongest
+
+dependency (has access to info)
+	class A uses class B, but class B don't know class A
+	- use one time and thats it
+
+
+association (uses)
+	class A  uses B. class A has a reference to class B
+	- use one time and thats it
+	- class A still have class B contact details
+
+
+aggregation (owns)
+	class A owns class B
+	parent - child
+	whole - part
+	uml will always have white diamond at parent side
+	child is not destroyed when parents is destroyed
+	same child can belong to different instances of parent 
+
+
+composition (survives on)
+	parent and child lifespan is synchronised
+	if one die, the other diez
+	child cannot survive independently
+	uml will always have black diamond at parent side
+
+
+how to prevent inheritence? give example
+1. declare class as final
+	class parent final
+	{
+
+	};
+2. make constructors private
+	class parent
+	{
+		private:
+			parent() {}
+	};
+3. copy constuctor = delete
+	class parent
+	{
+		public:
+			parent(parent obj) = delete;
+	};
+
+
+
+different meaning/ usage of & and *
+1. show example of * being used in declaration
+
+	int *ptr = &x; // ptr holds the address of variable x
+
+2. show example of * being used as dereference
+	
+	cout << ptr // prints memory location
+	cout << ptr // dereferences ptr, so prints actual value of x
+
+3. does modifying the value of dereferenced pointer change the value of original variable?
+
+	yes
+
+
+friend function, concepts, purpose, coding it, how its combined with << and >> operator overloading
+1. show example of friend class
+
+	class class1
+	{
+		private:
+			int x=5;
+			int y=10;
+		public:
+			class1() {}
+
+			friend class class2;
+	};
+
+	class class2
+	{
+		private:
+			int A;
+			int B;
+		public:
+			class2(class1 obj)
+			{
+				A= obj.x;
+				B= obj.y;
+			}
+	};
+
+	friend line can be declared in private protected or public
+
+2. show example of friend function
+	
+	class class1
+	{
+		private:
+			 int x=5;
+			 int y=10;
+
+		public:
+			friend void fn1(class1 obj);
+	};
+
+	int fn1(class1 obj)
+	{
+		int A=obj.x;
+		return A;
+	}
+
+3. show example of << operator overloading with friend function
+
+	class class1
+	{
+		private:
+			int x = 5;
+			int y = 10;
+
+		public:
+			friend ostream operator<<(ostream os, class1 obj)
+	}
+
+	ostream operator<<(ostream os, class1 obj)
+	{
+		os << obj.x;
+	}
+
+4. show exmaple of + operator overloading as class member function
+
+	class class1
+	{
+		private:
+			int x = 5;
+			int y = 10;
+
+		public:
+			class1 operator+(class1 obj1)
+			{
+				class1 obj2;
+				obj2.x = this->length + obj1.x
+				return obj2;
+			}
+	}
+
+	this-> refers to the left side of the addition expression. the + overload function can access .x because it is within the same class of the private variables. public can access private members 
+
+
+difference between single vs multiple inheritance
+1. single means 1 parent. multiple means many parents
+
+What is the diamond problem?
+1. is when a child has 2 parents, and the 2 parents come from the same 1 parent, that means the child will inherit double and lead to ambiguity
+
+
+difference between acess modifiers ie. public/ protected/ private,
+and their meaning when
+- used within a class declaration
+- used with "child : private parent"
+
+difference between class default/ copy/ destructors. when are they used and how are they declared
+
+difference between 3 ways in which 'virtual' is used
+- to declare virtual / pure virtual functions
+- to prevent diamond multiple inheritance
+
+valid ways to declare iterators for a container like vector ie. const, non-const, forward, reverse
+
+list major components of STL ie containers, geneeric algo, adapters. Briefly explain their purpose
+
+diff between method overloading vs overriding
+
+meaning of * and -> when used with 'this'
+ie.
+(*this).variable
+this->variable
+*this->variable
+
+what is abstract class and how to declare
+
+difference between class vs struct, in terms of variable access
+
+writing declaration and implementation for structs
+
+implementing functions  that use
+- struct variables
+- array of struct
+
+exception handling: basic concepts - try, throw, catch, writing exception class, throwing exception objects
+
+operator overloading
+- relational
+- binary
+- IO operators
+- << and >> , how theyre associated with a class and how they're implemented
+
+writing declaration and implementation for classes
+- encapsulation
+== using .h, .cpp for each class, using header guards
+== using private protected public when needed
+- inheritance
+== how to specify parent child classes, what files to #include
+- polymorphism
+== how to implement function overrding
+== dynamic vs static binding
+
+function/ class template
+- how to declare simple class templates
+- writing implementation code for function/ class template
+
+how to declare and correctly use
+- STL containers like vector
+- generic algo like find
+- iterators like forward/reverse iterator for vector
+- default random engine (within #include<random>)

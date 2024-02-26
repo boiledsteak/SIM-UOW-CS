@@ -1,0 +1,676 @@
+================================
+c++ notes
+================================
+
+to ask teacher for help
+	csci251@yahoo.com
+
+C code can be run with c++ files
+
+header files
+#include <iostream>
+#include <string>
+#include "myfile.h" // this is self defined header files
+
+namespace // important cpp syntax
+
+const // ?? data type ?
+
+cout << "enter a number";
+cin >> "theNumb";   //cout is like print
+
+operand
+	numbers and variables
+
+operators
+	+, * , - 
+
+static cast
+	??? at compile time do something
+
+dynamic cast
+	???
+
+runtime type casting
+	??? non static
+
+variable
+	value can change during run time
+
+const
+	value cannot change during run time
+
+declaration
+	int something
+
+	good when you don't know what the value will be
+
+assignment
+	something = 5
+
+stream extraction or stream insertion
+	>> <<
+	they take input from keyboard and store into variable
+
+input chaining
+	chaining mulptiple stream extractors
+
+	cin >> house >> bricks
+
+	this will expect 2 user input and store in 2 specified variables
+
+increment
+	++x or x++
+	got difference
+
+
+manipulator
+	some manipulators need parameters. Some don't need
+
+	endl
+		its a function that enters a newline
+
+		eg.
+			cout << "hellow" << endl
+	
+		this inserts a new line
+
+	setprecision
+		set number of decimal place for double
+
+		eg.
+			cout << 66.8887777 << setprecision(3) << endl
+
+		can use multiple manipulators. Requires iomanip header file
+
+	setw
+		set the width of the output. How many space long
+
+
+function prototype
+	function header with no body
+	parameter need not include name
+	purpose is if u want to declare functions after main(). Kinda dumb. Don't use
+
+
+object file
+	mylibrary.o file is to obfuscate main() logic file. It is a compiled version of the main() logic file
+	get more marks in assignment ???
+
+reference parameter aka alias
+	& - sign used. Means "address of"
+	int& number = 888
+	this is to pass by reference
+	this is good in some cases when there's many many variables used
+	saves memory
+	BUT it has a danger of fucking up variables since the scope of assigning values is global. 
+	Is manipulating memory
+
+dereferencing operator
+	*
+	??
+
+pointer
+	can point to variable or array
+	holds memory address only
+
+	when declaring pointer, this means that numb points to memory location of var
+	int var;
+	int *numb = &var;
+
+	then the * will become a dereferencing when used again.
+	this means that var will become 5
+	*numb = 5;
+
+
+	pointer can point to function too
+	function pointer :( ???
+
+	
+
+static
+	static int x = 5
+	this means that the scope of the value of x is global. Not recommended
+
+	syntax :
+		className::StaticVariable
+
+function overloading
+	creating functions with same name but different parameters
+	purpose is to ???
+	apparently saves memory
+
+array
+	datatype must be same
+	int myArray[5];
+
+	if want to assign values at the start
+	int myArray[] = {1,2,5,8,9}
+
+	if assign some values only, the default is 0
+	int myArray[20] = {1,2,2,2}
+	then the rest is 0
+
+	arrays are technically pass by reference.
+	If change values of array inside a function, the main() will also be affected
+
+	the name of the array is implicitly the address to the first element in the array
+
+	array cannot be return type
+
+	number of elements in array = [5] -1
+	means this array[5] has 4 elements
+
+	array cannot assign values such as array = array
+	eg
+		char name1[]= "john"
+		char name2[]= "tan"
+
+		name2 = name1
+
+	this doesnt work
+
+	array is fixed size
+
+
+C type string
+	any char array whose last element is '\0' is a C type string
+
+
+python style for loop
+	C++ has python style also. See online for syntax
+
+
+const
+	cannot change value of array
+	eg 
+		const int y[5];
+		y[0] = 2;
+
+	second line will fail
+
+strings
+	in C++, string is not a datatype
+	is char array
+	char name[] = "John"
+
+
+strcmp()
+	strcmp(string1, string2) == 0
+	if true means both are exactly the same
+	
+
+
+struct
+	something like json object
+
+
+file i/o
+	use ifstream and ofstream
+		eg
+			ifstream readFile("inputfile.txt");
+			ofstream writeFile("outputfile.txt");
+
+			while(readFile >> x)
+			{
+				writeFile << x ;
+			}
+
+C string vs C++ string ??
+
+
+new
+	dynamic variable
+	eg.
+		*p = new int; (declare + allocate memory)
+		*p = 88; (assign value)
+		int *p = new int (88);  (3 in 1 of above)
+
+	if use new must use delete or else the memory leak
+	memory leak is when OS still think that the memory space is being reserved
+	but its not being used anymore
+
+	You should use new when you wish an object to remain in existence until you delete it.
+	 If you do not use new then the object will be destroyed when it goes out of scope
+
+
+pointer arithmatic
+	???
+
+
+
+
+MEMORY DIAGRAM
+
+
+Operator overloading
+	means string can add with double
+	different data type use operator with differentdata type
+
+
+file encapsulation
+	requires function prototyping
+	it means put all your function prototype in header file
+	then the function itself put in individual .cpp file
+	finally the main.cpp can call functions that live in the individual .cpp files,
+	with the header file as like the lookup table of all functions
+
+	the purpose is so that other main.cpp files can use an individual compiled .cpp file (aka .o file)
+	without seeing the actual code of the .o file (.o file cannot see code). 
+	This is for security or privacy purpose
+
+constexpr
+	constant expression. Is like const. 
+	Const is used to initialise a variable whose value cannot be changed
+	but const can be used with function
+	ie
+		constexpr int numb = flatten();
+
+
+Default arguments
+	sometimes function overloading can be confused with defaault arguments. See properly
+
+void pointer 
+	this just means pointer can point to any type
+	but if want to cout a voud pointer, need to type cast it
+
+
+typedef
+	create own name for a datatype
+
+
+Array of pointers
+	pointer array ?? what for ??
+
+
+auto datatype
+	like python
+
+dynamic array
+	search up for syntax
+	new[]
+	**ptr
+	???
+	read up
+https://www.geeksforgeeks.org/new-and-delete-operators-in-cpp-for-dynamic-memory/
+
+
+header guard 
+	multiple inclusion???
+	#ifndef menu.h
+	#def menu.h
+	apparently important for ass2 and ass3
+
+
+c++ make file
+	linux thingy like a .yaml for .cpp files
+
+
+static
+	static means the variable lives in the function only
+
+scope resolution operator
+	::
+	means the right side function come from left side source
+	useful when collaborating large projects can have same variable namespace
+
+union
+	save memory when declaring struct
+	means the struct will use the memory size of the largest member's datatype
+	members will share the memory of the largest member
+
+
+UML
+unified m language
+class DIAGRAM used for assignment2
+
+class
+	by default is private. struct by default is public
+	can set public function for private class. This acts as an interface to access private data in a class
+
+	// this is the declaration of the class. put in separate file student.h
+	class student()
+	{
+		private:
+		int id;
+		
+
+		public:
+		student(); // this initialises the student object with defaukt values
+		student(int); //this initialises the student AND sets value for ID together. aka default constructor
+		student(const student &) // this is a copy constructor
+		setid();
+		static string schoolname;
+	}
+	// this is the public function to access the private class. Can be in main()
+	void student::setid(int newid)
+	{
+		if (newid.isGood())
+		{
+			id = newid;
+		}
+	}
+
+
+	there can be private functions too but only a public function can use it 
+	however all these private wtv things is bound by the compiler. You can still access them using * and & pointers
+	same goes for const. Can be modified by referencing their memory location
+
+
+	static means that the variable is the same for all object instances.
+	so below if i initialise a few students like this:
+	student s1;
+	student s2;
+
+	s1.setid(1);
+	s2.setid(2);
+
+	s1.schoolname="SIM";
+
+	then both s1 and s2 schoolname will become "SIM".
+
+	see slides 4b
+
+	arrow always point to child
+
+copy constructor
+	student s1;
+	student s2(s1); // this means the values of s1 object is copied into s2
+
+
+protected
+	?
+
+
+
+This
+	pointer to member operator
+	<<this->
+	only used when variable name is same as member name. Not commonly used
+	just use different variable names within function
+
+
+
+destructor
+	~
+	no parameters, no datatype
+	useful when the class got any open socket, open file, or any new pointers
+	prevents memory leak by destroying the above
+
+	destructors are automatically called after main() if constructors are called
+
+	ie.
+
+	class house()
+	{
+		private:
+			int *area;
+
+		public:
+			house();	//constructor
+			~house();	//destructor
+	}
+
+	house::~house()
+	{
+		delete area;
+	}
+
+
+
+class relations
+weakest to strongest
+
+dependency (has access to info)
+	class A uses class B, but class B don't know class A
+	- use one time and thats it
+
+
+association (uses)
+	class A  uses B. class A has a reference to class B
+	- use one time and thats it
+	- class A still have class B contact details
+
+
+aggregation (owns)
+	class A owns class B
+	parent - child
+	whole - part
+	uml will always have white diamond at parent side
+	child is not destroyed when parents is destroyed
+	same child can belong to different instances of parent 
+
+
+composition (survives on)
+	parent and child lifespan is synchronised
+	if one die, the other die
+	child cannot survive independently
+	uml will always have black diamond at parent side
+
+
+inheritence (is a )
+	lion is an animal
+	tiger is an animal
+	child is a parent
+	only one way
+	can have multiple levels of inheritence hiearchy
+
+	child may inherit parent private variables but can not access immediately unless use function
+
+	PROTECTED
+	child can access the private variables without using function. But non child cannot access
+
+	these are not inherited by child
+	- constructors
+	- destructors
+	- friend functions
+	- overloaded new functions
+
+
+function overriding
+	in a parent and child, the child declares a function the same name as the parent.
+	this means the function in parent and the function in child will run when child object calls the same function
+
+	ie.
+	parent has print()
+	child has print()
+
+	when initialise child object like this: child c1
+
+	c1.print()
+
+	^ this will run both parent and child's print()
+
+	
+
+
+	another purpose is to access a private function from parent, from child
+
+
+
+
+
+UML (see lecture S4D)
+
+	multicity
+
+	* means "0 or more objects participate in a relationship with next object"
+
+	1 means exactly 1
+
+	0..1 means zero one none
+
+	1..* means one or more
+
+
+
+	# means protected !!
+
+
+access specifier
+	class Customer : public Person
+	class Customer : protected Person
+	class Customer : private Person
+
+	private access is default when not declared
+
+
+
+see slides S4e
+:
+
+	class child : public parent
+
+
+
+
+ambigious implicit upcast and polymorphism
+	parent p;
+	child c = p;
+	c.print()
+
+	c and p have different class types. c is child type, p is parent type
+	but because they are parent and child, there is implicit upcast
+
+	but when c.print(), the print() will come from child class, and not parent class
+
+
+	POLYMORPHISM
+
+	child c;
+	parent p;
+
+	parent array[2];
+	parent[0] = c;
+	parent[1] = p
+
+	for x in array
+		x.print()
+
+	as mentioned, although c is different type from array, they are inherited class so can use
+	and then when x.print() happens, it will print child's print() and parent's print() because the members have different type
+
+	- must have inheritence hiearchy
+	- must have method overriding
+	- dynamic binding
+	- array of generic pointers to base type
+	- each pointer stores address of the sub-type
+
+
+	virtual function
+		virtual function must also have virtual destructor
+
+		classes that have virtual function are polymorphic. its child classes will be virtual too
+
+		3 ways in which virtual is used
+			1. at the inheritence access sepcifier level, to prevent duplicate inheritence
+			2. to enable polymorphism
+			3. to declare pure virtual function and the holder class becomes abstract
+
+			1
+
+
+
+final
+	stops inheritence. classes declared with final cannot be child
+
+	functions declared as final cannot be overridden
+
+
+operator overloading and polymorphism (see slides 4c)
+	??
+
+
+multiple inheritance
+	multiple parents for one child
+	can have function overriding
+	when 2 parents have members of the same name, then need to use ::
+			parentA::print()
+			parentB::print()
+
+	see slides s4f
+
+	class child : public parentA, public parentB
+	{
+		public:
+			child(// constrctor of both parents);
+	}
+
+	// in the constructor initialisation list
+	{
+		??
+	}
+
+
+
+operator overloading
+	to define what behaviour operators exhibit for class type objects
+
+	ie
+		student s1 > student s2
+
+	only binary operator can be overloaded
+
+	ie
+		square s1;
+		x = 180 + s1
+
+		this is int + square type. In this case function must be friend?
+
+	for any operator, can only overload
+	- as member function
+	or
+	- as a friend function
+	NOT as same time
+
+unary operators (programming specific)
+	!, ++, --
+
+binary operator (traditional maths)
+	+, -,  *
+
+
+friend function (see slide S4c)
+	avoid using
+	violates the principal of encapsulation
+	when function is declared as friend, it can access private members of any class
+
+
+try catch different objects
+	parent p1;
+	child c1;
+	child c2;
+
+	catch (parent e)
+	catch (child e)
+
+	when u write like this, when child objects got error, it will also go into (parent e) because they are child of parent
+	if want to catch parent and child individually,
+
+	catch (child e)
+	catch (parent e)
+
+
+catch default
+	catch(...)
+	this is the syntax. (...) means default
+
+
+namespace
+	avoid writing "using namespace xx" in header files cuz that confuses u where the scope is. 
+
+
+	namespace ns1
+	{
+		int numb1;
+
+		namespace ns2
+		{
+			int numb2
+		}
+	}
+
+
+	ns2 can access ns1 by using scope operator but ns1 cannot access ns2.
+
+	but in main(), can access ns1 or ns2. If access ns1, ns1::numb1. if access ns2, ns1::ns2::numb2
