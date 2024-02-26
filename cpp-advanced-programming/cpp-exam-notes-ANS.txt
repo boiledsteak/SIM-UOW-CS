@@ -544,7 +544,15 @@ What is the diamond problem?
 difference between acess modifiers ie. public/ protected/ private,
 and their meaning when
 - used within a class declaration
+1. private
+	members only accessible within the class
+2. protected
+	members accessible within class and by children
+3. public
+	members accessible by all
 - used with "child : private parent"
+0. SEE TABLE
+
 
 difference between class default/ copy/ destructors. when are they used and how are they declared
 
