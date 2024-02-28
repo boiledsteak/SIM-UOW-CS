@@ -590,34 +590,88 @@ what is abstract class and how to declare
 	};
 
 difference between class vs struct, in terms of variable access
+1. by default, if not specified, class members are private while struct members are public
 
 writing declaration and implementation for structs
+1. struct s1
+{
+	int member1;	
+};
 
-implementing functions  that use
+implementing functions that use
 - struct variables
 - array of struct
+1. yknow
 
-exception handling: basic concepts - try, throw, catch, writing exception class, throwing exception objects
 
-operator overloading
-- relational
-- binary
-- IO operators
-- << and >> , how theyre associated with a class and how they're implemented
+
 
 writing declaration and implementation for classes
 - encapsulation
 == using .h, .cpp for each class, using header guards
-== using private protected public when needed
-- inheritance
-== how to specify parent child classes, what files to #include
+1.	#include "myfuncs.h"
+2.  #ifndef MYFUNCS_H
+	#define MYFUNCS_H
+	.
+	#endif	
+
+
+
+== how to specify parent child classes
+1. class child : parent
+	{
+		
+	}; 
+
 - polymorphism
-== how to implement function overrding
+== how to implement function overriding
+1.	
+class parent
+{
+	public:
+		virtual void print() =0;	
+}; 
+
+class child : parent
+{
+	public:
+		void print() override
+		{
+
+		}	
+};
+
+
 == dynamic vs static binding
+1. static means resolve function call during compile time while dynamic means resolve function call at run time
 
 function/ class template
 - how to declare simple class templates
-- writing implementation code for function/ class template
+1. 
+template <typename t>
+class c1
+{
+	private:
+		t first;
+		t second;
+	public:
+		t getfirst()
+		{
+			return first;
+		}
+};
+
+2.
+template <typename t>
+t format(t obj)
+{
+	return obj.setprecision(2);
+}
+
+
+
+
+
 
 how to declare and correctly use
 - STL containers like vector
