@@ -668,6 +668,8 @@ namespace
 		{
 			int numb2
 		}
+
+		cout << ns2::numb2;
 	}
 
 

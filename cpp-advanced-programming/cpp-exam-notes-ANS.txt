@@ -88,46 +88,8 @@ https://www.geeksforgeeks.org/exception-handling-using-classes-in-cpp/?ref=lbp
 		// do nothing
 		}
 
-8. are destructors called in a try catch block? give example
 
-	yes. If a className object is declared within a try block, and theres a throw line, the object's destructor is called before the throw line is executed
-
-	class Cars
-	{
-		private:
-			int wheels;
-		public:
-			// constructor
-			Cars()
-			{
-				wheels = 4;
-			}
-			// destructor
-			~Cars()
-			{
-				cout << "Destroying!!";
-			}
-	}
-
-	int main()
-	{
-		try
-		{
-			Cars toyota;
-			throw 5;
-		}
-		catch (int x)
-		{
-		// do something
-		}
-
-
-		return 0;
-	}
-
-	in the above code, "Destorying!!" will be printed before throw occurs
-
-9. write a class that deals with exception
+8. write a class that deals with exception
 
 	class myE
 	{
@@ -157,7 +119,7 @@ https://www.geeksforgeeks.org/exception-handling-using-classes-in-cpp/?ref=lbp
 		}
 	}
 
-10. write a function that deals with exception
+9. write a function that deals with exception
 
 	int ehandler()
 	{
@@ -183,7 +145,7 @@ https://www.geeksforgeeks.org/exception-handling-using-classes-in-cpp/?ref=lbp
 
 	in the above code, something went wrong and something happened will run
 
-11. Is it possible to throw a void function?
+10. Is it possible to throw a void function?
 	no. Unless within the void function there's another throw
 
 
@@ -443,7 +405,7 @@ different meaning/ usage of & and *
 2. show example of * being used as dereference
 	
 	cout << ptr // prints memory location
-	cout << ptr // dereferences ptr, so prints actual value of x
+	cout << *ptr // dereferences ptr, so prints actual value of x
 
 3. does modifying the value of dereferenced pointer change the value of original variable?
 
@@ -555,24 +517,77 @@ and their meaning when
 
 
 difference between class default/ copy/ destructors. when are they used and how are they declared
+1. default constructor initialises the private members of the class object. compiler creates a default one if none specified
+2. copy constructor is for when
+	classtype c1;
+	classtpye c2=c1;
+	compiler creates a default one if none specified
+3. destructor is the code run when the obj is destroyed such as when obj goes out of scope (usually end of function). compiler creates a default one if none specified
 
 difference between 3 ways in which 'virtual' is used
 - to declare virtual / pure virtual functions
-- to prevent diamond multiple inheritance
+- to prevent diamond multiple inheritance. give example
+1. virtual functions indicate that the function will be overriden in its child classes
+2. pure virtual functions have no implementation in its declaration thus must be overriden in its child classes
+3. virtual inheritance
+	class A {
+	public:
+	    virtual void display() {
+	        std::cout << "A display()" << std::endl;
+	    }
+	};
+
+	class B : public virtual A {};
+	class C : public virtual A {};
+	class D : public B, public C {};
+	when child classes are declared to have virtual inheritance, it means that the child child will use its parent's version of the overridden function. However its parents must not override the same function. The child will use its parent's version of the same function.
+	when D display = B or C 's display
+	when B or C display() = A's display
 
 valid ways to declare iterators for a container like vector ie. const, non-const, forward, reverse
+1. GIVE UP
 
-list major components of STL ie containers, geneeric algo, adapters. Briefly explain their purpose
+list major components of STL ie containers, generic algo, adapters. Briefly explain their purpose
+1. containers. vectors and maps. They store objects
+2. algo. They perform some logic ie sort()
+3. adapters. ?? ie stack. provides LIFO interface for container
 
 diff between method overloading vs overriding
+1. method overloading refers to when there are multiple declarations of the same function but with different parameters while method overriding refers to the polymorphic behaviour when a child object calls a function that is declared in both the parent and the child, but the child object runs the function based on it's class implementation and not the parent's implementation of the same function name
+
 
 meaning of * and -> when used with 'this'
 ie.
 (*this).variable
+1. prints the variable object of this variable
 this->variable
+2. access the variable object of the object that called it( the left side object)
+	class MyClass {
+	public:
+	    int value;
+
+	    void setValue(int val) {
+	        this->value = val;  // Equivalent to (*this).value = val;
+	    }
+	};
+
+	int main() {
+	    MyClass obj;
+	    obj.setValue(42);
+	    std::cout << "Value: " << obj.value << std::endl;  // Output: Value: 42
+	    return 0;
+	}
 *this->variable
+3. is the same as 1
+
 
 what is abstract class and how to declare
+1. an abstract class is a class that has only pure virtual functions thus there cannot be instances of this class. it needs child classes
+	class c1
+	{
+		public:
+			virtual void draw()=0
+	};
 
 difference between class vs struct, in terms of variable access
 
