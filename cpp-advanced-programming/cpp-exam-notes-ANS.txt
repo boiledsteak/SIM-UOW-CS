@@ -64,7 +64,8 @@ https://www.geeksforgeeks.org/exception-handling-using-classes-in-cpp/?ref=lbp
 
 	the program will terminate
 
-7. how to throw within a catch? write example
+7. read up nested try catch
+https://www.geeksforgeeks.org/cpp-nested-try-blocks/
 
 	within a try catch block, the catch block can contain throw as well. The thrown error will look for the next matching catch block
 		
@@ -72,14 +73,14 @@ https://www.geeksforgeeks.org/exception-handling-using-classes-in-cpp/?ref=lbp
 		{
 			try
 			{
-				throw 5;
+				throw "hello";
 			}
 			catch (int x)
 			{
-				throw;
+				
 			}
 		}
-		catch (int y)
+		catch (string y)
 		{
 		// do something
 		}
@@ -91,33 +92,41 @@ https://www.geeksforgeeks.org/exception-handling-using-classes-in-cpp/?ref=lbp
 
 8. write a class that deals with exception
 
-	class myE
-	{
-		private:
-			string emsg = "something went wrong";
+	#include <iostream>
+	#include <stdexcept>
 
-		public:
-			// default constructor
-			myE() {}
+	class Calculator {
+	public:
+	    int divide(int numerator, int denominator) {
+	        if (denominator == 0) {
+	            throw std::invalid_argument("Division by zero error");
+	        }
+	        return numerator / denominator;
+	    }
 
-			getemsg()
-			{
-				return emsg;
-			}
+	    int add(int a, int b) {
+	        return a + b;
+	    }
+
+	    int subtract(int a, int b) {
+	        return a - b;
+	    }
+	};
+
+	int main() {
+	    Calculator calc;
+
+	    try {
+	        int result = calc.divide(10, 0);
+	        std::cout << "Result: " << result << std::endl;
+	    }
+	    catch (const std::invalid_argument& e) {
+	        std::cerr << "Exception caught: " << e.what() << std::endl;
+	    }
+
+	    return 0;
 	}
 
-	int main()
-	{
-		try
-		{
-			myE obj;
-			throw obj
-		}
-		catch (myE x)
-		{
-			// something went wrong will be printed here 
-		}
-	}
 
 9. write a function that deals with exception
 
@@ -183,7 +192,7 @@ https://www.geeksforgeeks.org/namespace-in-c/
 		class c1;
 	}
 
-	class ns1::c1
+	class o
 	{
 		public:
 			c1() {cout<<"something";}
@@ -503,7 +512,7 @@ What is the diamond problem?
 1. is when a child has 2 parents, and the 2 parents come from the same 1 parent, that means the child will inherit double and lead to ambiguity
 
 
-difference between acess modifiers ie. public/ protected/ private,
+difference between access modifiers ie. public/ protected/ private,
 and their meaning when
 - used within a class declaration
 1. private

@@ -7,7 +7,7 @@ https://www.geeksforgeeks.org/exception-handling-using-classes-in-cpp/?ref=lbp
 4. what exceptions does catch (exception e) catch?
 5. what is the catch all block? write example
 6. what happens when an error is thrown but there's no matching catch block ?
-7. how to throw within a catch? write example
+7. nested try catch
 8. write a class that deals with exception
 9. write a function that deals with exception
 10. Is it possible to throw a void function?
@@ -27,7 +27,7 @@ https://www.geeksforgeeks.org/namespace-in-c/
 function template, concepts, purpose, coding it, using it in declaration (explicit specification of type <>)
 https://www.geeksforgeeks.org/templates-cpp/
 1. write a simple function template
-2. write a simple function class
+2. write a simple class template
 3. set defualt type for a template
 4. show example of template function specialisation
 5. show example of template class specialisation
