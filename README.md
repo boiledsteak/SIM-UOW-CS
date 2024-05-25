@@ -32,3 +32,10 @@ Intermediate database module using oracle db and mongo db
 - Assignment 3 - MongoDB
 
 Overall dificult module. Maybe just for me lol. Covers quite a lot of concepts, but doesn't go too deep especially for mongo. I found it interesting that Oracle DB is used instead of the usual MySQL. I guess good opportunity to learn different database types. Mr Sionggo is not bad. He answers my questions. I was very taken aback when I started this module because the concept of functional dependency is quite complex. But I think towards the end of this module you should feel more confident with the concepts. I am a little critical of the mongo portion of this module though. From my understanding, Mongo is designed to be used in a cloud based microservices architecture. But this is not covered at all. I suppose because this would diverge into web development and design. One big sellinf point of Mongo, as compared to traditional SQL, is the cloud features like shards and clusters. So I feel this module is more of functional dependency with Oracle DB, and an introduction to Mongo DB. I think it's better to split the Mongo portion from this module. Mongo should be taught together with web design.
+
+
+## CSIT302 - Cybersecurity
+Introduction to Cybersecurity. Doesn't go deep or practical
+woohoo only one assignment. Just research only
+
+Overall easy module. The lecturer, Mr Partham, is EXTREMELY dry. His lectures suck. On the other hand, my tutor Mr Lionel, is much better. Took a glance at his linkedin and he's much more accredited than Mr Partha. Mr Lionel has a lot of real world working experience and he always shares with us his stories. Nothing much to say lah it's a simple module. I think there's another related module touch on the practical side of all the theory covered in this module.
