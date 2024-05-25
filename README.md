@@ -23,3 +23,12 @@ Basically a basic php module
 - Assignment 2 - simple php webpages with SQL
 
 Overall bad module. To me, a web server should have at least MVC architecture but we weren't taught this at all. Instead, it's just front end php files talk to database directly. We were given a few weeks worth of lectures before finally having the first practical. I don't understand why lectures cover programming fundamentals like variables, operands, arrays etc.. Students entering this module already have programming background so why waste time. I was expecting my first lesson to be like "How to write a middleman php server with API" or something. Nope none of that was ever taught. And the MOST FRUSTRATING? During the assignment presentation, Dr Loo tests things outside of the assignment specification. He claims he mentioned them during his lessons. But there's no proof. No black and white. The Assignment requirements are so vague.
+
+
+## CSCI235 - Database Systems
+Intermediate database module using oracle db and mongo db
+- Assignment 1 - functional dependency. A bit like maths
+- Assignment 2 - PLSQL
+- Assignment 3 - MongoDB
+
+Overall dificult module. Maybe just for me lol. Covers quite a lot of concepts, but doesn't go too deep especially for mongo. I found it interesting that Oracle DB is used instead of the usual MySQL. I guess good opportunity to learn different database types. Mr Sionggo is not bad. He answers my questions. I was very taken aback when I started this module because the concept of functional dependency is quite complex. But I think towards the end of this module you should feel more confident with the concepts. I am a little critical of the mongo portion of this module though. From my understanding, Mongo is designed to be used in a cloud based microservices architecture. But this is not covered at all. I suppose because this would diverge into web development and design. One big sellinf point of Mongo, as compared to traditional SQL, is the cloud features like shards and clusters. So I feel this module is more of functional dependency with Oracle DB, and an introduction to Mongo DB. I think it's better to split the Mongo portion from this module. Mongo should be taught together with web design.
