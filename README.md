@@ -38,4 +38,4 @@ Overall dificult module. Maybe just for me lol. Covers quite a lot of concepts, 
 Introduction to Cybersecurity. Doesn't go deep or practical
 woohoo only one assignment. Just research only
 
-Overall easy module. The lecturer, Mr Partham, is EXTREMELY dry. His lectures suck. On the other hand, my tutor Mr Lionel, is much better. Took a glance at his linkedin and he's much more accredited than Mr Partha. Mr Lionel has a lot of real world working experience and he always shares with us his stories. Nothing much to say lah it's a simple module. I think there's another related module touch on the practical side of all the theory covered in this module.
+Overall easy module. The lecturer, Mr Partham, is EXTREMELY dry. His lectures suck. On the other hand, my tutor Mr Lionel, is much better. Took a glance at his linkedin and he's much more accredited than Mr Partha. Mr Lionel has a lot of real world working experience and he always shares his stories with us. Nothing much to say lah it's a simple module. I think there's another related module touch on the practical side of all the theory covered in this module.
