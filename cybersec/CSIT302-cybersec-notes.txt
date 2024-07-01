@@ -1,0 +1,445 @@
+CSIT302 - cybersec notes
+
+>>>>>>>>>>>>>>>>
+Teacher
+
+lionel
+
+llim@uow.edu.sg
+
+
+<<<<<<<<<<<<<<<
+
+
+
+
+goal of cybersecurity
+
+1. secrecy
+- cryptography and access control
+
+2. confidentiality
+- protecting organisational secrets
+
+3. privacy
+- protecting secrets of individual. Involves individual information
+
+
+
+
+
+
+
+
+threat landscape: all possible vectors of attack
+
+
+
+when using outsourced services, need to check SLA (service level agreement) if security requirements are met
+
+
+
+NIST incidence response process
+1. preparation
+	- implement security controls ie. WAF
+
+2. detection & analysis
+	- IDS
+	- identify IOC (indicators of compromise)
+
+3. containment, eradication & recovery
+	- isolate compromised network
+	- remove malware
+	- return systems back online
+	> threat lifecycle management (expansion of this pt3 segment)
+		- forensic data collection
+			- collect logs
+		- discovery
+			- automatic scans with antivirus
+		- qualification
+			- remove false positives
+		- investigation
+			- check for damage
+		- neutralisation
+			- remove malware
+		- recovery
+			- bring systems back online
+
+4. post-incident activity
+	- documentation
+	- timeline of incident
+	- keep evidence
+
+
+
+
+
+
+
+
+
+
+
+lockheed martin cybersec kill chain
+1. external recon
+	- non intrusive and intrusive
+	- internal recon (performed on site)
+	- open source
+	- dumpster diving
+	- spoofing, phishing
+	- water hole (infect popular website)
+	- 6 levers of social engineering
+		1. reciprocation
+		2. scarcity
+		3. consistency
+		4. liking
+		5. authority
+		6. validation
+
+
+2. compromise system
+3. lateral movement
+	- gaining access to more nodes within the same security access
+
+4. privilege escalation
+5. conclude	
+
+
+
+
+
+
+
+
+
+purpose of security policy
+uphold
+C - CONFIDENTIALITY
+I - INTEGRITY
+A - AVAILABILITY
+
+
+
+security policy should be less technical so everyone can understand
+
+
+endpoints: devices that consume info ie. phone , laptop
+
+
+NAC - network access control
+> controls traffic between endpoints
+
+firewall: gatekeep allowed connection between inside and outside the network
+
+
+AZURE SECURITY CENTER
+
+
+
+cost/ profit analysis (aka business impact analysis)
+- balancing the cost of disruption vs cost of recovery
+
+
+
+insurance ?
+
+
+
+
+COMPONENTS OF DISASTER RECOVERY PLAN
+1.
+2
+3
+
+
+
+
+recovery plan and incident response plan should constantly be evaluated and updated to cover new attack vectors or threats
+
+
+5 steps of contigency plan planning
+1
+2
+3
+4
+5
+
+
+
+
+redundancy, fault tolerance
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+EXAM will test the REVISION portion of slide 6-2
+
+
+
+*** NO NEED CARE ABOUT HYBRID CLOUD. SEE LECTURE RECORDING 20 APRIL
+
+
+
+
+
+
+
+
+
+
+
+
+PEOPLE PROCESS TECH
+
+
+
+
+
+
+Shadow IT: IT that an employee uses without IT dept's approval
+
+
+
+Mean Time to Compromise (MTTC): the time from start of job to successful compromise of target system
+
+Mean Time to Privilege Escalation (MTTPE): the time from start of job to root access of target system
+
+
+
+
+
+broken authentication: when authentication systems have a flaw, allowing attackers to impersonate valid users or steal keys
+
+
+IDOR: insecure direct object reference
+an exploit where an attacker accesses a certain node through alternate routes originally intended
+
+ie.
+
+force to view admin page throrugh URL. amazon.com/admin
+
+
+
+
+
+
+--------------------------------------
+
+
+
+CII: crticial infra
+
+CCOP: look up !!!
+
+
+---------------------------------
+
+
+pentest vs red team
+
+pentest: got permission
+
+red team: no permission
+
+
+
+
+cyber threat intel: intelligence vs information
+intel is info, but with has details on how to act on the information
+
+
+
+
+for tutorial 2, see slide day2-2, page 32
+
+
+
+
+
+
+
+
+_________________
+
+
+policy vs standard
+
+- policy is usually more high level and not so detailed
+- standard is more detailed and technical
+
+
+ie
+set strong password is policy
+set alphanumeric is standard
+
+
+
+
+behaviour based detection solves the problem of zero day attacks
+
+
+
+
+ _____ _   _ _____ ___  ____  ___    _    _        ___  _   _ ____  
+|_   _| | | |_   _/ _ \|  _ \|_ _|  / \  | |      / _ \| \ | / ___| 
+  | | | | | | | || | | | |_) || |  / _ \ | |     | | | |  \| \___ \ 
+  | | | |_| | | || |_| |  _ < | | / ___ \| |___  | |_| | |\  |___) |
+  |_|  \___/  |_| \___/|_| \_\___/_/   \_\_____|  \__\_\_| \_|____/ 
+
+
+cybersec goals
+secrecy: access control to info
+conf: protect secrets
+privacy: protect personal info
+
+shadow IT: systems used by staff but unknown to IT dept
+
+Mean Time to Compromise + Mean Time to Privilege Escalation
+
+NIST IR phases
+1. preparation
+implement security controls ie. WAF
+2. detection
+IDS + identify IOC
+3. containment
+isolate compromised network
+remove malware
+return systems back online
+
+5. post
+documentation
+timeline of incident
+keep evidence
+
+BYOD issues
+insecure BYOD device
+no BYOD policy
+
+6 levers
+reciprocation
+scarcity
+consistency
+liking
+authority
+validation
+
+broken auth
+URL traversal
+nvr log out properly. pw still in session
+
+red team strat
+WHO: profile threats. who will benefit from attack
+WHAT: study attack types
+HOW: define mission
+
+policy vs standard
+pol not detailed, stand is technical. set pw vs set alphanum
+both must enforce by body
+
+parts of policy
+policy: expectations
+stands: detailed
+procs: how things are done
+guidel: best prac
+
+MAC attack
+attacker flood MAC table with invalid MAC addr. switch will send packets to invalid addr
+set limit to prevent this
+
+DHCP Snooping
+prevents invalid DHCP used in network
+
+ARP spoofing
+change ARP table to hold invalid MAC table
+use firewall to prevent
+
+traditional vs new defender
+trad. monitor high profile only. new monitor all
+
+IOC
+artifact that proves intrusion
+
+IDS
+monitor system or network and trigger alert
+
+IPS
+IDS but performs corrective action
+
+benefit of UEBA
+proactive measures. can detect 0 day
+
+VLAN
+subnetwork. mitigate lat move
+
+defence in depth
+not 2x AV. use multiple types ie firewall, AV, SAST
+
+purpose of CTI
+profile attackers
+
+types of CTI
+opr: news
+tactical: more deets, info on immediate threats
+strat: for decision makers
+
+benefit of DRP
+business cont, low downtime
+data protection
+customer trust
+compliance wtih standards
+
+DRP planning process
+form team, document assets, VAPT, prioritise process and assets, create plan, test, monitor
+
+DRP vs BCP
+DRP low downtime, recover IT
+BCP maintain business opr 
+
+business impact analysis (BIA)
+consequences of disruption
+
+5 phases of vuln mngmt
+create asst invtry
+- identify what needs to be protected
+- easier patching
+plan info mngmt
+- network sec, data sec, 0 trust
+VA 
+- scope
+- collect data
+- analyse existing policies
+- VAPT scan
+- CTI
+- accetable risks
+= cost benefit ratio
+= std compliance
+= likelihood
+report and remediation tracking
+- good for management
+- staff compliance issue
+response plan
+- identify jurisdiction
+
+GDPR principles
+data minimisation
+CIA: unlawful loss or modification
+accountability: why is info being collected. record data processing
+
+GDPR indv rights
+access: subject access request: find what info the org has on u
+erasure: ???
+restrict processing
+data portability
