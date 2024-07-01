@@ -653,6 +653,8 @@ class child : parent
 
 == dynamic vs static binding
 1. static means resolve function call during compile time while dynamic means resolve function call at run time
+2. static is non polymorphic while dynamic is polymorphic
+
 
 function/ class template
 - how to declare simple class templates
