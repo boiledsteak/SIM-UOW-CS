@@ -1,0 +1,267 @@
+SQL> SET ECHO ON
+SQL> SET FEEDBACK ON
+SQL> SET LINESIZE 100
+SQL> SET PAGESIZE 200
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> 
+SQL> CREATE INDEX A2TASK1IDX1 ON ORDERS(O_CLERK, O_ORDERSTATUS);
+
+Index A2TASK1IDX1 created.
+
+SQL> CREATE INDEX A2TASK1IDX2 ON LINEITEM(L_ORDERKEY);
+
+Index A2TASK1IDX2 created.
+
+SQL> 
+SQL> -- (i)
+SQL> explain plan set STATEMENT_ID='i' for
+  2  SELECT O_CLERK FROM ORDERS;
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY('PLAN_TABLE','i','SERIAL'));
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 2980507291
+ 
+------------------------------------------------------------------------------------
+| Id  | Operation            | Name        | Rows  | Bytes | Cost (%CPU)| Time     |
+------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT     |             |   500K|  8305K|   499   (1)| 00:00:01 |
+|   1 |  INDEX FAST FULL SCAN| A2TASK1IDX1 |   500K|  8305K|   499   (1)| 00:00:01 |
+------------------------------------------------------------------------------------
+ 
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2)
+
+12 rows selected. 
+
+SQL> -- (ii)
+SQL> explain plan set STATEMENT_ID='ii' for
+  2  SELECT O_CLERK FROM ORDERS WHERE O_ORDERSTATUS='F';
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY('PLAN_TABLE','ii','SERIAL'));
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 2980507291
+ 
+------------------------------------------------------------------------------------
+| Id  | Operation            | Name        | Rows  | Bytes | Cost (%CPU)| Time     |
+------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT     |             |   238K|  4660K|   502   (1)| 00:00:01 |
+|*  1 |  INDEX FAST FULL SCAN| A2TASK1IDX1 |   238K|  4660K|   502   (1)| 00:00:01 |
+------------------------------------------------------------------------------------
+ 
+Predicate Information (identified by operation id):
+---------------------------------------------------
+ 
+   1 - filter("O_ORDERSTATUS"='F')
+ 
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2)
+
+17 rows selected. 
+
+SQL> -- (iii)
+SQL> explain plan set STATEMENT_ID='iii' for
+  2  SELECT O_CLERK, L_ORDERKEY FROM ORDERS JOIN LINEITEM ON ORDERS.O_ORDERKEY = LINEITEM.L_ORDERKEY;
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY('PLAN_TABLE','iii','SERIAL'));
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 3241845892
+ 
+---------------------------------------------------------------------------------------------
+| Id  | Operation             | Name        | Rows  | Bytes |TempSpc| Cost (%CPU)| Time     |
+---------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT      |             |  2122K|    87M|       |  6593   (1)| 00:00:01 |
+|*  1 |  HASH JOIN            |             |  2122K|    87M|    20M|  6593   (1)| 00:00:01 |
+|   2 |   TABLE ACCESS FULL   | ORDERS      |   500K|    14M|       |  1950   (1)| 00:00:01 |
+|   3 |   INDEX FAST FULL SCAN| A2TASK1IDX2 |  2122K|    26M|       |  1128   (1)| 00:00:01 |
+---------------------------------------------------------------------------------------------
+ 
+Predicate Information (identified by operation id):
+---------------------------------------------------
+ 
+   1 - access("ORDERS"."O_ORDERKEY"="LINEITEM"."L_ORDERKEY")
+ 
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2)
+   - this is an adaptive plan
+
+20 rows selected. 
+
+SQL> -- (iv)
+SQL> explain plan set STATEMENT_ID='iv' for
+  2  SELECT O_ORDERSTATUS FROM ORDERS;
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY('PLAN_TABLE','iv','SERIAL'));
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 2980507291
+ 
+------------------------------------------------------------------------------------
+| Id  | Operation            | Name        | Rows  | Bytes | Cost (%CPU)| Time     |
+------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT     |             |   500K|  1465K|   499   (1)| 00:00:01 |
+|   1 |  INDEX FAST FULL SCAN| A2TASK1IDX1 |   500K|  1465K|   499   (1)| 00:00:01 |
+------------------------------------------------------------------------------------
+ 
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2)
+
+12 rows selected. 
+
+SQL> -- (v)
+SQL> explain plan set STATEMENT_ID='v' for
+  2  SELECT O_ORDERSTATUS, COUNT(*) FROM ORDERS GROUP BY O_ORDERSTATUS;
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY('PLAN_TABLE','v','SERIAL'));
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 350476130
+ 
+-------------------------------------------------------------------------------------
+| Id  | Operation             | Name        | Rows  | Bytes | Cost (%CPU)| Time     |
+-------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT      |             |   500K|  1465K|   511   (3)| 00:00:01 |
+|   1 |  HASH GROUP BY        |             |   500K|  1465K|   511   (3)| 00:00:01 |
+|   2 |   INDEX FAST FULL SCAN| A2TASK1IDX1 |   500K|  1465K|   499   (1)| 00:00:01 |
+-------------------------------------------------------------------------------------
+ 
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2)
+
+13 rows selected. 
+
+SQL> -- (vi)
+SQL> explain plan set STATEMENT_ID='vi' for
+  2  SELECT O_CLERK FROM ORDERS WHERE O_ORDERKEY NOT IN (SELECT L_ORDERKEY FROM LINEITEM);
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY('PLAN_TABLE','vi','SERIAL'));
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 2530605183
+ 
+---------------------------------------------------------------------------------------------
+| Id  | Operation             | Name        | Rows  | Bytes |TempSpc| Cost (%CPU)| Time     |
+---------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT      |             |   500K|    20M|       |  6593   (1)| 00:00:01 |
+|*  1 |  HASH JOIN ANTI       |             |   500K|    20M|    20M|  6593   (1)| 00:00:01 |
+|   2 |   TABLE ACCESS FULL   | ORDERS      |   500K|    14M|       |  1950   (1)| 00:00:01 |
+|   3 |   INDEX FAST FULL SCAN| A2TASK1IDX2 |  2122K|    26M|       |  1128   (1)| 00:00:01 |
+---------------------------------------------------------------------------------------------
+ 
+Predicate Information (identified by operation id):
+---------------------------------------------------
+ 
+   1 - access("O_ORDERKEY"="L_ORDERKEY")
+ 
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2)
+   - this is an adaptive plan
+
+20 rows selected. 
+
+SQL> -- (vii)
+SQL> explain plan set STATEMENT_ID='vii' for
+  2  SELECT O_CLERK FROM ORDERS WHERE O_CLERK = (SELECT MAX(O_CLERK) FROM ORDERS);
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY('PLAN_TABLE','vii','SERIAL'));
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 2672689932
+ 
+-------------------------------------------------------------------------------------------
+| Id  | Operation                   | Name        | Rows  | Bytes | Cost (%CPU)| Time     |
+-------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT            |             |     1 |    17 |    13   (0)| 00:00:01 |
+|*  1 |  INDEX RANGE SCAN           | A2TASK1IDX1 |     1 |    17 |    10   (0)| 00:00:01 |
+|   2 |   SORT AGGREGATE            |             |     1 |    17 |            |          |
+|   3 |    INDEX FULL SCAN (MIN/MAX)| A2TASK1IDX1 |     1 |    17 |     3   (0)| 00:00:01 |
+-------------------------------------------------------------------------------------------
+ 
+Predicate Information (identified by operation id):
+---------------------------------------------------
+ 
+   1 - access("O_CLERK"= (SELECT MAX("O_CLERK") FROM "ORDERS" "ORDERS"))
+ 
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2)
+
+19 rows selected. 
+
+SQL> -- (viii)
+SQL> UPDATE ORDERS SET O_ORDERSTATUS = 'F' WHERE O_CLERK = 'Clerk#000000602';
+
+491 rows updated.
+
+SQL> -- (ix)
+SQL> DELETE FROM ORDERS WHERE O_CLERK = 'Clerk#000000602';
+
+
+SQL> -- (x)
+SQL> explain plan set STATEMENT_ID='x' for
+  2  SELECT O_CLERK FROM ORDERS ORDER BY O_ORDERSTATUS;
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY('PLAN_TABLE','x','SERIAL'));
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 75468121
+ 
+---------------------------------------------------------------------------------------------
+| Id  | Operation             | Name        | Rows  | Bytes |TempSpc| Cost (%CPU)| Time     |
+---------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT      |             |   500K|  9771K|       |  3538   (1)| 00:00:01 |
+|   1 |  SORT ORDER BY        |             |   500K|  9771K|    13M|  3538   (1)| 00:00:01 |
+|   2 |   INDEX FAST FULL SCAN| A2TASK1IDX1 |   500K|  9771K|       |   499   (1)| 00:00:01 |
+---------------------------------------------------------------------------------------------
+ 
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2)
+
+13 rows selected. 
+
+SQL> 
+SQL> DROP INDEX A2TASK1IDX1;
+
+Index A2TASK1IDX1 dropped.
+
+SQL> DROP INDEX A2TASK1IDX2;
+
+Index A2TASK1IDX2 dropped.
+
+SQL> 
+SQL> 
+SQL> SPOOL OFF

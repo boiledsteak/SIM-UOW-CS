@@ -1,0 +1,50 @@
+SQL> SET ECHO ON
+SQL> SET FEEDBACK ON
+SQL> SET LINESIZE 100
+SQL> SET PAGESIZE 200
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> CREATE OR REPLACE PROCEDURE FINDDEPENDENTS AS
+  2  
+  3  CURSOR singlerow IS
+  4  SELECT EMPLOYEE.E#, EMPLOYEE.NAME, LISTAGG(DEPENDENT.DNAME, ', ') WITHIN GROUP (ORDER BY DEPENDENT.DNAME) AS deps 
+  5  FROM EMPLOYEE 
+  6  LEFT JOIN DEPENDENT ON EMPLOYEE.E# = DEPENDENT.E#
+  7  GROUP BY EMPLOYEE.E#, EMPLOYEE.NAME
+  8  ORDER BY EMPLOYEE.E#;
+  9  
+ 10  BEGIN   
+ 11      for x in singlerow
+ 12      loop
+ 13          DBMS_OUTPUT.PUT_LINE(x.E# || ' ' || x.NAME || ': ' || x.deps);
+ 14      end loop;
+ 15  
+ 16  END;
+ 17  /
+
+Procedure FINDDEPENDENTS compiled
+
+SQL> 
+SQL> EXECUTE FINDDEPENDENTS;
+00100 Albert: Bolt, Edee, Judy
+00101 Peter: 
+00103 Ami: 
+00105 Robert: 
+00107 Wendy: 
+00109 Michael: 
+00110 Alvin: 
+00120 Alice: Blues, Edee, Kadi
+00125 Angela: 
+00136 Aban: 
+00150 Bob: 
+00187 Eadger: 
+00200 Carl: Eva
+00250 Douglass: 
+E001  John Doe: 
+E069  John Doe: 
+
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> SPOOL OFF

@@ -1,0 +1,64 @@
+Solution for CSCI235 implementation task 3 task2
+============================
+Student number: 10258663
+Name: Timothy Mah
+============================
+
+(1) Remove a mechanic John Fox
+
+db.transport.deleteOne({ "EMPLOYEE.name": "John Fox"});
+
+{
+  "acknowledged": true,
+  "deletedCount": 1
+}
+
+(2) Remove information about a date of birth (dob) from a description of employee number 11
+
+db.transport.updateOne( { "EMPLOYEE.e#": "11" }, { $unset: { "EMPLOYEE.dob": "" } } );
+
+{
+  "acknowledged": true,
+  "insertedId": null,
+  "matchedCount": 1,
+  "modifiedCount": 1,
+  "upsertedCount": 0
+}
+
+(3) Remove information about a trip number 7 performed by an employee number 11
+
+db.transport.updateOne( { "EMPLOYEE.e#": "11" }, { $pull: { "EMPLOYEE.trips": { "trip number": "7" } } } );
+
+{
+  "acknowledged": true,
+  "insertedId": null,
+  "matchedCount": 1,
+  "modifiedCount": 0,
+  "upsertedCount": 0
+}
+
+(4) Add information about a new trip performed by an employee number 11. At the moment we only know a trip number 999 and registration of truck used PKR786
+
+db.transport.updateOne( { "EMPLOYEE.e#": "11" }, { $push: { "EMPLOYEE.trips": { "trip number": 999, "registration": "PKR786" } } } );
+
+{
+  "acknowledged": true,
+  "insertedId": null,
+  "matchedCount": 1,
+  "modifiedCount": 1,
+  "upsertedCount": 0
+}
+
+(5) Change a date of a trip number 15 performed by an employee number 11 to 28-SEP-18
+
+db.transport.updateOne( { "EMPLOYEE.e#": "11", "EMPLOYEE.trips.trip number": "15" }, { $set: { "EMPLOYEE.trips.$.trip date": "28-SEP-18" } } );
+
+{
+  "acknowledged": true,
+  "insertedId": null,
+  "matchedCount": 1,
+  "modifiedCount": 0,
+  "upsertedCount": 0
+}
+
+END

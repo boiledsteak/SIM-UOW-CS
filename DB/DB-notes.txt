@@ -1,0 +1,1246 @@
+CSCI235
+
+Mr Sionggo Japit
+sjapit@uow.edu.au
+
+
+final exam 3 June
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ ___ __  __ ____   ___  ____ _____  _    _   _ _____ 
+|_ _|  \/  |  _ \ / _ \|  _ \_   _|/ \  | \ | |_   _|
+ | || |\/| | |_) | | | | |_) || | / _ \ |  \| | | |  
+ | || |  | |  __/| |_| |  _ < | |/ ___ \| |\  | | |  
+|___|_|  |_|_|    \___/|_| \_\|_/_/   \_\_| \_| |_| 
+
+
+see slides 02 page 15-17
+
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+
+
+
+binary search tree. binary search algorithm
+
+m-way tree. is like the search tree but each node can have more than 2 branches. multi way
+
+balance tree. 
+
+^ ways to traverse index in db
+
+^^ this is how oracle db indexes DB. Indexing is part of module objective
+
+
+
+
+
+
+=====================================================
+how to start oracle DB and run execute queries using sql plus
+=====================================================
+
+run this command
+
+docker run \
+	--name oracle-db \
+	--privileged \
+	-p 1521:1521 \
+	-e ORACLE_PWD=solutions \
+	-v /opt/oracle/oradata:/opt/oracle/oradata:Z \
+	container-registry.oracle.com/database/free:latest
+
+if first time it will take some time to start
+
+then in vscode docker extension, open shell into this created container. Then run this command to connect to the database, using sql plus
+
+sqlplus sys/solutions@localhost as sysdba
+
+to view all databases
+
+SELECT name, open_mode, log_mode FROM V$DATABASE;
+
+
+to view all tables
+
+SELECT table_name FROM all_tables WHERE owner = 'system';
+
+
+end
+===================================================================
+
+
+
+
+MULTIPLICITY NOTATION
+
+student 1 - 0..1 passport
+
+this means student can have 0 or 1 passport but passport must belong to 1 student
+
+student 1 - 1 passport
+
+this means student must have 1 passport and passport must belong to 1 student
+
+subject 1 - 1..* assesment
+
+this means 1 subject may have 1 or many assesments but one assesment can onlny belong to 1 subject
+
+lecturer  - * student (effectively same as lecturer * - * student)
+
+this means 1 lecturer may or may not have one or many students, and student may or may not have one or many lecturers
+
+
+
+
+
+
+
+DB DESIGN
+DB design steps
+1. problem statement/ requirement
+	1a. functional requirements
+		- functions the app(not directly the db) need to provide
+			ie. 
+				must login
+				verify if student enrolled
+				check if student has taken a module
+
+	1b. data requirements
+		- data objects needed to achieve functional requirements
+
+2. create diagram (conceptual design)
+
+3. write scripts to create actual DB
+
+
+
+
+WHATS THE PURPOSE OF HAVING SEVERAL TABLES, SEVERAL OBJECTS? WHY NEED FOREIGN KEY ALL
+example: customer table
+name      phone number    order       date
+james     12345           plate       20 March
+james     12345           shoes       1 jan
+james     12345           food        1 jan
+cook      43210           furniture   5 jan
+
+1. data redundancy
+	- there may be many uneeded duplicate data that take up storage. In above example, every row need to hold phone number
+	- if want to update for example customer phone number, don't need to update every row of customer order. Just need to alter foreign key
+
+3. data anomalies
+	- 
+
+
+
+
+
+___________________________________________________________________________
+FUNCTIONAL DEPENDENCY
+
+-> means "can determine"
+
+FUNCTIONAL DEPENDENCY NOTATION
+determinant -> dependent
+customer_number -> first_name
+customer_number -> last_name
+
+this is the same as
+customer_number -> first_name, last_name
+
+
+above means if have customer_number, can find first_name, and last_name
+one customer_number have one first_name and one last_name
+must only have one first_name, and one last_name
+
+if determinant have more than one value, then the notation looks like this
+IC_number +> bank_account
+
+its basically an arrow but with a stroke in the middle
+
+
+
+if convert to relational table notation, then it will look something like this
+table_name   (column1,         column2,    column3  ) 
+customer_data(customer_number, First_name, last_name)
+
+
+order doesnt matter for relational table. They have 2 constraints
+- primary key
+- foreign key(s)
+
+
+NON TRIVIAL FD
+- the determinent is a non key (not primary key) attribute
+- the determinent determines part of the entire MSK (primary key) 
+
+
+
+
+
+
+UNION INFERENCE RULE
+A -> B
+A -> C
+
+A -> B,C
+
+PSEUDO TRANSIVITY INFERENCE RULE
+
+AB -> C
+then
+AC -> B
+
+
+
+ARMSTRONG AXIOMS
+
+underlined C means subset. _C_
+
+1. reflecivity axiom (flip!)
+
+if 
+A _C_ B
+then
+B -> A 
+
+
+X _C_ X
+
+an object is always a subset of itself
+
+
+2. augmentation axiom (same as trivial dependency)
+
+if
+A -> B
+then
+A, C, -> B, D (the C and D can be any other values but the A and B must always be in the same position)
+
+(any MSK derived using augmentation will contain partial FD)
+
+
+
+3. transivity axiom
+
+if
+ID -> name and name -> fav_colour
+then
+ID -> fav_colour
+
+
+
+_______________________________________________________________________________
+
+
+
+CLASS
+
+notation as follows:
+
+STUDENT (class name)
+s-numb          ID1
+s-firstname     ID2
+s-surname       ID2
+s-DOB           ID2
+languages       [1..*]
+
+
+this means that s-numb can be primary key
+or
+combination of s-firstname, s-surname, s-DOB, can be primary key
+
+and student can speak 1 or many language
+
+
+
+
+CLASS with ASSOCIATION
+
+STUDENT
+s-numb          ID1
+s-firstname     ID2
+s-surname       ID2
+s-DOB           ID2
+languages       [1..*]
+
+-1 belongs to 1-
+
+SCHOOL
+school-code          ID1
+school-colour      
+
+
+from this u can infer that
+
+s-numb->s-firstname, s-surname, s-DOB, language
+s-firstname, s-surname, s-DOB -> s-numb, language
+
+school-code -> s-numb, s-firstname, s-surname, s-DOB
+
+s-numb -> school-code, school-colour
+s-firstname, s-surname, s-DOB -> school-code, school-colour
+
+
+
+
+but if there's a many to many association, then you must have an association table
+association table will have a primary key thats composite of the primary key of both classes
+
+___________________________________________________________________________
+
+
+
+superkey is not always primary key 
+superkey can be 'composite' primary key
+but
+primary key is always minimal superkey
+while all primary keys are superkeys, not all superkeys are primary keys
+
+determinant is not always primary key. 
+
+determinant vs superkey
+
+Superkeys help define the uniqueness of tuples, while determinants help enforce integrity constraints and dependencies within the data.
+
+superkey uniquely identifies tuples (all columns in the row)
+while
+determinant uniquely identifies other attributes (just a few columns in the row)
+
+
+every table needs to have
+1. primary key
+2. foreign key
+
+
+
+closure of attributes?
+closure sets ?
+the purpose is to find superkey
+see illustrator notes
+
+
+_________________________________________________________________________________
+
+NORMAL FORMS
+
+sequentially perform tests to normalise to 1 NF until higher NF (H NF)
+cannot jump the order
+
+the higher the normal form, the stronger the table is. Meaning to say it is less prone to update anomalies
+
+there are 3 types of update anomalies
+1.  inerstion anomaly. no primary key
+2.  modification anomaly. data duplication. not just a problem with storage and performance, but also if want to update one row, must update all other instances of the same row 
+3.  deletion anomaly. cannot delete entire row because some data will be gone too
+
+
+
+normalised table should not have transivitive functional dependancy
+
+
+
+( see 4 types of functional dependencies)
+1  NF
+- table has no multi-value attributes
+
+2  NF
+- adhere to 1 NF
+- table has only full FD (all attributes are dependent on MSK)
+- table no partial FD
+
+3  NF
+- adhere to 2 NF
+- table has no transitive FD (non-key attribute determine another non-key attribute, OR FD derived from transivity axiom)
+
+BC NF (no adherence)
+- all determinents are condidate primary key(MSK) of their table
+
+**if exam qn ask to normalise to BC NF, normalise to 1,2,3 NF then BCNF but if exam ask for BC NF definition, then write that BC NF doesn't adhere to 3 NF
+
+~~~~~~ if can reach here means normalised liao
+
+4  NF
+- adhere to BC NF
+- 
+
+5  NF
+
+H  NF
+
+
+
+3 types of data model integrity
+1. ENTITY INTEGRITY
+primary key
+
+2. REFERENTIAL INTEGRITY
+foreign key. foreign key cannot be primary key
+
+3. SEMANTIC INTEGRITY (domain dependent)
+is not enforced. ie. DOB cannot be current day cuz no one born today
+can be enforced server side but not DB side
+
+
+
+___________________________________________________________________________________
+
+4 types of FUNCTIONAL DEPENDENCIES
+
+1. direct
+	a. partial functional dependency
+		- determinent is part of primary key but is not the full primary key
+		- 2 NF table cannot contain partial FD
+
+		(any MSK derived using augmentation will contain partial FD)
+
+	b. full functional dependency (required for normalised table)
+		- primary key can identify entire row uniquely
+		- a normalised table contains only full FD
+
+2. indrect
+	a. transitive functional dependency
+		- both determinent and dependent (left and right side) are not primary key
+		- in 3 NF table, cannot contain transitive FD
+
+3. others
+	a. non trivial functional dependency
+		- determinent is not superkey but dependent is superkey or part of superkey
+		- in BC NF, all determinents must be candidate key (possible to be primary key)
+
+
+
+___________________________________________________________________________________
+
+HOW TO DEAL WITH ONE TO MANY
+
+one employee ----- many cars
+
+
+Table_emplyee(employeeID <PK and FK>, name, age)
+
+Table_employeeCars(employeeID <PK and FK> ,car)
+
+
+
+
+this way, one employee -------- one employeeCar
+
+
+
+
+___________________________________________________________________________________
+
+BEYOND BCNF
+
+BCNF may still have update anomaly and data redundancy
+
+
+
+MULTIVALUED DEPENDENCY
+
+employeeID ->> proglang | OS
+
+above notation means 1x employee ID can determine many programming language AND many OS
+
+
+
+4 NF
+
+- no multiple multi-valued dependency 
+
+5 NF
+
+- decomposed tables must be able to join back to original (aka still maintain origial FDs) (lossless join FDs)
+- need to make use of foreign key
+- if table has no foreign key, means its confirm not in 5NF
+
+
+
+
+
+
+
+
+
+
+
+
+QUALIFICATION
+
+
+
+
+___________________________________________________________________________________
+
+
+DATABASE NORMALISATION
+why do we need to normalise table?
+- so that your initial diagram or table will fit in oracle DB
+- to find primary key
+
+steps to normalise
+1. identify all funcitoinal dependancies(use closure then axioms)
+2. identify highest normal form of the table
+	- must identify which candidate primary key to use
+	- to identify, test all candidate primary keys
+3. remove violations
+
+see normalisation illustrated notes
+
+
+to normalise db, can use the 3 strongarm axioms to find out functional dependencies then normalise
+
+
+
+
+
+
+
+
+
+
+INDEXING TO IMPROVE DATA RETRIEVAL PERFORMANCE
+
+what is an index?
+- an index is a 'mathematical' function, used to efficiently retrieve data (search) from a database
+- B star tree index makes it faster to search for objects rather than sequentially
+- key -> 
+
+index file contains the index (the b star index that maps all the PK of all rows in a table)
+
+the data file contains the entire table
+
+index organised file is the index file combine with th data file
+
+
+
+index good for searching but degrades modification performance ie. update delete
+whenever add new record to table, need to reconstruct index(es). same for any update
+hence index good for fixed tables
+
+
+3 kinds of index
+
+1. PK index (default created by DBMS)
+indexed to PK. Each index can retrieve one full row
+no difference if PK is composite key
+but if composite key, order of the composite key elements matter
+
+2. secondary index (non-unique)
+indexed to non key attribute. Each index can point to multiple rows
+
+
+3. clustered index
+cluster index is faster than secondary index
+but wasteful management of storage because clusters are allocated fixed storage. So if not enough storage, need to re-create new cluster
+
+1 cluster holds all of the same attributes
+ie.
+
+Cluster A holds all rows with name=Tim
+Cluster B holds all rows with DOB=9 May
+
+
+
+
+
+in oracle DB, they dont use the terms, horizontal or vertical traversal (of b star index)
+instead,
+- index unique scan
+> vertical traversal. Returns one row only
+> occurs when the "WHERE" contains the primary key only
+
+- index range scan
+> vertical + horizontal traversal. Returns a range of rows based on query
+> occurs when the "WHERE" is a range ie. WHERE age between 15 and 35
+
+- full scan
+> usualy slowest
+> horizontal scan
+> used when query has ORDER BY , GROUP BY
+> ??? singly ???? search up
+> reduce storage/IO usage because "temp cache" is used. Works better when RAM larger  
+
+
+- index fast full index scan
+> doesn't access the data file. Only works when the data required is already at the leaf level. (at the index) 
+> Horizontal only
+> similar to index unique scan but not the entire row is taken out
+> ???
+
+
+
+** to perform vertical only but still touch table,
+query columns not covered by the indexer but still WHERE the pk
+
+
+
+^^ only these type of scans will be covered
+
+
+
+
+
+
+
+
+
+
+characteristics of b star tree
+- balanced multi-way tree
+- every key (PK if is PK index) stored at leaf level (the lowest stage)
+- leaf nodes are linked to each other 
+- 
+
+
+
+
+
+ORACLE DB procedures, functions, and triggers
+
+PL/SQL is a procedural programming language. An extension of SQL
+
+
+
+to create variable in PLSQL
+DECLARE
+
+to create a "nest" ie { } in other languages. Basically a group or block of code
+BEGIN
+
+END
+
+
+
+when define column as char(10) then insert "tim", then there will be tim_____ 10 spaces. And when SELECT "tim" FROM xxx, the DB will not return the tim row because it is stored as tim_____ 10 spaces
+
+
+
+char vs varchar. If varchar can resize, then what's the point of declaring the size? The size of varchar(10), it just means the limit is 10 characters
+
+
+
+varchar() vs varchar2()
+nothing important to know
+
+
+
+cursor
+????????????????
+
+
+%TYPE
+??????????????
+
+%ROWTYPE
+?????????????????????????????
+
+
+:=
+this is assignment orperator
+
+
+
+What is a oracle DB trigger?
+- code conditions that perform function when condition met
+- similar the C++ exception handling style
+- triggers are system wide. Is not confined to single table
+- 
+
+one popular trigger is a log function that records any activity performed on a table
+
+temporal option
+before or after
+- perform trigger before or after event
+
+Purpose of triggers
+- maintain semantic constraint (DOB cannot be today)
+- log user activity
+- access control
+- to generate computed values
+- if one server is updated, update other servers
+- 
+
+
+
+Active database system: DB with triggers. Can perform functions
+
+
+
+Trigger format
+- Event
+- Condition
+- Action
+
+
+
+2 types of triggers
+1. statement trigger
+- performs once only
+
+2. row trigger
+- affects all rows
+
+
+by default all t riggers are statement trigger
+so if want to become row trigger, just add
+FOR EACH ROW
+
+
+
+||
+this is used to concat string to string, string to var, anything to anything
+
+
+
+temporal options
+before
+after
+instead of (??)
+
+
+
+trigger errors:
+
+look up row trigger mutating error and how to fix (indeterministic trigger invocations)
+
+infinite loop
+- when trigger A calls trigger B 
+
+lack of external control
+- look up ????
+
+lack of design method
+- doesnt align with ECA
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONCURRENCY CONTROL and DB RECOVERY TECHNIQUES
+
+
+
+
+
+
+DISTRIBUTED DB 
+
+
+
+
+
+_________________________________________________________
+
+
+
+
+manufacturer, model → manufacturer
+
+>> This implies that given a manufacturer and a model number, there is a functional dependency on the manufacturer. 
+>> In other words, a manufacturer can only register a model number, and once registered, it cannot be used by another manufacturer.
+
+
+
+
+_________________________________________________________
+
+see 30 april lecture recording for solution example
+
+AFTER CREATING INDEX, DROP
+
+
+IT2 task1 qn b: total 5 indexes needed. one for each query
+
+IT2 task2: easier than task1. maybe start with this. See lab for examplpe
+
+IT2 task2:
+a - index scan
+b - range scan
+c - range scan
+d - 
+
+
+
+Ass2: qn a: create SQL statements
+
+Ass2: 
+
+________________________________________________________
+
+
+HOW TO VIEW WHAT INDEX SCAN WAS USED
+
+1. perform query
+SELECT * FROM ORDERS;
+
+2. explain
+explain plan for SELECT * FROM ORDERS;
+
+3. see explaination
+SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
+SELECT * FROM PLAN_TABLE;
+
+________________________________________________________
+
+
+******** if want to get all rows with highest value of x column
+
+SELECT L_DISCOUNT
+FROM LINEITEM
+WHERE L_SHIPDATE = (SELECT MAX(L_SHIPDATE) FROM LINEITEM);
+
+
+
+
+********* to get the year value of a date column
+SELECT * FROM ORDERS WHERE EXTRACT(YEAR FROM L_SHIPDATE) = 1998;
+
+
+
+
+********* to use count in SELECT, must always have *. To COUNT(a column), use group by
+SELECT  L_LINESTATUS, COUNT(*) FROM LINEITEM GROUP BY L_LINESTATUS;
+
+
+
+
+
+
+
+
+_________________________________________________________
+
+
+EXAM EXAM EXAM
+
+
+4 questions
+
+qn1 Functional Dependency and Normalisation (based on ass1)
+
+qn2 Indexing (based on ass2)
+	6 combination of
+	- vertical
+	- vert hori
+	- touch file or not
+
+qn3 PLSQL (based on ass2)
+	- more difficult
+	- 
+
+qn4 Mongo (based on ass3)
+	- design bson
+	- 
+
+total 60 marks, 15 qn. total 3 hour. 1 qn max 45mins
+
+
+    _    ____ ____  _       _____ ____  
+   / \  / ___/ ___|/ |     |  ___|  _ \ 
+  / _ \ \___ \___ \| |_____| |_  | | | |
+ / ___ \ ___) |__) | |_____|  _| | |_| |
+/_/   \_\____/____/|_|     |_|   |____/ 
+
+
+NF check
+- no multivalue columns (1NF)
+- no partial FD (2NF)
+- no transivitive FD (3NF)
+- all determinents are candidate keys (BCNF)
+
+normalise multi value
+1. create new table named after multi val column
+2. take original pk and multi multi val column and composite pk
+3. orignal pk as fk
+
+
+
+the og FDs
+A -> FC
+C -> D
+B -> E
+
+remove partial FD by decomposition
+1. take the FD derived from closure
+A = AFCD
+C = CD
+B = BE
+2. decompose
+R1(AFCD) PK= A
+R2(BE) PK= B
+
+remove transivitive FD by decomposition
+1. take the FDs
+R1(AFCD) PK= A
+R2(BE) PK= B
+2. decompose transivitives
+R1(AF) PK=A
+R2(CD) PK=C
+R3(BE) PK=B
+
+
+story type qn
+1. attribute bb is used by other aa attribute only. cannot let other aa attirbutes use
+aa , bb -> aa
+
+2. all attribute aa have same attribute bb
+aa -> bb
+
+
+
+
+    _    ____ ____ ____            ___ _   _ ____  _______  __
+   / \  / ___/ ___|___ \          |_ _| \ | |  _ \| ____\ \/ /
+  / _ \ \___ \___ \ __) |  _____   | ||  \| | | | |  _|  \  / 
+ / ___ \ ___) |__) / __/  |_____|  | || |\  | |_| | |___ /  \ 
+/_/   \_\____/____/_____|         |___|_| \_|____/|_____/_/\_\
+
+===============================
+
+5 permutations
+
+1. vertical only. no touch file (idx unique scan)
+SELECT primary key from table
+if cannot use PK index, 
+SELECT <idx column> FROM table WHERE <idx column>=aa , <other idx column>=bb;
+
+2. vertical + horizontal. no touch file (idx range scan)
+SELECT <idx column> FROM table WHERE <idx column> >= "aa";
+
+3. horizontal only. no touch file (idx fast scan)
+SELECT <idx column> FROM table;
+
+4. vertical only. yes touch file (idx unique scan + table scan) 
+SELECT * FROM table WHERE <idx column>=aa , <other idx column>=bb;
+
+5. vertical + horizontal. yes touch file (idx range scan + table scan)
+SELECT * FROM table WHERE <idx column> >= "aa";
+
+
+
+    _    ____ ____ ____            ____  _     ____   ___  _     
+   / \  / ___/ ___|___ \          |  _ \| |   / ___| / _ \| |    
+  / _ \ \___ \___ \ __) |  _____  | |_) | |   \___ \| | | | |    
+ / ___ \ ___) |__) / __/  |_____| |  __/| |___ ___) | |_| | |___ 
+/_/   \_\____/____/_____|         |_|   |_____|____/ \__\_\_____|
+
+===============================
+
+1. find rows with latest date
+SELECT DISC FROM xx WHERE SHIPDATE = (SELECT MAX(SHIPDATE) FROM xx);
+
+2. find COUNT OF rows from a certain year
+SELECT COUNT(*) FROM xx WHERE mode = 'AIR' AND EXTRACT(YEAR FROM date) = 1998;
+
+3. find count of all occurance of Y
+SELECT  Y, COUNT(*) FROM xx GROUP BY Y;
+
+4. find Y where yy=aa or yy=bb
+SELECT Y FROM xx WHERE yy IN(aa, bb);
+this is OR. if want AND, the traditional yy=aa AND yy=bb
+
+5. create index
+CREATE INDEX five_idx ON xx(bb, aa);
+
+6. join table
+SELECT idx column FROM table1 JOIN table2 ON table1.idx-column = table2.idx-column;
+
+7. anti join
+SELECT idx column FROM table1 WHERE idx column NOT IN (SELECT idx column FROM table2);
+
+8. max
+SELECT idx column FROM table WHERE idx column = (SELECT MAX(idx column) FROM table);
+
+
+
+
+
+    _    ____ ____ ____       ____  ____   ___   ____ _____ ____  _   _ ____  _____ 
+   / \  / ___/ ___|___ \     |  _ \|  _ \ / _ \ / ___| ____|  _ \| | | |  _ \| ____|
+  / _ \ \___ \___ \ __) |____| |_) | |_) | | | | |   |  _| | | | | | | | |_) |  _|  
+ / ___ \ ___) |__) / __/_____|  __/|  _ <| |_| | |___| |___| |_| | |_| |  _ <| |___ 
+/_/   \_\____/____/_____|    |_|   |_| \_\\___/ \____|_____|____/ \___/|_| \_\_____|
+
+
+===============================
+
+for loop:::
+
+CREATE OR REPLACE PROCEDURE procname AS
+
+CURSOR singlerow IS
+SELECT table.column1, table.column2 FROM table as xyz
+
+BEGIN
+	for abc in singlerow:
+	loop
+		DBMS_OUTPUT.PUT_LINE(x.column1 || ' ' || x.xyz);
+	end loop;
+END;
+/
+
+EXECUTE procname;
+
+
+exception trigger:::
+
+CREATE OR REPLACE TRIGGER InsertOncePerDay
+BEFORE INSERT ON Employee
+FOR EACH ROW
+DECLARE
+    counter NUMBER;
+BEGIN
+	SELECT COUNT(*) INTO counter FROM EMPLOYEE WHERE TRUNC(date-column) = TRUNC(SYSDATE);
+	IF counter >= 1 THEN
+        RAISE_APPLICATION_ERROR(-20001, 'only insert once daily');
+    END IF;
+END;
+/
+
+
+
+
+    _    ____ ____ _____           __  __  ___  _   _  ____  ___  
+   / \  / ___/ ___|___ /          |  \/  |/ _ \| \ | |/ ___|/ _ \ 
+  / _ \ \___ \___ \ |_ \   _____  | |\/| | | | |  \| | |  _| | | |
+ / ___ \ ___) |__) |__) | |_____| | |  | | |_| | |\  | |_| | |_| |
+/_/   \_\____/____/____/          |_|  |_|\___/|_| \_|\____|\___/ 
+
+
+===============================
+
+Mongo shell commands
+
+
+use('8750634');
+db.createCollection("txam346");
+
+.insertMany
+
+db.txam346.insertMany([
+    {
+        AIRLINE: 
+        { 
+          IATA: "SQ",
+          name: "Singapore Airlines",
+          PUBLISHED_FLIGHT: [
+            {
+                flightNumber: "SQ123",
+                effectiveDate: "2023-05-20",
+                FLIGHT_DETAIL: [
+                    {
+                        scheduledDuration: "5",
+                        AIRPORT_FROM: { IATA: "SIN", name: "Sinsin" },
+                        AIRPORT_TO: { IATA: "CKG", name: "chinachina" }
+                    }
+                ]
+            }
+
+
+
+TO SHOW ALL DOCUMENTS IN COLLECTION:
+print('db.txam346.find().pretty();');
+
+
+.find
+eg.
+	db.transport.find(
+		{ "EMPLOYEE.e#": "11" },
+		{
+			"EMPLOYEE.trips": 0
+		}
+	).pretty();
+find all documents with e# 11. dont show trips
+
+
+.find $in
+eg.
+	db.transport.find(
+		{ "TRUCK.registration": { $in: ["PKR768", "PKR008", "SST005"] } }
+	).pretty();
+find all documents with registration "PKR768", "PKR008", "SST005". OR applies. if want to use AND, use $all
+
+
+.find .countDocuments()
+	db.transport.find({ "EMPLOYEE": { $exists: true } }).countDocuments();
+count number of employee objects
+
+IF WANT TO USR  AGGREGATE
+
+db.transport.aggregate([
+  { $match: { "EMPLOYEE": { $exists: true } } },
+  { $count: "total" }
+]);
+
+
+.updateOne $pull
+eg.
+	db.transport.updateOne(
+	    { "EMPLOYEE.e#": "11" },
+	    { $pull: { "EMPLOYEE.trips": { "trip number": "7" } } }
+	  );
+this removes the element that has trip number 7 within the trips array for employee 11
+remove elements within an array
+
+
+.updateOne $push
+eg.
+	db.transport.updateOne(
+	    { "EMPLOYEE.e#": "11" },
+	    { $push: {"EMPLOYEE.trips": {"trip number": 999 } }
+	    }
+	  );
+this adds a new element into the trips array inside employee object with employee number 11
+
+
+
+.updateOne $unset
+eg.
+	db.transport.updateOne(
+	    { "EMPLOYEE.e#": "11" },
+	    { $unset: { "EMPLOYEE.dob": "" } }
+	  );
+this finds employee 11 then removes the dob field
+
+
+.updateOne $set
+eg.
+	db.transport.updateOne(
+	    { "EMPLOYEE.e#": "11" },
+	    { $set: { "EMPLOYEE.age": "15" } }
+	  );
+updates existing value
+
+
+NOTE: for any update query, if the matching operation has multiple filters, then must use $ for the final action
+db.shoppingCart.updateOne(
+	{ 
+	  "_id": "C92378", 
+	  "CUSTOMER.cartId": "cart001" 
+	},
+	{ 
+	  $set: { 
+		"CUSTOMER.$.dateClosed": new Date("2024-05-15") 
+	  } 
+	}
+  );
+
+
+
+
+.deleteOne
+eg
+	db.transport.deleteOne({ "EMPLOYEE.name": "John Fox"});
+this removes the first occurance of John Fox. removes the entire row
+
+
+.aggregate $group
+eg
+	db.transport.aggregate([
+	  {
+	  	$match: { "EMPLOYEE.maintenances.registration" : "LUCY01"   }
+	  },
+	  {
+	    $group: {
+	      _id: "$EMPLOYEE.name"
+	    }
+	  }
+	]);
+forms groups where each group consists of all documents that share the same value(s) for the grouping key(s)
+so the above would find all documents with LUCY01 as registration code, then find the distinct names
+
+
+.aggregate $group $project
+eg
+	db.transport.aggregate([
+	  {
+	  	$match: { "EMPLOYEE.maintenances.registration" : "LUCY01"   }
+	  },
+	  {
+	    $group: {
+	      _id: "$EMPLOYEE.name"
+	    }
+	  },
+	  {
+	  	$project: {
+	  		name: "$_id"
+	  	}
+	  }
+	]);	
+whenever you use $group, need to use _id then $<desired object>. 
+This makes the result show _id as the key
+To change key name, use $project in above manner
+
+
+.aggregate $project
+eg
+	db.shoppingCart.aggregate([
+	{
+	  $match: {
+		"PRODUCT.includedIn": { $exists: true }
+	  }
+	},
+	{
+	  $project: {
+		_id: 0,
+		includedIn: "$PRODUCT.includedIn"
+	  }
+	}
+  ]);
+this will find all documents with the includedIn object within in, and then instead of showing all information in each row, it will only display the contents of the includedIn object. the id is hidden too
+
+
+.aggregate $project $count
+eg
+	db.shoppingCart.aggregate([
+	{
+	  $match: {
+		"PRODUCT.includedIn": { $exists: true }
+	  }
+	},
+	{
+	  $project: {
+		_id: 0,
+		includedIn: "$PRODUCT.includedIn",
+      	count: { $size: "$PRODUCT.includedIn" }
+	  }
+	}
+  ]);
+continued from previous, this will then display the count of the number of elements in the array
+
+
+
+.aggregate $unwind
+eg.
+	db.transport.aggregate([
+	  {
+	    $unwind: "$EMPLOYEE.trips"
+	  }
+	]);
+open up an array and display each element as individual documents
+
+
+.aggregate $match $exsists $in ( and $all as well)
+eg.
+	db.shoppingCart.aggregate([
+	  {
+	    $match: {
+	      "PRODUCT.includedIn": { $exists: true, $in: ["P1001", "P1002"] }
+	    }
+	  }
+	]);
+This will find all documents with the includedIn array, and within it, P1001 OR P1002. If want to do AND, use $all instead of $in

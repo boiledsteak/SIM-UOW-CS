@@ -1,0 +1,84 @@
+SQL> SET ECHO ON
+SQL> SET FEEDBACK ON
+SQL> SET LINESIZE 100
+SQL> SET PAGESIZE 200
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> -- Adding a new column for task4
+SQL> ALTER TABLE Employee
+  2  ADD "INSERTDATE" DATE;
+
+Table EMPLOYEE altered.
+
+SQL> 
+SQL> 
+SQL> CREATE OR REPLACE TRIGGER InsertOncePerDay
+  2  BEFORE INSERT ON Employee
+  3  FOR EACH ROW
+  4  DECLARE
+  5      counter NUMBER;
+  6  BEGIN
+  7      -- Check if the user has already inserted a row for the current day
+  8      SELECT COUNT(*) INTO counter FROM EMPLOYEE WHERE TRUNC(INSERTDATE) = TRUNC(SYSDATE); 
+  9  
+ 10      -- If the user has already inserted a row for the current day, raise an error
+ 11      IF counter >= 1 THEN
+ 12          RAISE_APPLICATION_ERROR(-20001, 'You are allowed to insert only one row per day.');
+ 13      END IF;
+ 14  END;
+ 15  /
+
+Trigger INSERTONCEPERDAY compiled
+
+SQL> 
+SQL> 
+SQL> -- case 1: normal insertion
+SQL> -- Insert a row for an employee on the current day
+SQL> INSERT INTO Employee (E#, NAME, DOB, ADDRESS, SEX, SALARY, SUPER#, D#, INSERTDATE) 
+  2  VALUES ('E069', 'John Doe', TO_DATE('1990-01-01', 'YYYY-MM-DD'), '123 Main St', 'M', 50000, NULL, 1, SYSDATE);
+
+1 row inserted.
+
+SQL> -- The insertion should succeed because it's the first insertion on this day
+SQL> 
+SQL> -- case 2: trigger error
+SQL> -- Insert a row for the same employee on the same day
+SQL> INSERT INTO Employee (E#, NAME, DOB, ADDRESS, SEX, SALARY, SUPER#, D#, INSERTDATE) 
+  2  VALUES ('E096', 'John Lim', TO_DATE('1990-01-01', 'YYYY-MM-DD'), '123 Main St', 'M', 50000, NULL, 1, SYSDATE);
+
+Error starting at line : 43 in command -
+INSERT INTO Employee (E#, NAME, DOB, ADDRESS, SEX, SALARY, SUPER#, D#, INSERTDATE) 
+VALUES ('E096', 'John Lim', TO_DATE('1990-01-01', 'YYYY-MM-DD'), '123 Main St', 'M', 50000, NULL, 1, SYSDATE)
+Error at Command Line : 43 Column : 13
+Error report -
+SQL Error: ORA-20001: You are allowed to insert only one row per day.
+ORA-06512: at "SYSTEM.INSERTONCEPERDAY", line 9
+ORA-04088: error during execution of trigger 'SYSTEM.INSERTONCEPERDAY'
+
+
+More Details :
+https://docs.oracle.com/error-help/db/ora-20001/
+https://docs.oracle.com/error-help/db/ora-06512/
+https://docs.oracle.com/error-help/db/ora-04088/
+SQL> -- The insertion should fail a row has been inserted today already
+SQL> 
+SQL> DROP TRIGGER InsertOncePerDay;
+
+Trigger INSERTONCEPERDAY dropped.
+
+SQL> DELETE FROM Employee WHERE E# = 'E069';
+
+1 row deleted.
+
+SQL> DELETE FROM Employee WHERE E# = 'E096';
+
+0 rows deleted.
+
+SQL> ALTER TABLE Employee
+  2  DROP COLUMN INSERTDATE;
+
+Table EMPLOYEE altered.
+
+SQL> 
+SQL> 
+SQL> SPOOL OFF

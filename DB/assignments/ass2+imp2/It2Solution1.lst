@@ -1,0 +1,392 @@
+SQL> SET ECHO ON
+SQL> SET FEEDBACK ON
+SQL> SET LINESIZE 100
+SQL> SET PAGESIZE 200
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> -- qn (a) (i)
+SQL> explain plan set STATEMENT_ID='1ai' for
+  2  SELECT L_DISCOUNT FROM LINEITEM WHERE L_SHIPDATE = (SELECT MAX(L_SHIPDATE) FROM LINEITEM);
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY('PLAN_TABLE','1ai','SERIAL'));
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 4120815904
+ 
+--------------------------------------------------------------------------------
+| Id  | Operation           | Name     | Rows  | Bytes | Cost (%CPU)| Time     |
+--------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT    |          |     1 |    22 | 17578   (1)| 00:00:01 |
+|*  1 |  TABLE ACCESS FULL  | LINEITEM |     1 |    22 |  8790   (1)| 00:00:01 |
+|   2 |   SORT AGGREGATE    |          |     1 |     9 |            |          |
+|   3 |    TABLE ACCESS FULL| LINEITEM |  2122K|    18M|  8787   (1)| 00:00:01 |
+--------------------------------------------------------------------------------
+ 
+Predicate Information (identified by operation id):
+---------------------------------------------------
+ 
+   1 - filter("L_SHIPDATE"= (SELECT MAX("L_SHIPDATE") FROM "LINEITEM" 
+              "LINEITEM"))
+ 
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2)
+
+20 rows selected. 
+
+SQL> -- qn (a) (ii)
+SQL> explain plan set STATEMENT_ID='1aii' for
+  2  SELECT COUNT(*) FROM LINEITEM WHERE L_SHIPMODE = 'AIR' AND EXTRACT(YEAR FROM L_SHIPDATE) = 1998;
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY('PLAN_TABLE','1aii','SERIAL'));
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 2287326370
+ 
+-------------------------------------------------------------------------------
+| Id  | Operation          | Name     | Rows  | Bytes | Cost (%CPU)| Time     |
+-------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT   |          |     1 |    21 |  8807   (1)| 00:00:01 |
+|   1 |  SORT AGGREGATE    |          |     1 |    21 |            |          |
+|*  2 |   TABLE ACCESS FULL| LINEITEM | 34398 |   705K|  8807   (1)| 00:00:01 |
+-------------------------------------------------------------------------------
+ 
+Predicate Information (identified by operation id):
+---------------------------------------------------
+ 
+   2 - filter("L_SHIPMODE"='AIR' AND EXTRACT(YEAR FROM 
+              INTERNAL_FUNCTION("L_SHIPDATE"))=1998)
+ 
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2)
+
+19 rows selected. 
+
+SQL> -- qn (a) (iii)
+SQL> explain plan set STATEMENT_ID='1aiii' for
+  2  SELECT L_ORDERKEY, L_LINENUMBER FROM LINEITEM WHERE L_DISCOUNT = (SELECT MAX(L_DISCOUNT) FROM LINEITEM);
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY('PLAN_TABLE','1aiii','SERIAL'));
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 4120815904
+ 
+--------------------------------------------------------------------------------
+| Id  | Operation           | Name     | Rows  | Bytes | Cost (%CPU)| Time     |
+--------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT    |          |     1 |    39 | 17568   (1)| 00:00:01 |
+|*  1 |  TABLE ACCESS FULL  | LINEITEM |     1 |    39 |  8786   (1)| 00:00:01 |
+|   2 |   SORT AGGREGATE    |          |     1 |    13 |            |          |
+|   3 |    TABLE ACCESS FULL| LINEITEM |  2122K|    26M|  8783   (1)| 00:00:01 |
+--------------------------------------------------------------------------------
+ 
+Predicate Information (identified by operation id):
+---------------------------------------------------
+ 
+   1 - filter("L_DISCOUNT"= (SELECT MAX("L_DISCOUNT") FROM "LINEITEM" 
+              "LINEITEM"))
+ 
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2)
+
+20 rows selected. 
+
+SQL> -- qn (a) (iv)
+SQL> explain plan set STATEMENT_ID='1aiv' for
+  2  SELECT  L_LINESTATUS, COUNT(*) FROM LINEITEM GROUP BY L_LINESTATUS;
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY('PLAN_TABLE','1aiv','SERIAL'));
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 1773397105
+ 
+-------------------------------------------------------------------------------
+| Id  | Operation          | Name     | Rows  | Bytes | Cost (%CPU)| Time     |
+-------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT   |          |  2122K|  6217K|  8842   (1)| 00:00:01 |
+|   1 |  HASH GROUP BY     |          |  2122K|  6217K|  8842   (1)| 00:00:01 |
+|   2 |   TABLE ACCESS FULL| LINEITEM |  2122K|  6217K|  8786   (1)| 00:00:01 |
+-------------------------------------------------------------------------------
+ 
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2)
+
+13 rows selected. 
+
+SQL> -- qn (a) (v)
+SQL> explain plan set STATEMENT_ID='1av' for
+  2  SELECT L_ORDERKEY, L_LINENUMBER, L_LINESTATUS, L_SHIPDATE, L_SHIPMODE FROM LINEITEM WHERE L_ORDERKEY IN(1795718, 1799046, 1794626);
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY('PLAN_TABLE','1av','SERIAL'));
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 2007773388
+ 
+----------------------------------------------------------------------------------------------------
+--
+
+| Id  | Operation                            | Name          | Rows  | Bytes | Cost (%CPU)| Time    
+ |
+
+----------------------------------------------------------------------------------------------------
+--
+
+|   0 | SELECT STATEMENT                     |               |   356 | 17800 |  1055   (0)| 00:00:01
+ |
+
+|   1 |  INLIST ITERATOR                     |               |       |       |            |         
+ |
+
+|   2 |   TABLE ACCESS BY INDEX ROWID BATCHED| LINEITEM      |   356 | 17800 |  1055   (0)| 00:00:01
+ |
+
+|*  3 |    INDEX RANGE SCAN                  | LINEITEM_PKEY |  8490 |       |    19   (0)| 00:00:01
+ |
+
+----------------------------------------------------------------------------------------------------
+--
+
+ 
+Predicate Information (identified by operation id):
+---------------------------------------------------
+ 
+   3 - access("L_ORDERKEY"=1794626 OR "L_ORDERKEY"=1795718 OR "L_ORDERKEY"=1799046)
+ 
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2)
+
+19 rows selected. 
+
+SQL> 
+SQL> 
+SQL> -- qn (b) (i)
+SQL> CREATE INDEX onebi_idx ON LINEITEM(L_SHIPDATE, L_DISCOUNT);
+
+Index ONEBI_IDX created.
+
+SQL> 
+SQL> explain plan set STATEMENT_ID='1bi-idx' for
+  2  SELECT L_DISCOUNT FROM LINEITEM WHERE L_SHIPDATE = (SELECT MAX(L_SHIPDATE) FROM LINEITEM);
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY('PLAN_TABLE','1bi-idx','SERIAL'));
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 119560243
+ 
+-----------------------------------------------------------------------------------------
+| Id  | Operation                   | Name      | Rows  | Bytes | Cost (%CPU)| Time     |
+-----------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT            |           |     1 |    22 |    28   (0)| 00:00:01 |
+|*  1 |  INDEX RANGE SCAN           | ONEBI_IDX |     1 |    22 |    25   (0)| 00:00:01 |
+|   2 |   SORT AGGREGATE            |           |     1 |     9 |            |          |
+|   3 |    INDEX FULL SCAN (MIN/MAX)| ONEBI_IDX |     1 |     9 |     3   (0)| 00:00:01 |
+-----------------------------------------------------------------------------------------
+ 
+Predicate Information (identified by operation id):
+---------------------------------------------------
+ 
+   1 - access("L_SHIPDATE"= (SELECT MAX("L_SHIPDATE") FROM "LINEITEM" 
+              "LINEITEM"))
+ 
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2)
+
+20 rows selected. 
+
+SQL> 
+SQL> DROP INDEX onebi_idx;
+
+Index ONEBI_IDX dropped.
+
+SQL> 
+SQL> -- qn (b) (ii)
+SQL> CREATE INDEX onebii_idx ON LINEITEM(L_SHIPDATE, L_SHIPMODE);
+
+Index ONEBII_IDX created.
+
+SQL> 
+SQL> explain plan set STATEMENT_ID='1bii-idx' for
+  2  SELECT COUNT(*) FROM LINEITEM WHERE L_SHIPMODE = 'AIR' AND EXTRACT(YEAR FROM L_SHIPDATE) = 1998;
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY('PLAN_TABLE','1bii-idx','SERIAL'));
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 627478214
+ 
+------------------------------------------------------------------------------------
+| Id  | Operation             | Name       | Rows  | Bytes | Cost (%CPU)| Time     |
+------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT      |            |     1 |    21 |  2070   (1)| 00:00:01 |
+|   1 |  SORT AGGREGATE       |            |     1 |    21 |            |          |
+|*  2 |   INDEX FAST FULL SCAN| ONEBII_IDX | 34398 |   705K|  2070   (1)| 00:00:01 |
+------------------------------------------------------------------------------------
+ 
+Predicate Information (identified by operation id):
+---------------------------------------------------
+ 
+   2 - filter("L_SHIPMODE"='AIR' AND EXTRACT(YEAR FROM 
+              INTERNAL_FUNCTION("L_SHIPDATE"))=1998)
+ 
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2)
+
+19 rows selected. 
+
+SQL> 
+SQL> DROP INDEX onebii_idx;
+
+Index ONEBII_IDX dropped.
+
+SQL> 
+SQL> -- qn (b) (iii)
+SQL> CREATE INDEX onebiii_idx ON LINEITEM(L_ORDERKEY, L_LINENUMBER, L_DISCOUNT);
+
+Index ONEBIII_IDX created.
+
+SQL> 
+SQL> explain plan set STATEMENT_ID='1biii-idx' for
+  2  SELECT L_ORDERKEY, L_LINENUMBER FROM LINEITEM WHERE L_DISCOUNT = (SELECT MAX(L_DISCOUNT) FROM LINEITEM);
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY('PLAN_TABLE','1biii-idx','SERIAL'));
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 1586143684
+ 
+--------------------------------------------------------------------------------------
+| Id  | Operation              | Name        | Rows  | Bytes | Cost (%CPU)| Time     |
+--------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT       |             |     1 |    39 |  3064   (1)| 00:00:01 |
+|*  1 |  INDEX FAST FULL SCAN  | ONEBIII_IDX |     1 |    39 |  1533   (1)| 00:00:01 |
+|   2 |   SORT AGGREGATE       |             |     1 |    13 |            |          |
+|   3 |    INDEX FAST FULL SCAN| ONEBIII_IDX |  2122K|    26M|  1531   (1)| 00:00:01 |
+--------------------------------------------------------------------------------------
+ 
+Predicate Information (identified by operation id):
+---------------------------------------------------
+ 
+   1 - filter("L_DISCOUNT"= (SELECT MAX("L_DISCOUNT") FROM "LINEITEM" 
+              "LINEITEM"))
+ 
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2)
+
+20 rows selected. 
+
+SQL> 
+SQL> DROP INDEX onebiii_idx;
+
+Index ONEBIII_IDX dropped.
+
+SQL> 
+SQL> -- qn (b) (iv)
+SQL> CREATE INDEX onebiv_idx ON LINEITEM(L_LINESTATUS);
+
+Index ONEBIV_IDX created.
+
+SQL> 
+SQL> explain plan set STATEMENT_ID='1biv-idx' for
+  2  SELECT  L_LINESTATUS, COUNT(*) FROM LINEITEM GROUP BY L_LINESTATUS;
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY('PLAN_TABLE','1biv-idx','SERIAL'));
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 1987509082
+ 
+------------------------------------------------------------------------------------
+| Id  | Operation             | Name       | Rows  | Bytes | Cost (%CPU)| Time     |
+------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT      |            |  2122K|  6217K|   949   (7)| 00:00:01 |
+|   1 |  HASH GROUP BY        |            |  2122K|  6217K|   949   (7)| 00:00:01 |
+|   2 |   INDEX FAST FULL SCAN| ONEBIV_IDX |  2122K|  6217K|   893   (1)| 00:00:01 |
+------------------------------------------------------------------------------------
+ 
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2)
+
+13 rows selected. 
+
+SQL> 
+SQL> DROP INDEX onebiv_idx;
+
+Index ONEBIV_IDX dropped.
+
+SQL> 
+SQL> -- qn (b) (v)
+SQL> CREATE INDEX onebv_idx ON LINEITEM(L_ORDERKEY, L_LINENUMBER, L_LINESTATUS, L_SHIPDATE, L_SHIPMODE);
+
+Index ONEBV_IDX created.
+
+SQL> 
+SQL> explain plan set STATEMENT_ID='1bv-idx' for
+  2  SELECT L_ORDERKEY, L_LINENUMBER, L_LINESTATUS, L_SHIPDATE, L_SHIPMODE FROM LINEITEM WHERE L_ORDERKEY IN(1795718, 1799046, 1794626);
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY('PLAN_TABLE','1bv-idx','SERIAL'));
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 103810046
+ 
+-------------------------------------------------------------------------------
+| Id  | Operation         | Name      | Rows  | Bytes | Cost (%CPU)| Time     |
+-------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT  |           |   356 | 17800 |    44   (0)| 00:00:01 |
+|   1 |  INLIST ITERATOR  |           |       |       |            |          |
+|*  2 |   INDEX RANGE SCAN| ONEBV_IDX |   356 | 17800 |    44   (0)| 00:00:01 |
+-------------------------------------------------------------------------------
+ 
+Predicate Information (identified by operation id):
+---------------------------------------------------
+ 
+   2 - access("L_ORDERKEY"=1794626 OR "L_ORDERKEY"=1795718 OR 
+              "L_ORDERKEY"=1799046)
+ 
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2)
+
+19 rows selected. 
+
+SQL> 
+SQL> DROP INDEX onebv_idx;
+
+Index ONEBV_IDX dropped.
+
+SQL> 
+SQL> SPOOL OFF

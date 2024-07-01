@@ -1,0 +1,313 @@
+Solution for CSCI235 implementation task 3 task1
+============================
+Student number: 10258663
+Name: Timothy Mah
+============================
+
+(1) Display in a pretty format information about an employee number 11. Do not list information about trips performed by the employee
+
+db.transport.find({ "EMPLOYEE.e#": "11" }, { "EMPLOYEE.trips": 0 }).pretty();
+
+{
+  "_id": {
+    "$oid": "664ae47194415d247b1230b0"
+  },
+  "EMPLOYEE": {
+    "e#": "11",
+    "name": "Adam Fox",
+    "dob": "04-MAY-70",
+    "address": "45 Victoria St. Hurstville, NSW 2456",
+    "hiredate": "12-JAN-99",
+    "position": "driver",
+    "licence": "20005",
+    "status": "ON LEAVE"
+  }
+}
+
+(2) Display in a pretty format information about all mechanics. For each mechanic list only employee number, name, and position
+
+db.transport.find({ "EMPLOYEE.position": "mechanic" }, { "EMPLOYEE.e#": 1, "EMPLOYEE.name": 1, "EMPLOYEE.position": 1, _id: 0 }).pretty();
+
+{
+  "EMPLOYEE": {
+    "e#": "2",
+    "name": "Peter Taylor",
+    "position": "mechanic"
+  }
+},
+{
+  "EMPLOYEE": {
+    "e#": "4",
+    "name": "John Gray",
+    "position": "mechanic"
+  }
+},
+{
+  "EMPLOYEE": {
+    "e#": "6",
+    "name": "Michael Jones",
+    "position": "mechanic"
+  }
+},
+{
+  "EMPLOYEE": {
+    "e#": "8",
+    "name": "Peter O'Brien",
+    "position": "mechanic"
+  }
+},
+{
+  "EMPLOYEE": {
+    "e#": "10",
+    "name": "John Fox",
+    "position": "mechanic"
+  }
+},
+{
+  "EMPLOYEE": {
+    "e#": "12",
+    "name": "Phillip Cox",
+    "position": "mechanic"
+  }
+},
+{
+  "EMPLOYEE": {
+    "e#": "14",
+    "name": "Andrew R. Smith",
+    "position": "mechanic"
+  }
+}
+
+(3) Display in a pretty format information about the trucks with the registration numbers PKR768 and PKR008 and SST005. Do not list identifiers of the documents
+
+db.transport.find({ "TRUCK.registration": { $in: ["PKR768", "PKR008", "SST005"] } }, { _id: 0 }).pretty();
+
+{
+  "TRUCK": {
+    "registration": "PKR008",
+    "capacity": "22000",
+    "weight": "8800",
+    "status": "AVAILABLE"
+  }
+},
+{
+  "TRUCK": {
+    "registration": "PKR768",
+    "capacity": "1234",
+    "weight": "3000",
+    "status": "AVAILABLE"
+  }
+},
+{
+  "TRUCK": {
+    "registration": "SST005",
+    "capacity": "12000",
+    "weight": "50000",
+    "status": "USED"
+  }
+}
+
+(4) Find the total number of employees
+
+db.transport.find({ "EMPLOYEE": { $exists: true } }).count();
+
+15
+
+(5) Find the total number of mechanics
+
+db.transport.find({ "EMPLOYEE.position": "mechanic" }).count();
+
+7
+
+(6) Display in a pretty format the names and positions of all employees
+
+db.transport.find({ "EMPLOYEE": { $exists: true } }, { "EMPLOYEE.name": 1, "EMPLOYEE.position": 1, _id: 0 }).pretty();
+
+[
+  {
+    "EMPLOYEE": {
+      "name": "John Smith",
+      "position": "driver"
+    }
+  },
+  {
+    "EMPLOYEE": {
+      "name": "Peter Taylor",
+      "position": "mechanic"
+    }
+  },
+  {
+    "EMPLOYEE": {
+      "name": "John Doe",
+      "position": "driver"
+    }
+  },
+  {
+    "EMPLOYEE": {
+      "name": "John Gray",
+      "position": "mechanic"
+    }
+  },
+  {
+    "EMPLOYEE": {
+      "name": "Adam Taylor",
+      "position": "driver"
+    }
+  },
+  {
+    "EMPLOYEE": {
+      "name": "Michael Jones",
+      "position": "mechanic"
+    }
+  },
+  {
+    "EMPLOYEE": {
+      "name": "Frederic Jones",
+      "position": "driver"
+    }
+  },
+  {
+    "EMPLOYEE": {
+      "name": "Peter O'Brien",
+      "position": "mechanic"
+    }
+  },
+  {
+    "EMPLOYEE": {
+      "name": "John Lucas",
+      "position": "driver"
+    }
+  },
+  {
+    "EMPLOYEE": {
+      "name": "John Fox",
+      "position": "mechanic"
+    }
+  },
+  {
+    "EMPLOYEE": {
+      "name": "Adam Fox",
+      "position": "driver"
+    }
+  },
+  {
+    "EMPLOYEE": {
+      "name": "Phillip Cox",
+      "position": "mechanic"
+    }
+  },
+  {
+    "EMPLOYEE": {
+      "name": "Andrew K. Smith",
+      "position": "driver"
+    }
+  },
+  {
+    "EMPLOYEE": {
+      "name": "Andrew R. Smith",
+      "position": "mechanic"
+    }
+  },
+  {
+    "EMPLOYEE": {
+      "name": "Michael Potter",
+      "position": "driver"
+    }
+  }
+]
+
+(7) Display in a pretty format the registrations number of all trucks maintained by John Fox. there is no need to remove duplicates from a listing
+
+db.transport.aggregate([ { $match: { "EMPLOYEE.name": "John Fox" } }, { $unwind: "$EMPLOYEE.maintenances" }, { $group: { _id: "$EMPLOYEE.maintenances.registration" } }, { $project: { registration: "$_id", _id: 0 } } ]).pretty();
+
+[
+  {
+    "registration": "LUCY01"
+  },
+  {
+    "registration": "PKR768"
+  },
+  {
+    "registration": "KKK007"
+  },
+  {
+    "registration": "QRT834"
+  }
+]
+
+(8) Display in a pretty format the names of mechanics who maintained a car with a registration LUCY01.
+
+db.transport.aggregate([ { $match: { "EMPLOYEE.maintenances.registration" : "LUCY01"   } }, { $group: { _id: "$EMPLOYEE.name" } }, { $project: { name: "$_id", _id: 0 } } ]).pretty();
+
+[
+  {
+    "name": "Michael Jones"
+  },
+  {
+    "name": "John Fox"
+  }
+]
+
+(9) Display in a pretty format the names of drivers who performed no trips so far
+
+db.transport.aggregate([ { $match: { "EMPLOYEE.maintenances": { $exists: false } } }, { $group: { _id: "$EMPLOYEE.name" } }, { $project: { name: "$_id", _id: 0 } } ]).pretty();
+
+[
+  {
+    "name": "Andrew K. Smith"
+  },
+  {
+    "name": "John Smith"
+  },
+  {
+    "name": "Michael Potter"
+  },
+  {
+    "name": "Adam Taylor"
+  },
+  {
+    "name": "Frederic Jones"
+  },
+  {
+    "name": null
+  },
+  {
+    "name": "John Doe"
+  },
+  {
+    "name": "Adam Fox"
+  },
+  {
+    "name": "John Lucas"
+  }
+]
+
+(10) Display in a pretty format names of drivers who started at least one trip in Wollongong
+
+db.transport.aggregate([ { $match: { "EMPLOYEE.maintenances": { $exists: true } } }, { $group: { _id: "$EMPLOYEE.name" } }, { $project: { name: "$_id", _id: 0 } } ]).pretty();
+
+[
+  {
+    "name": "Peter O'Brien"
+  },
+  {
+    "name": "Michael Jones"
+  },
+  {
+    "name": "John Fox"
+  },
+  {
+    "name": "John Gray"
+  },
+  {
+    "name": "Andrew R. Smith"
+  },
+  {
+    "name": "Peter Taylor"
+  },
+  {
+    "name": "Phillip Cox"
+  }
+]
+
+END

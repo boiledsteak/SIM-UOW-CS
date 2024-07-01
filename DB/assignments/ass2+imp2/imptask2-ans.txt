@@ -1,0 +1,15 @@
+Timothy Mah
+8750634
+txamah001@mymail.sim.edu.sg
+
+
+CSCI235 – Database Systems
+Implementation Task 2
+
+
+Task2
+a) SELECT O_CLERK FROM ORDERS WHERE O_ORDERKEY='5860';
+b) SELECT O_CLERK FROM ORDERS WHERE O_ORDERKEY < 5500;
+c) SELECT O_CLERK FROM ORDERS;
+d) SELECT o_orderdate, o_clerk, o_totalprice, o_orderkey FROM orders WHERE o_totalprice='9645.04';
+e) SELECT o_orderdate, o_clerk, o_totalprice, o_orderkey FROM orders WHERE o_totalprice < '9645.04';

@@ -1,0 +1,41 @@
+SQL> SET ECHO ON
+SQL> SET FEEDBACK ON
+SQL> SET LINESIZE 100
+SQL> SET PAGESIZE 200
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> CREATE OR REPLACE PROCEDURE PROJECTGROUPS AS
+  2  
+  3  CURSOR singlerow IS
+  4  SELECT PROJECT.P#, PROJECT.PTitle, LISTAGG(EMPLOYEE.NAME, ', ') WITHIN GROUP (ORDER BY EMPLOYEE.NAME) AS Employees 
+  5  FROM PROJECT 
+  6  JOIN EMPLOYEE ON PROJECT.D# = EMPLOYEE.D# 
+  7  JOIN WORKSON ON EMPLOYEE.E# = WORKSON.E#
+  8  GROUP BY PROJECT.P#, PROJECT.PTitle
+  9  ORDER BY PROJECT.P#;
+ 10  
+ 11  BEGIN   
+ 12      for x in singlerow
+ 13      loop
+ 14          DBMS_OUTPUT.PUT_LINE(x.P# || ' ' || x.PTitle || ': ' || x.Employees);
+ 15      end loop;
+ 16  
+ 17  END;
+ 18  /
+
+Procedure PROJECTGROUPS compiled
+
+SQL> 
+SQL> EXECUTE PROJECTGROUPS;
+1001 Computation: Alvin, Peter
+1002 Study methods: Bob, Robert, Robert, Robert, Robert
+1003 Racing car: Bob, Robert, Robert, Robert, Robert
+1004 Football: Douglass, Eadger
+1005 Swimming: Douglass, Eadger
+1006 Training: Aban
+
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> SPOOL OFF
