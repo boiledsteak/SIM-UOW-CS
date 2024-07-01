@@ -439,7 +439,43 @@ CIA: unlawful loss or modification
 accountability: why is info being collected. record data processing
 
 GDPR indv rights
-access: subject access request: find what info the org has on u
-erasure: ???
-restrict processing
-data portability
+right to access: subject access request: find what info the org has on u
+erasure: most complex. cant verify. too many strings. 
+restrict auto processing
+data portability: can share with other services
+object
+
+GDPR is EU only or when client is EU
+
+Double extortion: encrypt data and steal it
+
+GDPR must have data protec offcr
+
+no GDPR fine
+no person data
+timely proper resp
+compliance
+unavoidable
+
+why ISO27001
+legal compliance
+higher revenue
+lower cost from attacks
+
+why not ISO
+downtime
+expensive
+not for small org
+
+how ISO work
+risk mngmt
+cont monitor
+IR
+
+NIST CSF
+identify: assets =hard
+protect: safeguards =easy
+detect: IDS
+respond: IR
+recover: DRP
+
