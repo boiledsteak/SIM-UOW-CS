@@ -1,0 +1,117 @@
+1. Among all the models taught, which are supervised and which are not supervised?
+
+2. classification vs regression models
+
+3. what are the properties of gaussian distribution?
+
+4. univariate guassian distribution vs multivariate gaussian distribution
+
+5. what does parametric mean
+
+6. what are the properties of histogram?
+
+7. what is the cost function of linear regression?
+
+8. what is the gradient descent process?
+
+9. what is the logistic regression process?
+
+10. what are the properties of logistic regression?
+
+11. what is the cost function of logistic regression?
+
+12. what is the activation function of logistic regression?
+
+13. what is the process of linear regression?
+
+14. what are the layers of neural network?
+
+15. softmax vs sigmoid function
+
+16. what function is used in hidden layer?
+
+17. what function is used in output layer?
+
+18. is SVM classfication or regression?
+
+19. draw SVM from assignment
+
+20. what is the ID3 process?
+
+21. what are the properties of random forest?
+
+22. what is the random forest process?
+
+23. draw false positive confusion matrix
+
+24. how to interpret confusion matrix?
+
+25. accuacy vs precision vs recall vs f1
+
+26. what are the spam detection filtering techniques? Describe them
+
+27. what are the 3 pre-processing techniques for AIML spam detection?
+
+28. what is tokenisation?
+
+29. what is vectorisation?
+
+30. what are the 3 types of anomalies
+
+31. what are the uses of anomaly detection
+
+31. what are the challenges of anomaly detection and traditional IDS?
+
+32. what features are looked at, when creating HIDS?
+
+33. what features are looked at, when creating NIDS?
+
+34. what are the 5 questions an analyst may ask?
+
+35. what is the problem that feature scaling solves?
+
+36. what are the feature scaling methods?
+
+37. what are the problems that sampling solves?
+
+38. what are the different kinds of sampling solutions?
+
+39. draw [one vs one], and [one vs all]
+
+30. what are the pros and cons of [one vs one] and [one vs all]
+
+31. what are the properties of principal component analysis (PCA) ?
+
+32. what are the properties of t-distributed stochastic neighbour (t-SNE) ?
+
+33. what is the purpose of adversarial ML?
+
+34. whitebox targeted vs untargeted attack ?
+
+35. what are the properties of fast gradient signed method (FGSM) ?
+
+36. what are the properties of projected gradient descent (PGD) ?
+
+37. what is the black box attack strat?
+
+38. what is an ensemble attack?
+
+39. what are the challenges of physical ML attack ?
+
+40. what is the intuition of targeted physical attack?
+
+41. what is the intuition of untargeted physical attack?
+
+42. what are the ML adversarial attack defences?
+
+43. what is a ML backdoor attack?
+
+44. backdoor vs adversarial attack?
+
+45. visible vs invisible (sample specific backdoor attack)
+
+46. what is clean label backdoor attack?
+
+47. what is GAN ?
+
+48. how to detect GAN

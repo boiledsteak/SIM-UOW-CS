@@ -1,0 +1,19 @@
+1. Among all the models taught, which are supervised and which are not supervised?
+
+2. classification vs regression models
+
+3. what are the properties of gaussian distribution?
+
+4. univariate guassian distribution vs multivariate gaussian distribution
+
+5. what does parametric mean
+
+6. what are the properties of histogram?
+
+7. what is the cost function of linear regression?
+
+8. what is the gradient descent process?
+
+9. what is the logistic regression process?
+
+10. what are the properties of logistic regression?

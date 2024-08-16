@@ -1,0 +1,714 @@
+AI-cybersec-notes2
+
+
+cleaned up notes for exam
+
+
+contents
+0. statistical models
+	- gaussian distribution
+	- histogram
+1. machine learning models
+	- linear regression
+	- logistic regression
+	- neural network
+	- SVM
+	- ID3
+	- random forest
+2. model evaluation
+	- false positive table (aka confusion matrix)
+	- evaluation scores
+		= accuracy
+		= precision
+		= recall
+		= f1 (f-score)
+3. Spam detection
+	- filtering techniques
+	- AIML spam detection
+		= vectorisation
+		= bag of words
+		= n-grams
+		= TF-IDF
+4. Anomaly detection
+5. questions an analyst may ask
+6. feature scaling
+	- problems
+	- solutions
+		= standardisation
+		= normalisation
+7. sampling
+	- problem
+	- solution
+		= oversampling
+		= undersampling
+		= over + under + feature selection
+8. 3D
+	- PCA
+	- t-SNE
+9. Adversarial machine learning
+
+
+
+
+
+
+________________________
+0. Statistical models
+________________________
+
+######################################################
+GAUSSIAN DISTRIBUTION (unsupervised)
+
+- works only with dataset with low variance. aka got bell curve, normal distribution
+( variance is measure of how far each data point is, from the mean)
+( parametric; assumes normal distribution )
+- outputs a probability number. need a threshold to determine between the 2 classes (labels)
+- univariate and multivariate gaussian distrivution
+	= univariate
+		== 2D graph
+		== graph has bell curve
+		== independent variables
+		== uses variance
+
+	= multivariate
+		== 3D graph
+		== dependent variables
+		== uses covariance
+
+
+
+######################################################
+HISTOGRAM (unsupervised)
+- non parametric; no assumption about features
+- just read the graph and see which bins are considered anomaly
+
+
+
+
+
+
+
+
+
+________________________
+1. Machine learning models
+________________________
+
+######################################################
+Linear regression (supervised)
+- used to predict a label based on features
+- predicts a number (label)
+- cost function = mean squared error (something like error rate)
+
+
+single datapoint (x,y) where x= feature, y= label
+
+formula:
+predicted label = (the label when feature is 0)
+					+ [(change in label when feature + 1) x feature 1]
+					+ [(change in label when feature + 1) x feature 2]
+					+ ...
+
+
+
+- common method to improve a linear regression model is through gradient descent method
+
+	gradient descent
+	- start with arbitary features and test against the initial LR model
+	- minimise cost function (aka optimisation problem)
+		1. find gradient (uses partial derivative)
+			= find how much the cost function changes when features are tweaked slightly (this is the gradient)
+			= features with high gradient means they affect the model prediction more
+
+		2. move the coefficient the oopposite direction of the gradient
+			= 
+
+		3. repeat until cost function doesn't change much
+			= keep repeating until predicted values are very similar to actual values or when gradient is 0
+
+
+
+
+######################################################
+Logistic regression (supervised)
+- uses sigmoid function
+- predicts a probability
+- takes in numbers
+- outputs a probability between 0 and 1
+- binary classification
+- uses a s-shaped curve
+- need to apply a threshold. usually 0.5
+- cost function = cross-entropy loss
+- activation function = sigmoid function
+
+- can be improved with gradient descent as well
+	- start with arbitary values
+	- repeat until convergence (aka repeat until gradient 0 or close to zero)
+
+
+logistic regression process
+	1. compute weighted sum (prepare features to be used with sigmoid function) (same formula as linear regression) [aka forward propogation]
+	2. use sigmoid function (outputs probability)	[steps 1 and 2 do not use labels yet]
+	3. find out cost (to check model performance. should be going down)
+	4. perform gradient descent to minimmise cost (adjust weights to be more accurate) [aka backwards propogation]
+		- start with arbitary values
+		- find gradient
+		- find new weights (weight is how much a feature affects the probability)
+	5. repeat from step 1 until gradient close to 0
+
+*is actually (linear regression formula) multiplied by sigmoid function, and then gradient descent also performed
+
+
+
+
+######################################################
+NEURAL NETWORK
+
+
+-> actually a few logistic regression operations performed one after another
+
+
+steps
+	same as logistic regression but loop from finding weighted sum
+
+-> has 3 layers
+	- input layer
+	- hidden layer
+		-- tanh function used
+	- output layer
+		-- sigmoid function used if want to output probability between 0 and 1. 2 classes of labelps only
+		-- softmax function used when there are multiple classes of labels. also outputs probability but outputs probability of each label
+		(softmax only works for mutually exclusive labels. ie. this picture can only be dog or cat. cannot be both)
+		(multiple sigmoid function can predict if label A is true and label B also true. aka mutually inclusive)
+		(softmax uses vector while sigmoid uses scalar)
+
+		*scalar = speed
+		 vector = speed + direction
+
+
+
+######################################################
+SVM (supervised)
+
+- used for classification
+- goal of decision boundary: classify the points correctly (differentiate the labels)
+
+see assignment q2 image
+
+
+
+
+######################################################
+ID3 (supervised)
+
+- need to find base entropy
+- conditional entropy
+- information gain
+- highest information gain is the root node
+- lower entropy means higher information gain
+
+
+
+######################################################
+RANDOM FOREST (supervised)
+
+- can be used for both classification and regresion
+- random subset of training set is taken, and decision tree is performed. Then results from all trees are aggregated
+- reduces overfit issue due to randomness introduced
+- results from trees are voted for classification
+- results from tress are averaged for regression
+
+
+
+
+
+
+
+
+________________________
+2. Model evaluation
+________________________
+
+######################################################
+FLASE POSITIVE TABLE (aka confusion matrix)
+
+- please draw
+- how to interpret 5x5 confusion matrix
+	= rows: actual
+	= columns: predicted
+	= diagonals: correctly predicted
+
+
+
+
+
+######################################################
+EVALUATION SCORE
+
+
+
+
+ACCURACY = number of correct predicted data points / total number of data points
+
+
+PRECISION = true positive / true positive + false negative
+aka
+correctly predicted positives / any predicted positives
+
+good for when cost of false negative is high ie predict sick
+
+
+
+RECALL = true positive / true positive + false positive
+aka
+correctly predicted positives / all actual positive labels
+
+good for when cost of false positive is high ie predict healthy
+
+
+
+F1  = 2x    [ (precision x recall) / (precision + recall) ]
+
+good for when distribution is uneven
+
+gives equal weight to both precision and recall
+
+
+
+________________________
+3. Spam Detection
+________________________
+
+
+######################################################
+FILTERING TECHNIQUES
+
+
+1. challenge
+	- captcha
+
+2. blacklist and whitelist
+
+3. rule based
+	- static rules such as background colour, vulgarities
+	- if hit threshold count, then considered spam
+
+4. content based
+	- uses AIML to predict
+	- AIML model can learn to predict spam
+
+
+
+######################################################
+AIML SPAM DETECTION
+
+
+
+preprocess the emails with Vectorisation
+then pick either
+1. bag of words
+2. n grams
+3. tf-idf
+
+
+
+
+> vectorisation
+	- requires tokenisation first
+		-- remove punctuation
+		-- remove stop words
+		-- change to all lowercase
+		-- fix spelling errors
+		-- stemming (all normal tense)
+
+	- convert all words into term frequency 
+	(have the terms as columns then term frequency as the value)
+
+> bag of words
+	- simply look at term frquency
+	- each word is one unit. known as unigram
+	- limitations:
+		= order of words lost 
+			== lose meaning and context
+		= term importance lost
+			== all words are assumed equally as important
+
+> n-grams
+	- looks at term frequency as well
+	- bunch a few words as one unit
+	- improves loss of word order. better context and meaning
+	- term importance still lost
+
+> TF-IDF
+	- looks at term frequency and document frequency
+	- higher score means the term is more unique among the collection
+	- improves loss of word order and term importance loss	
+
+
+
+________________________
+4. Anomaly detection
+________________________
+
+######################################################
+TYPES OF ANOMALIES
+
+
+1. global anomalies
+	- different from rest
+	- ie. IDS with static rules
+
+2. contextual anomalies
+	- requires context to determine
+	- ie. SG is 2 degrees today. must know SG average temp
+	- ie. fraud detection
+
+3. collective anomalies
+	- requires relationship between other objects to determine
+	- both the individual point and a few other objects are also behaving strange
+
+
+
+
+######################################################
+USES OF ANOMALY DETECTION
+
+
+1. fraud detection
+
+2. industrial damage detection
+
+3. IDS
+
+
+######################################################
+CHALLENGES OF ANOMALY DETECTION & traditiional signature based IDS
+
+1. requires fast real time detection
+2. false positive cost very high
+3. huge volume of logs
+4. lack of high quality anomalous data (imbalanced training data)
+5. must always keep up with latest database
+6. prone to 0 day attacks
+7. 
+
+
+
+######################################################
+FEATURES FOR A HIDS
+
+1. running processes
+2. new user accounts
+3. network connections
+4. system scheduler changes
+5. startup applications
+
+
+
+######################################################
+FEATURES FOR A NIDS
+
+1. deep packet inspection (DPI)
+	= decrypt and see contents of packets
+
+
+
+________________________
+5. questions an analyst may ask
+________________________
+
+- causation
+- consequence
+- correlation
+- summarisation
+
+
+
+
+________________________
+6. FEATURE SCALING
+________________________
+
+
+######################################################
+PROBLEM 
+
+
+- features may have big range of numbers
+- slow processing
+
+
+######################################################
+SOLUTION
+
+
+1. Standardisation
+
+- adjust mean to 0
+- adjust std deviation to 1
+
+2. normalisation
+
+- set min and max values
+
+
+
+
+
+
+
+
+
+
+
+
+________________________
+7. SAMPLING
+________________________
+
+
+
+######################################################
+PROBLEM 
+
+
+- imbalanced dataset
+- model would be biased towards majority class
+
+
+######################################################
+SOLUTION
+
+
+
+1. oversampling
+	pros:
+		- no loss of information
+		- simple to implement
+	cons:
+		- overfitting (model is just memorising answers)
+		- SMOTE (Synthetic MinorityOversamplingTechnique) may be inaccurate
+		- higher computational cost
+
+2. undersampling
+	pros:
+		- lower computational cost
+		- less overfit
+
+	cons:
+		- bias
+		- ineffective since dataset too small
+		- loss of information
+
+3. oversample + undersample + feature selection
+	- to mitigate cons, 
+	oversample minority class, 
+	undersample minority class, 
+	and perform feature selection on both majority and minority, using information gain
+
+
+
+
+________________________
+7. MULTI-CLASS CLASSFICATION
+________________________
+
+
+
+draw 
+	- one vs all
+	- one vs one 
+
+
+pros and cons 
+
+one vs all
+- computationally lighter
+- imbalanced dataset
+
+one vs one
+- better at complex class boundaries
+- computationally heavy
+- no imbalanced dataset problem
+
+
+________________________
+8. 3D 
+________________________
+
+1. Principal Component Analysis (PCA)
+	- converts high dimension to lower dimension graph
+	- picks the principal components with the highest variance
+		( visually similar to SVM decision boundary )
+		( must know how to draw )
+	- can revert to lower dimension
+	- retains geometric relationship between data
+	- paramteric mapping 
+
+
+
+2. t-distributed stochastic neighbour (t-SNE)
+	
+	- cannot revert to lower dimension
+	- does not retain geometric relattionship between data
+	- non parametric mapping
+
+
+
+
+________________________
+9. ADVERSARIAL MACHINE LEARNING
+________________________
+
+
+
+######################################################
+PURPOSE
+
+
+- to remove shortcut learning
+
+
+
+
+######################################################
+WHITE BOX ATTACKS
+
+
+- targeted: fool a model to output incorrect predefined labels
+- untargeted: fool a model to output incorrect labels
+
+
+
+	-> Fast gradient signed method (FGSM)
+		- calculate gradient once
+		- fast simple effective
+		- single calculation
+		- untargeted
+		- does opposite of gradient descent; maximise cost function
+		- change direction of gradient descent
+
+	-> Projected gradient descent (PGD)
+		- slow
+		- perform gradient descent until model predicts desired label
+
+
+
+######################################################
+BLACK BOX ATTACKS
+
+
+
+strat
+	- train a similar model to target model; similar output given similar input
+	- perform white box attack
+	- test against target model
+
+
+ensemble attack: an attack that works on a group of similar models
+
+
+
+
+
+######################################################
+PHYSICAL ML ATTACK
+
+
+
+-> challenges
+	- environment
+		= weather conditions, background of stop sign, birdshit
+	- perception
+		= small perturbations may not be picked up by camera
+	- fabrication
+		= printer may not print specified colour accurately for small perturbation
+
+
+targeted physical attack:
+	- think of all physical perturbations
+		= colour of stop sign
+		= different camera angle
+		= lighting conditions
+
+
+untargeted physical attack (universal)
+	- traditionally:
+		input is signal and pertubation is noise
+	- instead:
+		input is noise
+
+
+
+
+######################################################
+DEFENCE
+
+
+-> adversarial training
+	= include adversarial examples into training phase
+
+
+-> FINE-PRUNING
+= remove neurons that are not activated during infrence
+= attacker can pre-empt this by removing said neurons and then adding them back
+
+-> STRIP
+= basically perform training with the poisoned training data and clean training data to differentiate between the two
+= doesnt work with SSBA because SSBA is input dependent
+
+
+######################################################
+BACKDOOR ML ATTACK
+
+
+
+backdoor attack
+- model behaves normally on clean input
+- model outputs targeted response when trigger is present
+
+
+backdoor vs conventional adversarial attack
+= backdoor focuses on training stage while adv focuses on inference stage
+= backdoor is purposely inserted while adv are intrinsic
+= backdoor need trigger
+
+
+
+visible vs invisible backdoor attacks (sample specific backdoor attack [SSBA])
+= visible is sample-agnostic
+= invisible is specific to sample. input specfic
+= for invisible, every sample uses a different trigger
+
+
+clean label backdoor attack
+= most effective but hardest to implement
+= hard to detect because the poisoned training data does not output invalid labels
+= not sample specific
+
+
+
+
+
+
+
+
+________________________
+10. DEEPFAKE DETECTION
+________________________
+
+
+GAN: generative adversarial net
+- a generative model is pit against a discriminative model
+- very good at generating realistic images
+
+
+
+
+HOW TO DETECT
+- look for artifacts created by model
+- proactively insert watermarks into AI generated images
+- attacker still can look for watermarks and remove them
+
+
+

@@ -1,0 +1,675 @@
+AI cybersec notes
+
+
+dr zong
+wzong@uow.edu.au
+
+
+classification
+
+regression
+
+clustering - unsupervised leearning. identify anomalies
+
+
+
+
+purpose of one hot encoding - because sometimes you may have 1, 2 ,3 but they dont have intrinsic value. but when using 1 ,2 ,3 the model will interpret option 2 as lower than option 3. removes bias
+
+
+
+
+when minimising MSE (mean squared error), perform gradient descent for linear regression. dont go up X and go up Y individually. use temp values (? whats that mean)
+
+
+linear regression : predict values
+
+logistic regression : classify
+
+
+
+dont need to fully know all the maths equations... just need to be able to answer the questions in the lecture slides. Like why minimise MSE...
+
+
+when training classfication model, must consider the dataset. when theres big imbalance of features, then the model will be inaccurate
+
+
+
+ACCURACY = number of correct predicted data points / total number of data points
+
+
+PRECISION = true positive / true positive + false negative
+aka
+correctly predicted positives / any predicted positives
+
+good for when cost of false negative is high ie predict sick
+
+
+
+RECALL = true positive / true positive + false positive
+aka
+correctly predicted positives / all actual positive labels
+
+good for when cost of false positive is high ie predict healthy
+
+
+
+F1  = 2x    [ (precision x recall) / (precision + recall) ]
+
+good for when distribution is uneven
+
+gives equal weight to both precision and recall
+
+
+
+
+
+
+
+SPAM filtering
+
+bag of words limitations
+- need big bag
+- may lose the meaning after tokenisation
+- supervised learning ??
+
+
+TF-IDF supposed to surpass bag of words (term frequency - inverse document frequency)
+- how so?
+- a combination of TF process and IDF process
+- words that appear high frequency in one email, but low frequency among many other emails, will be deemed as spam. inverse is true too
+- unsupervised learning ??
+
+
+
+
+neural network = many layers of logistic regression
+
+
+
+what is activation?
+
+
+
+for loops slow down neural network thats why vectorisation is used instead
+
+
+
+
+
+computation graph
+-> must understand why use chain rule to find gradient
+
+
+types of anomalies
+
+1. global
+- anomaly deviates significantly from the rest of data set
+- NIDS, fraud detection
+
+
+2. contextual
+- anomaly deviates signficantly from the context
+- 
+
+
+3. collective
+- anomaly deviates from whole data set
+
+
+
+
+challenge of NIDS ML
+- lack of datatset. privacy concern when sharing network traffic
+
+
+
+guassian distribution aka normal distribution
+key perimeter
+- variance
+- mean
+
+
+
+READ UP SVM ===================================================================
+
+
+find a line the split between the red dots and blue dots. the line should be equal distance between the blue and red dot
+
+
+what does the middle line mean??????????????????????
+
+
+
+entropy = 1 means dataset very random
+entropy = 0 means dataset a lot of similar objects
+
+goal of decision tree is to have entropy lower, and find features with greatest information gain - WHY ?
+
+
+must find out which features are most useful - WHAT IS MOST USEFUL?
+
+
+
+NIDS may have imbalance dataset to train model because attacks may not be so frequent
+
+
+NSL-KDD dataset: popular dataset about network traffic used to test models
+
+
+
+
+
+when dataset is imbalanced, need to normalise and standardise
+- standardise until mean is 0 and std deviation is 1
+- normalise will scale the data to a smaller specified range. look at the min and max. makes the difference between all objects smaller but retain their positioning.
+
+this may not solve the problem. the model may still predict the label that has higher quantity
+thus next option is over sampling the low frequency label, or under sampling the label that has higher qty
+
+but this may spoil the dataset because the original meaning is lost
+
+so to solve this problem, 
+1. use random forest
+2. split the dataset into 2. majority and minority
+
+in turn, will have 1 model that can predict for majority and 1 model that can predict minority
+
+total 3 models. 1 to determine if is majority or minority, then 1 to determine if is majority, which one. then another 1 to determine if is minority, which one
+
+what are the limitation of having a wide dataset ? why must normalise ???????????
+
+
+
+
+chart data onto graph to gain insight. use PCA to perform this process
+
+can help to understand why certain misclassification occurs
+
+how to determine to use 2D or 3D visualisation?
+- test if the 3rd dimension provides any useful information
+
+
+
+adversarial ML
+
+targeted: fool a model to output incorrect predfined label
+untargeted: fool a model to output incorrect   label
+
+
+white box means you know the algo behind the model
+
+
+white box untargeted attack technique
+-> fast gradient signed method (FGSM)
+
+white box targeted attack technique
+-> projected gradient descent (PGD)
+
+
+
+
+black box attack strategy
+- train a similar model that has same output as target model
+- generate white box attacks
+- test against target model
+
+2 black box attack approach
+
+1. single approach 
+- generate black box attack using single model
+
+2. ensemble approach
+- generate black box attack using several models
+
+
+can hide AIML attacks in audio
+
+
+
+to protect against physical AIML attacks,
+include all permutations and tranformations into the training
+ie. recognising stop sign
+		-> use images of different angles
+		-> use image without the background, only take the stop sign exactly
+		-> different fonts
+
+Robust Physical Perturbation: variations of a certain model's training dataset
+-> protects against targeted attacks
+
+Universal Adversarial Perturbation: continuously train the model with varied data
+
+HOW TO CREATE UAP ATTACK ??????????????
+
+WHAT IS Unrestricted Adversarial ??????????????
+
+
+adversarial training: "fuzzing" the AIML model. problem is that it might lower accuracy of clean data
+
+
+Visible backdoor attack vs invisible ????????
+
+
+
+sample specific backdoor attack (SSBA) ??????
+
+
+
+clean label backdoor attack
+- only works for transfer learning: train a model on a complex task then train it on another task. It has pre-existing knowledge
+- what so special about it ?????????????????
+
+
+
+
+module backdoor attack: backdoor attack that doesnt equire modifying the model (search up?!!!!!!)
+see page 64 of no7 lecture slide
+
+
+Module Backdoor Attack - TrojanModel ?????????? read more
+->	different from perturbator attack because Pert attack use random noise in the attack while backdoor attack is defined "noise"
+
+
+defence against trojanModel attack
+->	fine-pruning
+	== remove neurons that are not activated
+	== does not signficantly affect performance of model
+
+
+PROBLEM: attacker can pre-empt this defence by removing neurons that are not activated and then adding them back later
+
+	== then the develop can take another step to pre-empt this and perform the same steps of removing unactivated neurons???
+	READ UP ?!!!!!!!???????????????
+
+
+
+another defence against trojan model attack
+->	STRIP
+== READ UP ?!!!!??????????????????????????
+== invisible backdoor attack with sample-specific trigger can beat STRIP. Why????????????
+
+
+many attacks exploit the assumptions that developers have when creating defences for their model
+
+
+
+
+
+Generative Adversarial Net
+1. team A create model, team B find out how team A does it, and team A lose
+2. team A discover how team B learn their model, then use that knowledge to create new model
+3. repeat
+
+GAN is good at taking one source, and modifying it. Ie change picture of horse ino zebra
+
+
+deepfake detection: most GANs have patterns that can be identified
+
+attackers can circumvent this by adding random modification to their photo
+
+
+
+developer can add watermarks to their source to protect
+attacker will struggle to remove watermark. why ??????!!!!
+
+
+
+
+=====================
+
+EXAM
+
+=====================
+
+6min per question
+
+
+for MCQ, better to leave blank if dont know
+as long as pick wrong option is 0
+
+
+
+must know whats the formula for
+
+accuracy
+recall
+precision
+F1
+
+
+do sample exam on moodle
+
+
+
+must explain what the maths equations mean
+
+
+
+whats the purpose of temp values WRT go diagonal up than up and right
+
+
+why sigmoid function 0.5 ???
+
+
+
+steps to train neural network
+
+
+MSE and cross entropy
+
+
+
+3 different kinds of anomalies
+
+
+
+
+==========================
+
+
+
+
+what questions an analyst may ask
+1. causation: how did attacker perform xxx
+2. consequence: what was the effects
+3. correlation: did anything happen at the same time
+4. summarisation:
+
+
+
+
+logistic regression uses sigmoid. not cosine function
+
+
+
+TRUE NEGATIVE
+= predicted:	negative
+= actual:		negative
+
+FALSE NEGATIVE
+= predicted:	negative
+= actual:		positive
+
+FALSE POSITIVE
+= predicted:	positive
+= actual:		negative
+
+TRUE POSITIVE
+= predicted:	positive
+= actual:		positive
+
+
+
+dot product returns a single number
+
+matrix multiplication returns another matrix
+
+both do the same multiplication technique but dot product is the some of all elements inside the returned matrix
+
+dot product must be 1d array x 1d array
+
+
+
+
+Machine learning techniques
+
+- classification (supervised)
+
+- regression (supervised)
+
+- clustering (unsupervised)
+
+
+
+classifcation vs regression
+- both used to predict a label based on features
+- classification used to predict a category ie. spam or not spam
+- regression used to predict a number ie. predict house price
+
+
+
+cost function: a function that measures how far off the predicted values are, from the actual values
+
+
+
+
+
+######################################################
+Gaussian distribution (aka normal distribution)
+- unsupervised statistical technique
+- does not strictly fall under the above ML categories
+- works best with dataset with low variance. aka "normal" dataset ideally clustered
+- outputs a probability number. needs a threshold to determine between the 2 classes
+
+
+
+standard deviation is the square root of variance
+
+variance: measure of how far each data point is from the mean of the data set
+
+	[(datapoint - mean)^2 + (datapoint - mean)^2 ] / no. of datapoints
+
+	->	take one datapoint, minus the mean. Then sqaure this number to make it positive. do this for each datapoint
+	->	divide the above number by the number of datapoints
+	->	if want to find std. d, square root 
+	(because if the datapoint is in metres, when squared become square metres, so square root to bring it back to metres)
+
+
+now with variance, can use the GD formula
+[ 1 / sqr(2pi x variance) ] x e[- (value-mean)^2 / 2x (variance)^2]
+
+this will output a probability number, given value. 
+so lets say given value = 25, value is probably real
+
+
+
+^ the above is all univariate gaussian distribution.
+- assumes the dataset has bell curve
+- 2D graph and deemed as single variable
+- independent variables
+
+there's 3D grpah type known as mulivariate gaussian distribution
+- instead of variance, use covariance
+- variables depend on each other
+- multi variable 
+
+
+
+######################################################
+BIAS
+
+
+- the bias or intercept allows you to better perform classification
+
+- its sort of a line that divides between the 2 classes
+
+
+
+
+
+
+######################################################
+Linear regression (supervised)
+- used to predict a label based on features
+- predicts a number (label)
+- cost function = mean squared error (something like error rate)
+
+
+single datapoint (x,y) where x= feature, y= label
+
+formula:
+predicted label = (the label when feature is 0)
+					+ [(change in label when feature + 1) x feature 1]
+					+ [(change in label when feature + 1) x feature 2]
+					+ ...
+
+
+
+- common method to improve a linear regression model is through gradient descent method
+
+	gradient descent
+	- start with arbitary features and test against the initial LR model
+	- minimise cost function
+		1. find gradient (uses partial derivative)
+			= find how much the cost function changes when features are tweaked slightly (this is the gradient)
+			= features with high gradient means they affect the model prediction more
+
+		2. move the coefficient the oopposite direction of the gradient
+			= 
+
+		3. repeat until cost function doesn't change much
+			= keep repeating until predicted values are very similar to actual values or when gradient is 0
+
+
+
+
+######################################################
+Logistic regression (supervised)
+- uses sigmoid function
+- predicts a probability
+- takes in numbers
+- outputs a probability between 0 and 1
+- binary classification
+- uses a  s-shaped curve
+- need to apply a threshold. usually 0.5
+- cost function = cross-entropy loss
+- activation function = sigmoid function
+
+- can be improved with gradient descent as well
+	- start with arbitary values
+	- repeat until convergence (aka repeat until gradient 0 or close to zero)
+
+
+logistic regression process
+	1. compute weighted sum (prepare features to be used with sigmoid function) (same formula as linear regression) [aka forward propogation]
+	2. use sigmoid function (outputs probability)	[steps 1 and 2 do not use labels yet]
+	3. find out cost (to check model performance. should be going down)
+	4. perform gradient descent to minimmise cost (adjust weights to be more accurate) [aka backwards propogation]
+		- start with arbitary values
+		- find gradient
+		- find new weights (weight is how much a feature affects the probability)
+	5. repeat from step 1 until gradient close to 0
+
+*is actually (linear regression formula) multiplied by sigmoid function, and then gradient descent also performed
+
+
+######################################################
+TOKENISATION
+
+-> taking full paragraph, remove useless words
+
+steps
+	1. transform all to lowercase
+	2. remove stop words
+	3. word count
+
+
+
+######################################################
+VECTORISATION
+
+- used in spam detection to prepare the emails to be used by ML models
+- first tokenise email. Means take out all useful words and "clean the dataset"
+- ML models work with numbers, not words, so need to convert the dataset of words into numbers
+
+vectorisation methods
+
+[stop words mean words with no meaning like "the", "that"]
+
+
+1. bag of words
+-> order of words is lost. May lose meaning and contexxt 
+-> term importance is lost. Means all words are assumed to be equally as important
+-? single word tokens are known as unigram
+
+	EXAMPLE
+
+	Free consultation available today
+	Free Viagra now available
+	
+	{"Free": 1, "consultation": 1, "available": 1, "today": 1}
+	{"Free": 1, "Viagra": 1, "now": 1, "available": 1}
+
+	-> the model would assume that "Free" and "viagra" have equal importance
+
+
+
+
+2. n-grams
+-> same as bag of words but use a few words as one token. known as bigram
+-> aims to preserve more context
+
+
+3. TF-IDF (term frequency, inverse document frequency) [actually usues bag of words too]
+-> uses a formula to determine how important is a word in a document, within a collection of documents
+-> higher score means the word is more unique among the collection of documents
+
+	factors:
+		- term frequency: 
+			count no. of times a word appears in a document, per word (count divided by total no. of words)
+		- inverse document frequency: 
+			compute importance of word based on total number of documents, and number of documents where the word appears. words like "the" may appear a lot of times, still, rare words would be scaled up
+
+
+
+
+######################################################
+NEURAL NETWORK
+
+
+-> actually a few logistic regression operations performed one after another
+-> uses a step function instead of sigmoid function, to output probability [these are known as activation functions]
+-> step functions outputs 0 or 1 only
+-> step function cannot perform gradient descent
+
+steps
+	same as logistic regression but loop from finding weighted sum
+
+
+
+
+
+
+######################################################
+ID3 decision tree
+
+- supervised learning
+- used for classification
+- outputs label only
+- must calculate entropy, conditional entropy, and information gain
+
+- entropy is a measure of how random a dataset is 
+- conditional entropy means how useful is a feature in predicting a label, given that the feature= xxx
+- higher conditional entropy means feature is useless
+
+steps:
+	1.
+
+
+
+
+
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+JUPYTER
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+
+when using .fit() to train a model, parameters need to be (n, n) shaped array. not (n, null) or (null, n)
+
+[ [42], [67] ]
+
+
+
+
+
+
+
+
+
+
+
+
