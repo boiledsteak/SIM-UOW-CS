@@ -43,7 +43,8 @@ Overall easy module. The lecturer, Mr Partham, is EXTREMELY dry. His lectures su
 
 ## CSIT375 - AI for cybersecurity
 I don't even know if I can call this an introduction to AI...
-One assignment, one quiz. But the "quiz" is more like an assignment. So I'll say 2 assignments essentially
+- One assignment, one quiz. But the "quiz" is more like an assignment. So I'll say 2 assignments essentially
+- manually calculate linear regression, logistic regression, ID3, SVM, gradient descent
 
 This module touches on very deep and complex concepts about AIML. Our lecturer Dr Wei Zong seems like the real deal. I think he studied in UOW and did a phd in AI or something. Interesting to see that he references his own work in the lecture slides. Whenever he brings up a new concept, he often expands on it until he says that it is out of scope of the module. He even knows some controversy within the AIML community that he included in it the lecture slides lol. I think he really is an expert in the AIML field.
 And with Dr Wei Zog's expertise, also means the content is very complex. Almost every lesson I couldn't catch what is going on. It got much better when we did the lab tutorials where we had to manually calculate things like linear regression, ID3, SVM, gaussian distribution etc... 
@@ -51,6 +52,7 @@ Interesting topics really, and he does explain the application of AIML in cybers
 
 ## CSCI369 - Ethical Hacking
 Light introduction and light hands-on on cybersecurity
-one assignmenmt, 3 open book quizes
-
+- one assignmenmt, 3 open book quizes
+- DVWA SQLi, dirbuster, nmap, hashcat, MSFvenom RCE
+  
 For context I took CEH and I felt it was a decent measure of baseline knowledge of cybersecurity. This entire course basically has 2 modules on cybersecurity. CSIT302 - Cybersecurity and this CSCI369 - Ethical Hacking. They are maybe 60% of what's covered in CEH. It's too light! However my tutor, Mr Zong Fu, is very good. He is one of the heads at Ensign. He always shares stories and links the things taught, to his real world consulting experience. I don't have much to talk about this module. Simple. It made me realise that this course is ultimately a computer science course primarily, with just a sprinkle of cybersecurity.
