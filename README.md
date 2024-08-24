@@ -39,3 +39,18 @@ Introduction to Cybersecurity. Doesn't go deep or practical
 woohoo only one assignment. Just research only
 
 Overall easy module. The lecturer, Mr Partham, is EXTREMELY dry. His lectures suck. On the other hand, my tutor Mr Lionel, is much better. Took a glance at his linkedin and he's much more accredited than Mr Partha. Mr Lionel has a lot of real world working experience and he always shares his stories with us. Nothing much to say lah it's a simple module. I think there's another related module touch on the practical side of all the theory covered in this module.
+
+
+## CSIT375 - AI for cybersecurity
+I don't even know if I can call this an introduction to AI...
+One assignment, one quiz. But the "quiz" is more like an assignment. So I'll say 2 assignments essentially
+
+This module touches on very deep and complex concepts about AIML. Our lecturer Dr Wei Zong seems like the real deal. I think he studied in UOW and did a phd in AI or something. Interesting to see that he references his own work in the lecture slides. Whenever he brings up a new concept, he often expands on it until he says that it is out of scope of the module. He even knows some controversy within the AIML community that he included in it the lecture slides lol. I think he really is an expert in the AIML field.
+And with Dr Wei Zog's expertise, also means the content is very complex. Almost every lesson I couldn't catch what is going on. It got much better when we did the lab tutorials where we had to manually calculate things like linear regression, ID3, SVM, gaussian distribution etc... 
+Interesting topics really, and he does explain the application of AIML in cybersecurity. My skeptic side is telling me that the course heads just wanted some form of AI being taught included in the course so they shoe horned this module. Actually we were supposed to take CSCI301 or something... an IoT module or something but all of a sudden I was notified that the module will change. I feel this is not right at all because the school is literally not complying with the terms of our PEI contract. We paid money for this agreed set of modules but they just changed it?? Whatever, I am so done with trying to talk to the course heads. They do not reply.
+
+## CSCI369 - Ethical Hacking
+Light introduction and light hands-on on cybersecurity
+one assignmenmt, 3 open book quizes
+
+For context I took CEH and I felt it was a decent measure of baseline knowledge of cybersecurity. This entire course basically has 2 modules on cybersecurity. CSIT302 - Cybersecurity and this CSCI369 - Ethical Hacking. They are maybe 60% of what's covered in CEH. It's too light! However my tutor, Mr Zong Fu, is very good. He is one of the heads at Ensign. He always shares stories and links the things taught, to his real world consulting experience. I don't have much to talk about this module. Simple. It made me realise that this course is ultimately a computer science course primarily, with just a sprinkle of cybersecurity.
