@@ -1,0 +1,658 @@
+ethical hacking notes
+
+tutor: chua zong fu
+
+
+
+domain generation algorithm (DGA) 
+- dynamically creates new domains to evade detection. Same as tor? how does ti register new domain so quickly?
+
+
+2 components of malware
+->	dropper: propogation mechanism
+		== ie. trojan, hidden virus in word.docx
+
+->	payload: actual code that performs attack
+		
+
+NSA spying tech revealed in 2013
+
+
+TEMPORA: joint project with GCHQ and NSA. taps into undersea fibre cables to steal data. >> GCHQ (government communications headquarters) [uk version of NSA]
+
+
+MUSCULAR: joint project with GCHQ and NSA. exploits the fact that large datacenters from comapnies like google and yahoo, dont have encrypted traffic within their internal network. taps into internal network with unencrypted traffic
+
+
+XKEYSCORE (XKS): search engine with database of information attained by NSA. Can access many private information such as emails and browser history
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+Australia Cybercrime Act 2001
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+categories of cybercrime
+
+- identity theft
+
+- theft of service
+
+- unauthorised access
+
+- transmitting illegal material
+
+- fraud: impersonation, lying
+
+- embezzlement: financial fraud
+
+- dumpster diving
+
+- writing malicious code
+
+- unauthorised alteration of data
+
+- cyber stalking and bullying
+
+- cyber terrorism
+
+- 
+
+
+
+purpose of red team
+- identify vulns
+- determine compliance
+- determine oganisation's security awareness
+
+
+risk mitigation plan (RMP)
+- options to improve organisation's security posture
+- contents include all actions taken during pen test, discoveries, recommendations
+
+
+
+pen test process
+1. identify objective and scope of job
+2. choose pen test process
+3. gain permission with contract
+4. perform pen test
+	== info gathering. no intrusive methods
+	== scanning. more intrusive
+	== exploit
+	== cover tracks
+	== maintain access. plant backdoor
+
+5. create RMP
+6. clean up any chnages made. return network to original state
+
+
+types of info to gain from OSINT
+
+technical info
+- ip addr
+- mac addr
+- open ports
+- OS version
+
+admin info
+- organisational structure
+- policies
+- vendor information
+- info on staff
+- physical info on organisation
+
+
+
+passive vs active attacks
+== passive have no indication of intrusion
+== active have indication
+
+
+
+
+DNS hiearchy
+1. root DNS server: 13 in the world
+2. top level domain server: maintains .com, .org, .net, .gov etc.
+3. authoritative DNS server: final holder of domain name and ip address. does not redirect to other tiers
+
+
+
+CNAME = canonical name
+
+
+
+types of records in DNS server
+
+- A record
+== maps domain name to ipv4 addr
+
+- AAAA record
+== maps domain name to ipv6 addr
+
+- CNAME record
+== maps alias domain name to real domain name
+== used for domain names that share same ip addr
+
+- MX record
+== maps domain name to an email address
+
+- TXT record
+== maps domain name to some information
+== used for security purposes
+
+- NS record (name space)
+== maps a DNS zone 
+
+
+...theres more but nvm
+
+DNS poisoning same concept as ARP poisoning
+
+subdomain takeover:
+- some subdomains hold a CNAME record (alias) that points to another website/domain
+- when the other website/domain is no longer maintained, the attacker can register the same domain name (buy it) and direct traffic to attacker's server
+
+
+DNS tunneling
+- attacker exfil data through DNS queries by placing the data itself inside the DNS query
+- this works because DNS queries are benign
+
+
+DNS flood attack
+- huge volume of DNS requests
+
+
+DNS amplification attack
+- exploit open resolving DNS servers that take any DNS request
+- attacker sends DNS query to open DNS server, with source IP as target IP
+- open DNS server will respond to target IP
+- response is larger than query
+- works well because open DNS server is legit
+- attacker sends small query but large traffic is sent to target
+
+
+
+NAT: conserves IP addr in LANs. maps several private IP addr into single public IP addr
+-> adds a layer of security since form outside, cant see what are the internal IP addr
+
+
+
+NSLOOKUP: tool used to query DNS information for a domain name
+-> find local dns and public dns
+
+nslookup -type=ns domain.com
+-> find the dns server that serves domain.com
+
+
+
+WHOIS: same ^
+
+
+subdomain: shop.timothy-mah.com
+
+
+
+
+traceroute: sends packets to a specified address and determines how many hops it takes. discovers the route from one node to another
+
+
+DMitry: OSINT tool included in kali. performs netcraft, whois, searches for subdomains, port scans
+
+
+
+
+shodan: discovers open webcams
+
+
+__________________
+OSI model (Open Systems Interconnection)
+
+legacy model of how data is transmitted over the internet. replaced by TCP/IP model
+
+__________________
+
+higher number means closer to recipient
+
+7. application
+
+6. presentation
+
+5. session
+
+4. transport
+
+3. network
+
+2. data link
+
+1. physical
+
+
+__________________
+
+TCP/IP model
+
+__________________
+
+
+4. application
+
+3. transport
+
+2. network
+
+1. network access
+
+
+
+
+CIDR (classless inter domain routing)
+specifies a range of ip addresses
+
+ie.
+
+192.168.1.1/24 means 192.168.1.1 to 192.168.1.254
+
+subnet mask: 255.255.255.0
+
+
+
+192.168.1.1/16
+
+subnet mask: 255.255.0.0
+
+
+
+192.168.1.1/8 means 
+
+subnet mask: 255.0.0.0
+
+
+
+
+ICMP (Internet Control Message Protocol):
+- component within an IP packet thats used for error reporting and diagnostics. used by ping and traceroute
+- ICMP scan means ping
+
+
+
+purpose of scanning
+- discover open ports
+- discover live addresses
+- discover vulnerabilities of nodes in network
+- discover device type, version number, of nodes in network
+
+
+
+types of nmap scan
+-
+-
+
+
+
+nmap states
+- open:
+
+- closed: 
+
+- filtered:
+
+- unfiltered: 
+
+- open | filtered:
+
+- 
+
+
+ARP: map mac address to ip addr
+
+ARP table stores cached addresses. ARP request will check cache before broadcasting
+
+ARP operates at data link layer (layer 2)
+
+ARP process
+-> ARP requests are sent to broadcast address then to all nodes in the network by the switch
+-> when one node can reply the ARP request, the switch will relay the message from the node, to the original ARP requester
+
+
+
+NetDiscover
+- network recon tool to discover active hosts on a network
+
+active mode: probe network with ARP requests to discover live nodes
+passive mode: listens for ARP packets to determine live nodes
+
+- can scan a range or a subnet
+
+default gateway: the node between LAN and internet
+
+
+ARP spoofing/ poisoning
+- exploit the fact that ARP replies are unauthenticated
+- MITM attack where attacker node spoofs to be default gateway, and takes packets from normal nodes
+- at the same time, gateway gives attacker packets meant for normal nodes because attacker node replied ARP request from default gateway
+
+bettercap: ARP poisoning tool in kali
+
+protection against ARP poisoning: packet filtering firewall that also detects duplicate IP addr
+
+
+
+TLS: transport layer security
+
+
+SSL strip
+- MITM web attack
+1. when user tries to access website, attacker sends HTTP data to the website instead
+2. the website returns HTTP data as well
+3. attacker takes HTTP data and returns to user
+4. now user will communicate with HTTP and attacker can steal information
+
+protection: force websites to use HTTPS only. force browser to use HTTPS only
+
+
+
+password cracking; dictionary attack
+- crack pw with list of common words
+
+password cracking; rainbow table
+- crack pw with list of precomputed hashes of common passwords
+
+
+benefit of unqiue salts in passwords
+- unique pw even if plaintext is same
+- mitigate rainbow table
+- increase pw complexity
+
+
+
+insecure hashes
+- md5
+- sha1
+- DES
+- RC4
+
+
+Hydra: automatic network pw cracking tool
+-> enables brute force SSH, HTTPS, FTP etc.. 
+-> takes pw from a list (dictionary attack)
+
+john the ripper: auto offline pw cracking tool
+-> 	brute force crack OS hashes, password protected files etc..
+
+
+
+factors of good password
+- length
+- complexity
+- unpredictability
+
+
+
+
+entropy -> how much randomness
+
+
+
+drawbacks of password managers
+- accessbility
+- if lose master key.. honggan
+
+
+
+3 categories of vulns
+	1. design vulns: hardest to fix
+
+	2. implementation vulns
+
+	3. operational vulns: improper deployment
+
+
+
+purpose of CVE:
+	- standardise vuln reports
+	- quick and easy lookup
+
+
+
+CVE exposure: the vulnerable code or misconfig
+
+
+
+server side attacks
+- DOS
+- SQL injection
+- buffer overflow
+
+client side attacks
+- trojan
+- keylogger
+
+
+
+bindshell
+- attacker connects to victim
+- usually stems from server side attack
+
+reverse shell
+- victim connects to attacker
+- usually stems from client side attack
+
+
+
+netcat: 
+- originally legit tool for basic port scanning
+- to troubleshoot servers in a network
+- create remote shell
+
+
+reflected XSS: works once only. client side only
+
+stored XSS: server side. works for other users
+
+OWASP zap: scan websites
+
+
+
+network adapter modes:
+
+1. Ad-hoc mode
+	- peer to peer connection
+	- device talk to each other without AP
+
+2. infra mode
+	- use AP
+	- server client infrastructure
+
+3. capture mode
+	- capture all traffic regardless if packet was meant for the adapter
+	- packet sniffing
+
+
+
+wifi authentication modes
+
+WEP
+- weakest encryption
+
+WPA/WPA2
+- Pairwise Master Key system: both sides create the key together
+- four way handshake
+	= ANonce
+		->	AP send first msg to client. msg includes the ANonce
+
+	= SNonce and MIC
+
+	= GTK and MIC
+
+	= confirmation
+
+- this can be exploited
+	==> attacker performs MITM to capture WPA traffic. it is encrypted
+	==> within WPA packets, contains a MIC. MIC is a combination of the hashed password + nonce
+	==> attacker can peform rainbow attack to brute force. if the right hash is used, it will output the same MIC values captured
+
+aireplay-ng: tool to perform WPA cracking
+
+
+
+
+key reinstallation attack: KRACK
+- msg3 of the WPA  way handshake can be intercepted and sent to server
+- server accepts this "replayed" packet thinking it is due to packet loss
+- when server takes this "replayed" packet, it reuses nonce
+- reusing nonce means attacker can decrypt packets
+- works with any cipher used by WPA. works with any password
+
+
+
+
+VPN uses IPSec
+
+DNS encryption
+- DNS over HTTPS by google
+- OpenDNS by cisco
+
+
+APT 
+- high expertise
+- significant resources
+- establish foothold in organisation
+- exfiltrate info
+- DOS
+- specific target
+- organised
+- operations span long period
+- stealthy, adaptive approach
+
+	APT phases
+	1. recon
+	2. delivery
+	3. initial intrusion
+	4. command and control
+	5. lateal movement
+	6. exfil
+
+
+
+
+ransomware usually use both symmetric and asymmetric encryption. hybrid encryption
+- encrypt data with symmetric
+- encrypt symmetric key with asymmetric 
+
+
+
+
+
+
+
+how to tell if ARP spoof has occured? when multiple IP addrress mapped to same MAC adress
+
+
+%%%%%%%%%%%%%%%%%%
+arspoofing 
+
+
+arpspoof -i eth1 -t <gateway> <victim>
+
+arpspoof -i eth1 -t <victim> <gateway> 
+
+^ take all traffic coming from gateway to victim
+
+^ take all traffic coming from victim to gateway
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=============================================
+
+quiz 1
+
+
+calculate netmask
+
+prepare netmask calc: https://subnet.im/
+
+
+for scapy, if stacking packet, must put IP first then TCP. not other way around
+
+packet.show()
+
+DNS uses UDP
+
+but DNS zone transfer uses TCP
+
+
+
+=============================================
+
+quiz 2
+
+
+how to compute info entropy for pw
+
+how to compute info entropy given pw length
+
+arp occured or not? from arp output and wireshark pcap
+
+ssl stripping. must be MITM
+
+christmas scan use what flags? find hex values
+
+dns flood vs amplification
+
+is ufw one or two way?
+
+fin vs rst
+
+
+
+
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+EXAM
+
+
+different firewall replies
+
+Open: The port is open and a service is listening.
+
+Closed: The port is closed and no service is listening.
+
+Filtered: The port is potentially being blocked by a firewall or filtering device.
+
+Unfiltered: The port is accessible, but its state cannot be determined.
+
+Open|Filtered: Nmap cannot determine whether the port is open or filtered.
+
+Closed|Filtered: Nmap cannot determine whether the port is closed or filtered.
+
+
+//TODO FIND OUT EXAMPLES OF WHAT SCAN WOULD RETURN THESE RESPONSES
+
+
+need to know regex for ipv4 , ipv6, phone number
+
+
+
+must know what fin scan, syn scan, XMAS scan, all kind scans can give what response
+
+readup ssl strip
+
+what ports are needed for cert auth
