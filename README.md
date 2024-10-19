@@ -63,4 +63,4 @@ My tutor, Mr Zong Fu, is very good. He is one of the heads at Ensign. He always 
 
 
 ## CSCI262 - Systems Security
-Things that need to be deep are light, and things that can be light, are deep zz.
+Things that need to be deep are light, and things that can be light, are deep zz. Learnt a few things, but for the most part is like abstract "cybersecurity" theory that doesn't tie back to latest tools. Maybe a good mod for people who are completely new to cybersecurity
