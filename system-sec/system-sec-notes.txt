@@ -1,0 +1,539 @@
+system sec notes
+
+
+ass3 is group
+
+
+
+
+
+Confidentiality		encryption
+Integrity			hash
+Availability		uptime
+Authenticity		IAM
+Accountabiliy		audit trail
+
+
+
+goal of cybersec
+prevent
+detect
+recover
+
+
+logging vs auditing
+- logging is a list of records or actions performed by the system. it could be for performance or security oriented
+- auditing usually for security, to comply to certain policies. can review logs as part of auditing
+
+
+
+
+3 types of auth
+- password based
+- token based
+- biometric
+
+
+SQL rand:
+	WHERE pw = 1 OR 1=1
+
+
+
+false acceptance rate
+false rejection rate
+
+need to have FAR and FRR for passwords to improve UX
+
+if 0, then poor UX
+
+
+password entropy = log(number of possible symbols)^(length of password)
+
+
+
+hash properties
+- one way
+- fixed length output
+- collision resistant (2 inputs will never create same output)
+
+
+purpose of salting
+- allow 2  user to have same pw
+- increase entropy
+- protect against dictionary attack
+- protect against brute force
+- make pw hash more collision resistant
+
+
+
+slow down pw authentication process to make brute force harder
+makes UX worse but security better
+
+
+/etc/passwd
+	- stores info about user
+/etc/shadow
+	- store actual password hash
+
+this slows downs attacker because attacker must get user ID from one location, and password from another location
+
+
+
+
+rainbow attack vs dictionary attack
+- rainbow is hash
+- dictionary is plaintext
+
+
+reduction function: encodes a hash into characters that the app allows ie hash output is numbers but password must be in letters so reductionn functions encodes the hash to letters only
+
+
+OTP: 
+more resistant to eavesdropping
+but more cost to set up
+
+
+what feature of hashing enables the security of OTP?
+- collision resistant
+
+
+Lamport OTP algo:
+When A talk to B, validate each reply
+The password changes at every reply
+A and B must agree to the OTP algo
+
+example>>>
+
+Both agree that OTP is always -2 of previous
+A:"Hello" pw:"20"
+B:"Hey there" pw:"50"
+
+A:"how are you" pw:"18"
+B:"good" pw:"48"
+
+A:"whats for dinner?" pw:"16"
+B:"pork" pw:"46"
+
+
+
+
+
+Discretionary Access Control (DAC)
+- owner of folder can decide who gets permissions to sub folders and files
+- used in Windows and linux chmod
+- less secure than MAC
+- users can allow running .exe
+
+
+Mandatory Access Control (MAC)
+- admin decides file permissions
+- used in SELinux security policy
+- more secure than DAC
+- only admin can allow running .exe
+
+
+
+Access Control Matrix (ACM) holds multiple Access Control Lists (ACL)
+
+ACM map permissions of subject to object
+ACL map permissions of object to subject
+
+ACM is windows user allow read write execute
+ACL is the chmod 777 listing rwxrwx
+
+
+
+Multilevel Access Control
+
+Top secret
+secret
+confidential
+unclassified
+
+
+Man in Top secret can access:
+Top secret
+secret
+confidential
+unclassified
+
+
+Man in Confidential can access:
+confidential
+unclassified
+
+
+
+basically trickle down permissions. No zero trust
+
+
+
+RBAC vs ABAC
+- ABAC is more granular but requires technical overhead of management
+
+
+
+
+
+__________________________________
+SECURITY MODELS
+
+- BLP
+- Biba
+- Clark-Wilson
+- Lipner
+- Chinese wall
+
+
+-------------
+BLP model: no read up, no write down
+> focused on confidentiality
+> considered a MAC model since system determine permissions and not user
+> prone to trojan attacks because the system doesn't address file integrity
+> tranquility principle: user cannot downgrade his own security tier to write in a lower sec tier
+
+Top secret
+secret
+confidential
+unclassified
+
+man in confidential can read in unclassified, but cnnot write in unclassified
+
+
+-------------
+Biba model: no read down, no write up
+> focused on integrity
+> considered a MAC model since system determine permissions and not user
+
+
+
+-------------
+Clark-Weilson
+> focused on integrity
+
+
+-------------
+Lipner: no read up, no write down [confidentiality], no write up, no read down [integrity]
+> focused on confidentiality and integrity
+> considered a MAC model since system determine permissions and not user
+
+
+
+-------------
+Chinese wall (go see picture)
+> focused on confidentiality and integrity
+> addresses COI
+> ie
+	all food company places in set 1, all health commpany placed in set 2
+	if Alice access set1, coy1, then cannot see the others within the set
+
+
+
+
+
+Statistical Database: a DB that doesn't hold actual data but rather stats such as average, sum etc
+-> obfuscates the actual data while still allowing some inference about the data
+-> actual data may be revealed using crafted queries to derive an inference
+-- ie. 
+		I want to find Alice address
+		Stats DB doesnt allow showing ALice address
+		but Stats DB says there is 1 25yo girl living at kovan
+		so from this can infer that Alice lives at Kovan
+
+		this is known as inference attack
+
+
+Tracker attack: assign algebra calculation on inferences to derive actual data
+
+
+possible protections
+	- alter database structure, create VIEWs
+		= might still be prone to clever queries
+	- limit queries
+		= poor availability
+	- limit query result size
+		= might still derive inference even with smaller data
+	- data perturbation. Modify actual data so inferences are inaccurate but statistics are accurate
+		= (best one)
+		= data swapping: change 25yo John to 50yo. change 50yo kong to 25yo. Maintains average but loss of meaning. loss of integrity
+
+
+
+__________________________________
+MALWARE
+
+
+virus: infect other exe
+
+virus lifetime:
+	dormant: await trigger
+	propogation: copies itself to other parts of pc
+	triggering: activated
+	execution: performing action
+
+
+Worm: virus that spreads to whole network. self propogating. does not need host
+
+
+rabbit/bacteria: hog up system resources locally to DOS
+
+
+
+protection against malware:
+- limit file's permissions to least privilege
+- limit information distance using access controls
+
+
+
+2 way to identify virus
+- signature: hash
+	= weak because virus polymorphic
+	= weak cuz can change hash easily
+- behaviour: open ports, files created, registries accessed
+
+
+
+Digital Immune System:
+1. admin monitors all PC using behviour based scanning. Virus detected and sent to admin pc
+2. at admin pc, encrypt virus and send to analysis pc
+3. analysis pc runs analysis and suggests fix
+4. fix sent back to admin pc
+5. fix sent to victim pc
+6. fix sent to all users
+7. fix sent to antivirus patch globally
+
+
+
+Manipultion Detection Code: code that stores original hash signature of file. Will monitor if file changes its hash signature
+
+
+sandboxing: put malware in virtual OS and give it minimal permissions
+
+
+
+
+__________________________________
+DOS
+
+DOS got 2 types
+- with bugs
+	= cause system to crash using bug
+- with no bugs
+	= cause system to crash with brute force
+
+
+DNS amplication attack: send small amount of data to return big ammount to victim
+
+DNS flood attack: flood DNS requests since DNS not authenticated
+
+reflection attack: same as amplification but small data return to victim
+
+
+
+DDoS protection
+- captcha
+- detection, reaction, close ports
+- block malicious address
+- drop half open connections (unfinished TCP handshake)
+	= SYN cookies
+		- for any unfinished TCP connection, instead of waiting for reply, store information about connection and reply when ready instead of hogging resources to wait for reply
+		- not perfect because even though SYN cookies use less resources, still can be spam -ed to kena DOS
+- puzzles (authentication)
+	= Puzzle / sub puzzle process
+		1. client takes server secret + service parameter to form unique string
+		2. hash the string
+		3. a random part of the string + the hash output is the sub puzzle
+		4. goal of sub puzzle is to find the other parts of the string
+		5. when other part is found, and original string is found, hash again
+		6. if this hash output matches the original hash output, then sub puzzle solved
+
+	==> mitigates against bots
+	==> puzzle should be stateless 
+
+
+
+
+
+__________________________________
+IDS
+
+
+types of attackers
+- ppl that avoid detection
+- ppl that spoof identity
+- legit users who misuse permissions
+
+
+data aging: ensure that newer statistics/ data is recognised as more relevant than older
+
+
+
+architecture components of IDS
+- agents: collect data from endpoint
+- director: collect data from all agents and perform analysis
+- notifier: create alert using data from director
+
+*why split components?
+	= decouple components for better performance. microservice architecture
+
+
+SPAN (switched port analyser)
+- copies traffic coming from a specified port, to go to another monitoring port
+- allows analysis of traffic without disrupting actual traffic flow
+
+
+TAP (test access point)
+- physical device proxy between 2 nodes
+- monitor traffic between the nodes
+- can capture more data with no packet loss, as compared to SPAN
+
+
+
+DIDS (distributed IDS)
+- HIDS + NIDS tgt
+
+
+
+
+__________________________________
+FIREWALLS
+
+
+types of firewalls
+- (stateless) packet filtering fw
+	= dynamic
+		-- rules change depending on traffic
+	= static
+		-- fixed rules
+	= all packets are inspected as individuals
+
+- stateful packet inspection fw
+	= packets are inspected with context of connection
+	= context allows better detection of malicious nuances
+- application level gateway fw
+	= works on application layer
+	= higher security due to content inspection
+
+- circuit level gateway fw
+	= works on transport layer
+
+
+
+
+firewall architecture
+
+- single-homed bastion host
+	= application gateway
+	= ???? idgi ask for help
+	
+
+- dual-homed bastion host
+	= 1 firewall
+	= internal lan <-> [FW] <-> internet
+
+- screened-subnet firewall system with dmz
+	= 2 firewalls
+	= internal LAN <-> [FW] <-> (DMZ: nodes that face internet ie mail) <-> [FW] <-> internet
+
+
+
+
+
+can fw handle encrypted data?
+
+
+
+
+
+
+__________________________________
+BUFFER OVERFLOW
+
+
+unsafe c functions
+
+
+strcopy
+- copies a string from source to dest but doesn't validate both sides' length
+- strncopy safer
+
+
+sprintf
+- doesn't validate size of source and dest too
+- snprintf safer
+
+
+scanf
+- doesn't validate source and dest size
+
+
+
+strtok
+- same reason
+
+
+canary guard: protect against buffer overflow by pre-allocating memory space and check if a variables fits into this memory space
+
+
+fuzzing: testing all input with random unexpected values
+
+
+shellcode: malware that makes use of buffer overflow to open a shell, usually making use of the trusted application's privileges
+
+
+
+
+__________________________________
+SCA - SIDE CHANNEL ATTACKS
+
+
+
+attacker observes indirect data from a system and exploits it
+
+RSA SCA exploit: attacker can observe the the time taken to decrypt a 1 bit and a 0 bit in a private key to determine if the first bit of the private key is 1 or 0. then repeat for the entire key
+
+a bit like lock picking
+
+
+how to defend against RSA SCA explit:
+- make dont make operations depend on input 
+
+
+
+SPA: simple power analysis
+	= SCA but observe power
+
+how to defend RSA SPA exploit:
+	= limit operations with variable power. set power consumption fixed
+
+
+DPA: differential power analysis
+	= SPA but use statistics over a large dataset of SPA to oberserve small nuances
+
+how to defend:
+	= add noise
+
+
+EMA: electro magnetic analysis
+	
+how to defend
+	= develop system such that there's no corelation with EM (actually this answer is same for all)
+
+
+Fault analysis: observe errors
+
+how to defend
+	= remove error message
+
+
+
+
+
+__________________________________
+CLOUD SECURITY
+
+
+differs for 
+SaaS - shopify
+PaaS - cloudflare pages
+IaaS - EC2
