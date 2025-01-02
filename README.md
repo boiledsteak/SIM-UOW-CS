@@ -6,6 +6,10 @@ SIM UOW computer science cybersecurity + digital systems security
 
 Sem break during last 3 weeks of 3rd month. So essentially is 2 months for 2 mods
 
+Overall an okay course. Disappointed by admin, organisation, planning, resources, ambiguous assignments, unreasonable exams. But I wouldn't say I regret. I genuinely learned new things and I would like to believe there's some value to having this degree under my belt, even if it is not as prestigious. There aren't many other options for cybersecurity degrees in Singapore, and this course is the fastest. Perhaps my expectations are unrealistic. I am comparing heavily with my previous course in SP DISM.
+
+I am writing this repo to consolidate what I've learnt each sem, and also give advice to whoever takes this course. I guess for most of us, the goal of this course is to increase our chances of landing a higher pay job, or any job at all, within the cybersecurity industry. As of writing, I am still in the midst of studying this course so I will update when this degree has realised my investment
+
 
 
 ## CSCI251 : Advanced programming
