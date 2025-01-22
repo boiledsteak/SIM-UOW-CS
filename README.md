@@ -73,4 +73,7 @@ Things that need to be deep are light, and things that can be light, are deep zz
 For example, assignment 3 requires a group to DEVELOP a MOCK IDS type CLI application to show understanding of how IDS works. It doesn't even touch on collecting system metrics and observability. I think it's a good assignment to show cybersecurity concept understanding BUT a big portion of this assignment relies on programming understanding. Yes of course we can use chatgpt but it still requires refining and debugging. So why is so much emphasis placed on DEV when this is a cybersec mod??? Why not give an assignment to set up prometheus in a VM and display metrics on grafana ? Probably because this module is old and recycled since 10 years ago and universities don't really put in effort to teach latest tools...
 
 ## CSCI361 - Cryptography and secure applications
-Wow first time I am so impressed by my lecturer. Mr Willy really is a big deal in the cryptology field. He keeps it real without yapping crap. Big brain mod
+Wow first time I am so impressed by my lecturer. Mr Willy really is a big deal in the cryptology field. He keeps it real without yapping crap. Big brain mod. Oh I just found out he's the head of school
+
+## CSCI368 - Network Security
+lousy mod because it overlaps so much with the ethical hacking mod. I think this mod was designed for the other compsci students who don't study cybersecurity. If so, this mod is kinda redundant for compsci cybersec students. Easy and dry mod
