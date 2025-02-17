@@ -75,5 +75,7 @@ For example, assignment 3 requires a group to DEVELOP a MOCK IDS type CLI applic
 ## CSCI361 - Cryptography and secure applications
 Wow first time I am so impressed by my lecturer. Mr Willy really is a big deal in the cryptology field. He keeps it real without yapping crap. Big brain mod. Oh I just found out he's the head of school
 
+I dropped this mod because it's too hard
+
 ## CSCI368 - Network Security
 very very dry mod... quite content heavy too, on networking details... but assignments and exam have been revised to be easier compared to past years. Good to learn networking at a deeper level but its just so dry...
