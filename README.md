@@ -79,3 +79,8 @@ I dropped this mod because it's too hard
 
 ## CSCI368 - Network Security
 very very dry mod... quite content heavy too, on networking details... but assignments and exam have been revised to be easier compared to past years. Good to learn networking at a deeper level but its just so dry...
+
+Teacher is good. Lenient exam marking.
+
+## MGNT110 - Intro to Management
+kinda feels like a leadership course. The topics covered are relevant and valid but the teacher is quite condescending... He thinks he's a big deal and better than everyone else. Perhaps this is a needed trait for a business owner. Actually an easy mod because no exams. Only 4 assignments. 4 essays to write.
