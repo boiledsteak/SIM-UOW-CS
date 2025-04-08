@@ -84,3 +84,17 @@ Teacher is good. Lenient exam marking.
 
 ## MGNT110 - Intro to Management
 kinda feels like a leadership course. The topics covered are relevant and valid but the teacher is quite condescending... He thinks he's a big deal and better than everyone else. Perhaps this is a needed trait for a business owner. Actually an easy mod because no exams. Only 4 assignments. 4 essays to write.
+
+## CSIT321 - Software development methodology (mini fyp)
+I disagree with the syllabus. We're being taught to design wireframe, sequence diagram, BCE diagram, etc  to design and plan for a web application. But I disagree that all these planning should be so detailed. There will always be changes in development so there is no point being so detailed during planning. 
+
+We're being taught to have these in the sequence diagram during the planning phase:
+```
+user login with login(string username, string pw) , and if login pass, return (boolean b)
+```
+to me this is unnecessarily detailed. For sure durving development there will be changes. Maybe its not a boolean return type, maybe its a token? Could be so many things so instead of being so detailed, I feel it's better to be more broad such as:
+```
+user login with username and password , and if login pass user receives proof of authorised identity, and proof of authorised role
+```
+Feels like what we're being taught was created by a project manager instead of a developer. The syllabus is not designed for efficient dev. It's for management to look like they know better than developers
+
