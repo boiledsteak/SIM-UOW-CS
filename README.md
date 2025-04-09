@@ -98,3 +98,4 @@ user login with username and password , and if login pass user receives proof of
 ```
 Feels like what we're being taught was created by a project manager instead of a developer. The syllabus is not designed for efficient dev. It's for management to look like they know better than developers
 
+another thing I'm unhappy with - the standards for use case disgram, BCE diagram, these are not clearly define anywhere. The teacher scribbles on his ipad on shows it in class. There are not notes that standardises the format. We're given some past examples to reference but they are inconsistent as well. So how to do exam? Anyhow do and if teacher don't like you then mark you down??
