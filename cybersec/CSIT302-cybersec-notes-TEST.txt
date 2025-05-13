@@ -1,0 +1,73 @@
+1. what are the cybersec goals
+
+2. what is shadow IT
+
+3. what are the red and blue team metrics
+
+4. what are the NIST IR phases
+
+5. what are the BYOD issues
+
+6. what are the 6 levers of social engineering
+
+7. what is broken auth
+
+8. what is the red team strat
+
+9. policy vs standard
+
+10. what are the parts of policy
+
+11. what is MAC attack
+
+12. what is DHCP snooping
+
+13. ARP spoofing
+
+14. traditional vs new defender
+
+15. what is IOC
+
+16. what is IDS
+
+17. what is IPS
+
+18. benefits of UEBA
+
+19. benefits of VLAN
+
+20. what does defence in depth mean
+
+21. purpose of CTI
+
+22. what are the types of CTI
+
+23. benefits of DRP
+
+24. what's the DRP planning process
+
+25. DRP vs BCP
+
+26. what is BIA
+
+27. what are the phases of vuln management? ellaborate on acceptable risks and "report and remediation tracking"
+
+28. what are the GDPR principles? briefly describe
+
+29. what are the GDPR indv rights? briefly describe
+
+30. when does GDPR apply?
+
+31. what is double extortion?
+
+32. what is one requirement of GDPR
+
+33. what would allow an org to not kena GDPR fine
+
+34. benefits of ISO27001 compliance
+
+35. reasons not to comply with ISO27001?
+
+36. how does ISO27001 work?
+
+37. what is the NIST cybersecurity framework? which is harder and easy?
