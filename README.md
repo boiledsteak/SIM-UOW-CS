@@ -86,7 +86,16 @@ Teacher is good. Lenient exam marking.
 kinda feels like a leadership course. The topics covered are relevant and valid but the teacher is quite condescending... He thinks he's a big deal and better than everyone else. Perhaps this is a needed trait for a business owner. Actually an easy mod because no exams. Only 4 assignments. 4 essays to write.
 
 ## CSIT321 - Software development methodology (mini fyp)
-I disagree with the syllabus. We're being taught to design wireframe, sequence diagram, BCE diagram, etc  to design and plan for a web application. But I disagree that all these planning should be so detailed. There will always be changes in development so there is no point being so detailed during planning. 
+Overall a difficult mod, not because it is complex, but because there's a lot of things to do.
+- one main assignment/ project
+- one open book class test
+- one exam
+
+very important that you find good team mates. You can pick
+
+I personally am quite well versed at web dev. However my team mates were all not. This is because the course, from year 1 to year 3, does not teach proper web dev. Maybe simple HTML only. And then all of a sudden there's this year 3 module that requires a web app to be built within 1.5 months. I think this mod should remove the web dev portion, and focus solely on the planning and documentation
+
+I disagree with the syllabus. We're being taught to design wireframe, sequence diagram, BCE diagram, etc to design and plan for a web application. But I disagree that all these planning should be so detailed. There will always be changes in development so there is no point being so detailed during planning. 
 
 We're being taught to have these in the sequence diagram during the planning phase:
 ```
@@ -98,4 +107,4 @@ user login with username and password , and if login pass user receives proof of
 ```
 Feels like what we're being taught was created by a project manager instead of a developer. The syllabus is not designed for efficient dev. It's for management to look like they know better than developers
 
-another thing I'm unhappy with - the standards for use case disgram, BCE diagram, these are not clearly define anywhere. The teacher scribbles on his ipad on shows it in class. There are not notes that standardises the format. We're given some past examples to reference but they are inconsistent as well. So how to do exam? Anyhow do and if teacher don't like you then mark you down??
+another thing I'm unhappy with - the standards for use case disgram, BCE diagram, these are not clearly defined anywhere. The teacher scribbles on his ipad on shows it in class. There are not notes that standardises the format. We're given some past examples to reference but they are inconsistent as well. So how to do exam? Anyhow do and if teacher don't like you then mark you down??
