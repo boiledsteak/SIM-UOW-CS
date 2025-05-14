@@ -1,0 +1,104 @@
+Exam Format Overview
+
+You will receive a case study that serves as the basis for answering 8 questions. Please note that there will be no multiple-choice questions (MCQs) in this exam. The questions will require written responses, diagrams, or other structured answers. Make sure to review all relevant concepts and practice applying them to case-based scenarios.
+
+ 
+
+Review Points and Key Areas
+
+1. User Story and Use Case Diagram
+
+Core Concepts:
+
+User Story: Understand a user story and how to describe a feature from the user’s perspective using simple sentences.
+
+Use Case Diagram: Be familiar with the components of a UML use case diagram, including actors, use cases, and relationships (e.g., association, generalization).
+
+Preparation Tips:
+
+Identify the system's different user types and prepare at least two potential use cases for each user role.
+
+Practice extracting user types and related use cases from textual descriptions.
+
+2. B-C-E Methodology and Class Diagram
+
+B-C-E Analysis:
+
+Understand the concepts of Boundary (interface), Control, and Entity classes and their roles in software design.
+
+Know how to assign responsibilities and relationships among these types of objects.
+
+Class Diagram:
+
+Learn the essential elements of a UML class diagram: class name, attributes, methods, and the relationships between classes (e.g., association, inheritance, aggregation).
+
+Practice constructing class diagrams based on project descriptions.
+
+3. Sequence Diagram
+
+Key Concepts:
+
+Structure of a UML sequence diagram, including participants, message flows, and timelines.
+
+Understand how to derive interaction steps from scenarios and depict message flows.
+
+Practice:
+
+Design a sequence diagram for a typical task performed by an “admin” user, focusing on the interaction between key entities.
+
+4. TDD (Test-Driven Development)
+
+Study Focus:
+
+TDD Core Process: Write test cases → Implement code → Refactor.
+
+Learn to design comprehensive test cases for a feature, including both positive and negative test scenarios.
+
+Practice writing test cases using pseudocode or a programming language.
+
+Practice:
+
+Choose a simple user function and outline the specific steps for applying TDD, including creating test cases.
+
+5. DevOps
+
+Key Topics:
+
+Understand the main steps in the DevOps lifecycle (Plan, Develop, Build, Test, Release, Deploy, Operate, Monitor).
+
+Be familiar with DevOps tools and practices (e.g., CI/CD pipelines, automated testing).
+
+Explain how DevOps improves team collaboration and accelerates the development cycle.
+
+Suggestions:
+
+Think about how DevOps can optimize workflows and enhance team productivity in a project setting.
+
+6. RUP (Rational Unified Process)
+
+Key Areas:
+
+Understand the four RUP phases: Inception, Elaboration, Construction, and Transition.
+
+Objectives, activities, deliverables, and milestones of each phase.
+
+Practice:
+
+Assign team tasks to different RUP phases and describe the expected outcomes at each stage.
+
+7. Comparison of Development Models: Waterfall, Scrum, Kanban
+
+Key Points:
+
+Waterfall: Sequential and linear process.
+
+Scrum: Iterative development with teamwork and sprints.
+
+Kanban: Visualization and continuous improvement.
+
+Thought Process:
+
+Based on the team’s characteristics and project needs, choose the most suitable method and provide justification.
+
+Propose practical implementation strategies, such as team roles and progress management.
+

@@ -1,0 +1,224 @@
+UML use case diagram
+	<< includes >> means aa must be done before bb. arrow points to new bubble
+	<< extends >> means aa is alt flow of bb. arrow points to original bubble
+
+UML relationships
+	aggregation
+		empty diamond
+		empty diamond points to parent
+		parent and child can exist independently
+
+	composition
+		filled diamond
+		filled diamond points to parent
+		parent exists if child dies
+		child dies if parent exists
+
+	inheritance
+		empty arrow
+		empty arrow points to parent
+		child inherits attributes from parent
+
+	association
+		1..*
+		*
+		ie driver drives many cars. driver bubble points to car bubble with *
+
+UML class diagram
+	
+
+UML sequence diagram
+
+
+BCE
+	B
+		handles interaction between system and actor
+
+	C
+		middle man between B and E, controls interaction
+		enforces business rules
+
+	E
+		handles interaction to db
+
+
+TDD
+	benefits
+		incremental checks instead of lump sum
+		simpler debugging
+		ensure everything is working
+
+
+DevOps
+	stages
+		development
+		test
+		integration
+		deployment
+		monitor
+
+	benefits
+		dev team and ops team work tgt
+		automated stages
+		all stages are aware of one another, no confusion at downstream stages
+		more efficient
+		higher throughput
+
+		
+
+
+
+
+
+
+
+Rational Unified Process (RUP)
+
+4 phases - I E C T
+
+#### 1. Inception (user stories and planning)
+
+* **Objective:**
+
+  * Define main use-case scenarios.
+  * Estimate cost, schedule, and risks.
+
+* **Activities:**
+
+  * Formulate project scope, requirements, and constraints.
+  * prepare user stories, alt flows, actors
+
+* **Deliverables:**
+
+  * Initial user stories
+  * Initial risk assessment.
+  * Initial project plan.
+
+* **Milestones:**
+
+  * Stakeholder agrees
+  * Requirements established.
+  * Protoype done
+
+---
+
+#### 2. Elaboration (infrastructure and tools)
+
+* **Objective:**
+
+  * Define system architecture.
+  * Demonstrate architecture feasibility within reasonable cost/time.
+
+* **Activities:**
+
+  * Establish development environment and infrastructure.
+  * Select tools
+
+* **Deliverables:**
+
+  * user stories
+  * requirements
+  * Software architecture description.
+  * architecture prototype.
+  * Overall development plan (major/minor iterations).
+
+
+* **Milestones:**
+
+  * Stability of product vision and architecture.
+  * Executable demo addressing major risks.
+  * Detailed construction plan.
+  * Stakeholder agreement on vision and development plans.
+
+---
+
+#### 3. Construction
+
+* **Objective:**
+
+  * Develop features efficiently and cost effective
+
+* **Activities:**
+
+  * Complete development
+  * Manage cost
+  * test against requirements.
+
+* **Deliverables:**
+
+  * features integrated and deployed
+  * User manuals
+  * release notes
+
+* **Milestones:**
+
+  * Product stability
+  * Stakeholders' preparedness for product transition.
+  * Actual vs. projected resource expenditures assessment.
+
+---
+
+#### 4. Transition
+
+* **Objective:**
+
+  * Ensure users can use software
+  * Gain stakeholder acceptance on deployment.
+  * Finalise product cost.
+
+* **Activities:**
+
+  * Deployment engineering
+  * Beta testing
+  * User and maintainer training.
+  * bug fixes
+
+* **Deliverables:**
+
+  * finalised product
+  * finalised documentation.
+
+* **Milestones:**
+
+  * User satisfaction with the product.
+  * Resource expenditure alignment with original plan.
+  * evaluate if another development cycle is needed.
+
+
+
+
+
+
+
+Comparison of Development Models: Waterfall, Scrum, Kanban
+
+
+	waterfall
+		focus:
+		dev process:
+		deployment:
+		roles:
+		documentation:
+		metrics:
+		customer involvement:
+		change handling:
+
+	scrum
+		focus:
+		dev process:
+		deployment:
+		roles:
+		documentation:
+		metrics:
+		customer involvement:
+		change handling:
+
+	kanban
+		focus:
+		dev process:
+		deployment:
+		roles:
+		documentation:
+		metrics:
+		customer involvement:
+		change handling: 
