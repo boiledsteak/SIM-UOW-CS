@@ -190,35 +190,34 @@ Rational Unified Process (RUP)
 
 
 
+
+
 Comparison of Development Models: Waterfall, Scrum, Kanban
 
 
 	waterfall
-		focus:
-		dev process:
-		deployment:
-		roles:
-		documentation:
-		metrics:
-		customer involvement:
-		change handling:
+		focus: process and tools
+		dev process: sequential
+		deployment: single at end
+		roles: hiearchy
+		documentation: detailed
+		customer involvement: initial agreement
+		change handling: no change
 
 	scrum
-		focus:
-		dev process:
-		deployment:
-		roles:
-		documentation:
-		metrics:
-		customer involvement:
-		change handling:
+		focus: working deliverables
+		dev process: iterative
+		deployment: end of each sprint
+		roles: product owner, scrum master, dev team
+		documentation: light
+		customer involvement: stakeholder meeting each sprint
+		change handling: no change during sprint
 
 	kanban
-		focus:
-		dev process:
-		deployment:
-		roles:
-		documentation:
-		metrics:
-		customer involvement:
-		change handling: 
+		focus: workflow flexibility, fix bottlenecks first, visual representation
+		dev process: continuous
+		deployment: CD
+		roles: none
+		documentation: light
+		customer involvement: continuous
+		change handling: any time
