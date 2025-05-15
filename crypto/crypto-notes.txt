@@ -1,0 +1,391 @@
+crypto notes
+
+
+cryptography: create algo
+cryptanalysis: break algo
+
+key determines ciphertext. diff key means diff ciphertext
+
+encoding = translate a value to another value. End product always the same
+encryption = translate a value to another value, BUT with a key. End product varies based on key
+
+
+types of attacks on cipher (hardest for enemy to easiest)
+1. cipher text only
+	= enemy dont know key, dont know plaintext, know 1x cipher
+
+2. known plaintext
+	= enemy dont know key, KNOW 1x plain text, know 1x cipher
+
+3. chosen plaintext
+	= enemy have encryption blackbox
+	= enemy dont know key, know any plain text to ciper pair
+
+4. chosen ciphertext
+	= enemy have decryption blackbox, but blackbox wont decrypt the target cipher
+	= enemy dont know key, but know any cipher to plain text pair
+
+
+system is truly secure when attacker is given no4 and yet key cannot be found
+
+
+
+early cipher
+
+1. caesar cipher
+	= translate every latter +3 
+	= Z become C, A become D
+	= actually an encoding algo. not true cipher because no key
+
+2. mono alphabetic cipher
+	= translate each letter to another letter, based on a table
+	= the table is the key
+	= uses same key for encryption and decryption
+	= in the table, each letter in the cipher text row, cannot repeat (one on one)
+
+	assume a table with lower case alphabet
+	a b c d e ... x y z
+
+	a can be transformed to any letter from a - z
+	b can be transformed to any letter except the letter chosen for a
+	c can be transformed to any letter except the letters chosen for a and b
+
+	hence the key size is factorial of the total number of possible chars (N!)
+
+	how many bits required to store the key? log2(N!)
+
+	given the table example, the key size is 26! . bits required = log2(26!)
+
+
+	= this cipher is succeptible to weak keys. ie. a = b, b = c, c = d
+	= key should be simple so that its easy to remember, but need to be complex so cannot be easily broken
+
+
+
+++++++++++++++
+
+modulo !
+
+when using mod, all numbers dont have value. 5 is not greater than 1
+
+++++++++++++++
+
+
+
+PROBLEM........
+
+mono alphabetic cipher is good but require complex key to be good
+so try other kinds of cipher
+
+1. additive cipher
+	= use modulo addition
+	= but problem is, key size is still limited hence still weak
+	= key also hard to remember
+
+2. multiplicative cipher
+	= doesn't work because chars in the key are not one to one
+
+3. affine cipher
+
+4. key phrase cipher
+	= can be broken with statistical analysis
+	= see the cipher, and which char is repeated the most
+	= in english language, "e" is the most used letter
+	= hence in the cipher, the char thats repeated the most, is most likely "e"
+	= can use histogram to see
+	= stat analysis only works when cipher sample size is large
+
+5. homophonic substitution cipher
+	= much larger key size. very hard to remember
+
+6. poly alphabetic cipher (vigenere cipher)
+	= use 2 translation tables to encrypt
+	= flattens histogram - resistant to statistical analysis
+	= even if chars in the key are repeated, they will not represent the same letter. so no more one to one
+	= if can find key size, can break the cipher
+	= to find key size, use kasiski method
+		- find segments of the plaintext that are repeated then see their cipher
+		- from there, can infer the modulo of the key length but cannot find exact
+		- doesnt work if key too long
+
+	= can also use IC method (index of coincidance)
+		- IC = measure of how what ?????????
+		- measure of histogram too?
+		- if each letter of alphabet has same likelihood of being used, then the IC is 1/26
+		- doesnt work if key too long
+
+
+++++++++++++++
+
+perfect secrecy
+
+even when attacker has cipher text, attacker still cannot find key
+
+
+Shannon's Theorem:
+	in a system with perfect secrecy, ??????????
+
+
+++++++++++++++
+
+unicity distance
+
+???????????
+
+
+
+++++++++++++++
+
+
+language redundancy
+
+= english words have redundancy due to bigrams, trigrams
+= language with n redundancy is secure
+
+
+
+ONE TIME PAD
+???
+
+
+
+++++++++++++++
+
+PRACTICAL security
+- work required to break is high, even after unicity distance is achieved
+- achieved using 2 factors
+	> diffusion
+		:: diffuse the statistical structure of plaintext
+	> confusion
+		:: relationship between plaintext and ciphertext must be complex
+
+++++++++++++++
+
+AVALANCHE EFFECT
+
+- small change to the plaintext causes big change in cipher
+
+++++++++++++++
+
+BLOCK AND STREAM CIPHER
+
+
+stream cipher: each char is encrypted one char at a time
+block cipher: encrypt a few chars at a time
+
+
+secure block cipher
+- large block length to deter statistical attack
+- larger block length means longer compute time
+- large key space to deter brute force
+- larger key also means longer compute, more resources to store
+
+++++++++++++++
+
+INVOLUTION 
+
+a function that when used twice, returns the original input
+ie. XOR
+
+++++++++++++++
+
+DES
+
+input 64 bit, output 64 bit
+
+1. 64 bit input goes to IP table (initial permutation)
+	- encode the initial plaintext into a simple encoding using a simple IP table
+	- ie. abc become def
+2. split the encoded plaintext into 2. left and right 32 bit blocks
+3. left will XOR with (right side + key)
+4. swap left with right
+5. go back to step 3 and continue 16x. Need 16x keys as well
+6. at last stage, no need swap. Perform decode with IP table
+7. cipher created
+
+
+How are keys created? 
+1. have 64 bit master key
+2. perform PC1 function to reduce master key to 28bit left side and 28bit right side (combined 56bit subkeys)
+3. ????????????????
+
+
+the round structure of DES ensures diffusion and confusion
+how ???
+
+f function of DES -> ????????????
+
+s box of DES is a MUX (multiplexer)
+
+DES must use at least 8 rounds or else ????
+
+
+
+WEAKNESS OF DES
+
+1. complement property
+
+2. not every key is good
+
+3. brute force
+	- encrypt multiple times with different keys to mitigate this
+	- does multiple encryption produce a stronger cipher?
+	- multiple encryption strat is prone to rainbow table
+	- DES key is 2^56 bits long
+		when performing 2x encryption, key length becomes 2^2 x 2^56
+		when performing 3x encryption, key length becomes 2^3 x 2^56
+
+	- 3DES mitigates the rainbow table meet in the middle attack
+		= encrypt with k1, decrypt with k2, encrypt with k1 again
+
+
+
+++++++++++++++
+
+MODES OF BLOCK CIPHER (SEE THE TABLES IN MODES FOR BLOCK CIPHER SLIDES, PAGE 19)
+
+1. DES ECB (eletronic code book)
+	- suppose message is 3x64bit long
+	- encrypt block1, 64 bit plaintext, block2, 64 bit plaintext, block3, 64 bit plaintext
+	- problem is if any of the blocks are the same, then the cipher text is the same
+	- the final 3x64bit combined cipher text is prone to DOS. If block 2 is compromised, there is no way to tell if the integrity is compromised
+	- if encrypting an image, can still visually see the difference between the different blocks, and make out the original image
+
+2. DES CBC (cipher block chaining)
+
+	- use IV XOR with block1 plaintext
+	- perfrom DES encryption on XOR-ed block1 plaintext
+	- use block1 cipher and XOR with block2 plaintext
+	- perform DES encryption on XOR-ed block2 plaintext
+	- repeat for subsequent
+	- mitigates data tampering
+
+3. DES CFB (cipher feedback mode)
+	- k must be less than palintext size
+	- is CFB more secure than CBC?
+	- mitigates data tampering
+	- if k=1, the algo becomes a stream cipher instead of block cipher
+
+
+4. DES OFB (output feedback mode)
+	- similar to CFB but ??
+	- mitigates data tampering
+
+5. DES CTR (counter)
+	- size of counter iv is same as plaintext
+	- simpler but as good as CFB OR OFB
+
+
+*** padding does not increase security. just allows for the input to match  the encryption blackbox. 
+ie. innput is 40 bits but DES need 64 bit so need 24bit padding
+
+
+
+usually key size match message size for practicality
+ie. 1024bit key for 24bit message not good. computationally heavy for small message
+need to balance security and computation hence security (key size) proportionate to message size
+
+
+++++++++++++++
+
+AES 
+
+feistal weak. In the end, substitution-linear transformation (what AES uses)win
+
+key size, 128, 256, 512, determines how many rounds in AES
+
+AES's S-box is explained unlike DES
+
+AES is 4-8x faster than DES
+
+the shiftrows stage creates difussion
+
+++++++++++++++
+
+Message integrity
+
+MAC is generated using key, plaintext, and an arbitary prime number
+receiver gets plaintext + mac
+receiver uses plaintext + key to generate mac (using prime number)
+receiver compares received mac with generated mac to verify
+
+unconditional security
+- system is secure regardless of enemy's computing power
+- probability must always be less than 1
+- formula:
+	key (k) = (a,b) <a vector>
+	prime number = p 
+	message = M
+	MAC (which is a product of message and key) = aM + b mod p
+- probability of guessing the MAC is 1/p
+- Given enemy has M, p, and valid MACs, if the same key is used to generate MAC for the next message, then enemy can calculate what the key is. Hence must always change key
+
+perfect security means ???
+
+
+what is cbc mac ???????????
+
+
+++++++++++++++
+
+PKI
+
+symmetric key system needs a lot of keys. 
+number of distinct keys needed = N(N-1)/2 , where N is the number of nodes in the network 
+
+in PKI, sender1 cannot decrypt ciphertext after encrypting with sender1 public key
+
+PKI solves scalability issue
+
+A send to B
+A encrypt with B public key
+B decrypt with B private key
+
+B send to A
+B encrypt with A public key
+A decrypt with A private key
+
+
+private key cannot be inferred or calculated from public key. It is mathematically infeasinble
+
+PKI need to be assesed with minimally chosen-plaintext attack because of public keys
+
+one way function means
+- finding the function is easy, given all possible input
+- finding all possible input is hard, given function only
+
+
+PKI is equipped with trapdoor one way function
+same function as one way BUT with a special key, can easily find the input, even when given function only
+
+public key is generated using a very tough algo that uses normal knapsack problem
+need to break the algo to decrypt which is very hard
+
+private key is generated using the same tough algo but multiplied by a certain factor that transforms the normal knapsack problem into a super increasing knapsack problem.
+super increasing knapsack problem is easy to crack
+
+this method is called trapdoor one way function
+
+very tough to break the encryption but easy to decrypt given the key
+
+
+EXTENDED EUCLIDEAN ALGORITHM (will be tested)
+
+first must know normal EUCLIDEAN ALGORITHM
+gcd(84, 49)
+84/49 :: remainder 35
+49/35 :: remainder 14
+35/14 :: remainder 7
+14/7  :: remainder 0
+
+gcd = 7
+
+result of the division not important. must see the remainder
+when remainder not 0, carry on.
+when remainder = 0, previous remainder is the gcd
+
+
+EXTENDED VERSION
+
+gcd(n1, n2) = a*n1  + b*n2
+
