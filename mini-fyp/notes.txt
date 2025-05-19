@@ -12,7 +12,7 @@ UML relationships
 		filled diamond
 		filled diamond points to parent
 		parent exists if child dies
-		child dies if parent exists
+		child dies if parent dies
 
 	inheritance
 		empty arrow

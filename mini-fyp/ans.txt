@@ -1,1 +1,100 @@
-1. Rational Unified Process (RUP)
+1.
+
+RUP
+rational unified process
+
+inception
+	objective
+		identify use case, gather requirements, cost, constraints, risk, scope
+
+	activities
+		create user stories, evaluate cost, constraints, risk, scope
+
+	deliverables
+		user stories
+		project requirements document
+		wireframes
+		sequence diagrams
+
+	milestones
+		deliverables complete, stakeholders acceptance
+
+elaboration
+	objective
+		identify system infrastructure
+
+	activities
+		pick tools
+		test against requirements
+		evaluate cost and feasability
+
+	deliverables
+		infrastructure diagram
+		development plan
+		technical research on tools
+
+	milestones
+		deliverables complete, stakeholders acceptance
+
+construction
+	objective
+		build app
+
+	activities
+		finalise app
+		finalise cost and resources used
+		test against requirements
+
+	deliverables
+		user manual
+		all features integrated and deployed
+		product prototype
+
+	milestones
+		deliverables complete, stakeholders acceptance
+
+transition
+	objective
+		user satisfaction, stakeholders acceptance, finalise cost
+
+	activities
+		beta test
+		bug fixes
+		user and maintainer training
+		deployment engineering
+
+	deliverables
+		final app
+		final documentations
+
+	milestones
+		deliverables done, stakeholders acceptance
+		evaluate if another dev cycle required
+
+
+2.
+<< includes >> means aa must be done before bb. arrow points to new bubble
+<< extends >> means aa is alt flow of bb. arrow points to original bubble
+
+
+3.
+aggregation
+	empty diamond
+	point to parent
+	parent and child can exist independently
+
+composition
+	filled diamond
+	point to parent
+	parent exists if child dies. child dies if parent dies
+
+inheritance
+	empty arrow
+	point to parent
+	child inherits attributes from parent
+
+association
+	1..*
+	*
+
+4. draw UML class diagram

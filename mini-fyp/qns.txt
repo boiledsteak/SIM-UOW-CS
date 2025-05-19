@@ -1,1 +1,5 @@
-1. what does RUP stand for?
+1. list the phases of RUP
+
+2. draw UML use case diagram. What are the 2 arrow types?
+
+3. what are the UML relationships?
