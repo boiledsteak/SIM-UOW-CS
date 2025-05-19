@@ -97,4 +97,68 @@ association
 	1..*
 	*
 
-4. draw UML class diagram
+
+
+6.
+B
+	handles interaction between user and system
+
+C
+	handles interaction between B and E
+	enforces business rules
+
+E
+	handles interaction to DB
+
+
+7.
+incremental checks instead of lump sum
+simpler debugging
+ensures everything works
+
+
+
+8.
+build
+test
+integrate
+deploy
+monitor
+
+
+9.
+dev team and ops team work tgt
+automated stages
+all stages are aware of one another, no confusion at downstream stages
+more efficient
+higher throughput
+
+
+10.
+
+waterfall
+	focus: process and tools
+	dev process: sequential
+	deployment: single at end
+	roles: hiearchy
+	documentation: detailed
+	customer involvement: initial agreement
+	change handling: no change
+
+scrum
+	focus: working deliverables
+	dev process: iterative
+	deployment: after each sprint
+	roles: scum master, stakeholder
+	documentation: light
+	customer involvement: after each sprint
+	change handling: after each sprint
+
+kanban
+	focus: flexibility, fix bottlenecks, visual
+	dev process: continuous
+	deploymenmt: CD
+	roles: none
+	documentation: light
+	customer involvement: continuous
+	change handling: anytime

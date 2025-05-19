@@ -3,3 +3,17 @@
 2. draw UML use case diagram. What are the 2 arrow types?
 
 3. what are the UML relationships?
+
+4. draw UML class diagram
+
+5. draw UML sequence diagram
+
+6. what are the roles of each BCE stage
+
+7. what are the benefits of TDD
+
+8. what are the stages of DevOps
+
+9. what are the benefits of DevOps
+
+10. compare the 3 dev models: Waterfall, Scrum, Kanban
