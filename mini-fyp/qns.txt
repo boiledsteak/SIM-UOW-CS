@@ -17,3 +17,5 @@
 9. what are the benefits of DevOps
 
 10. compare the 3 dev models: Waterfall, Scrum, Kanban
+
+11. what are the principles of CI ?

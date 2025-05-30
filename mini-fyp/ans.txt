@@ -162,3 +162,13 @@ kanban
 	documentation: light
 	customer involvement: continuous
 	change handling: anytime
+
+
+
+11.
+- use VCS
+- automated stages 
+- small frequent commits
+- use ci server
+- minimise build time
+- test in testing environment. Deploy to production environment when ready
