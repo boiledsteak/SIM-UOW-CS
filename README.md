@@ -85,7 +85,7 @@ Teacher is good. Lenient exam marking.
 ## MGNT110 - Intro to Management
 kinda feels like a leadership course. The topics covered are relevant and valid but the teacher is quite condescending... He thinks he's a big deal and better than everyone else. Perhaps this is a needed trait for a business owner. Actually an easy mod because no exams. Only 4 assignments. 4 essays to write.
 
-## CSIT321 - Software development methodology (mini fyp)
+## CSIT314 - Software development methodology (mini fyp)
 Overall a difficult mod, not because it is complex, but because there's a lot of things to do.
 - one main assignment/ project
 - one open book class test
