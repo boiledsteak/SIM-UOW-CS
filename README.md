@@ -108,3 +108,11 @@ user login with username and password , and if login pass user receives proof of
 Feels like what we're being taught was created by a project manager instead of a developer. The syllabus is not designed for efficient dev. It's for management to look like they know better than developers
 
 another thing I'm unhappy with - the standards for use case disgram, BCE diagram, these are not clearly defined anywhere. The teacher scribbles on his ipad on shows it in class. There are not notes that standardises the format. We're given some past examples to reference but they are inconsistent as well. So how to do exam? Anyhow do and if teacher don't like you then mark you down??
+
+## MGNT102 - Professional Communication
+easy module with nice teacher, Ms Jasslyn
+- assignment 1: write weekly blogs for 4 weeks
+- assignment 2: group presentation on cultural differences
+- exam: MCQ + open ended
+
+Concepts taught are quite straightforward. I disagree a bit with the syllabus lol whats new. But Ms Jasslyn is nice and explains well. Not much to say - pay attention, attend classes, ask questions. This mod is quite 'English heavy', and you even need to do O lvl style 'PEEL'. International students with poor english struggled in my class. For me its just an elective I have to clear so I didn't put in a lot of effort
