@@ -1,0 +1,142 @@
+___________________________________
+conflict handling styles (nego styles)
+___________________________________
+
+- avoiding (lose lose)
+- accommodating (one side yields at their expense. lose win)
+- collaborating (both sides find middle ground. win win)
+- competing (my way or the highway. win lose)
+- compromising (one side yields. but outcome unknown)
+
+
+
+
+
+
+
+
+___________________________________
+high context vs low context
+(Edward Hall’s culture framework)
+___________________________________
+
+high context
+- implicit communication
+- rely on context
+- verbal agreements okay
+- rely on non-verabl communication
+- long term relationships
+- polychronic (circular): flexible, long term, multi-task. okay impromptu
+- centralised strict hiearchy
+
+
+low context
+- explicit communication
+- do not rely on context
+- written agreements only
+- do not rely on non-verabl communication
+- transactional relationship
+- monochronic (linear): rigid time. punctual. one task at a time. no impromptu
+- flat liberal hiearchy
+
+
+_________________________________________________
+aspects of interpersonal communication
+_________________________________________________
+
+- kinesics (own posture and gestures)
+
+- haptics (touch)
+
+- proxemics (space and distance)
+
+- status
+
+- wealth
+
+- paralinguistics (tone, pitch)
+
+- active listening
+
+- asking questions
+
+- assertive behaviour
+
+- transparency (sharing personal info)
+
+- attractiveness
+
+
+
+_________________________________________________
+4 Dimensions of culture
+(Hofstede's cultural dimensions theory)
+_________________________________________________
+
+- power distance
+	= how much society accepts or challenges higher authority
+
+- individualism vs collectivism
+	= prioritise needs of society or self
+
+- uncertainty avoidance
+	= how society reacts to ambiguity
+
+- masculinity vs feminity
+	= tough, competitive, achievement oriented VS cooperative, liberal, QOL oriented
+
+
+
+_________________________________________________
+shannon weaver communication model
+_________________________________________________
+
+- sender
+- encoder (process that sends signal)
+- medium
+- noise
+- encoder
+- receiver
+
+weakness
+- no context (prejudice, aspects of interpersonal comm) involved between sender and receiver
+- only linear. doesnt take into account multi stage conversation back and forth
+
+
+
+_________________________________________________
+bargaining styles
+_________________________________________________
+
+
+distributive
+- position based
+- max gains, min loss
+- kinda like competing style
+
+integrative
+- interest based
+- care about relationship
+- collaborative style
+
+
+
+_________________________________________________
+johari window
+_________________________________________________
+
+a self-awareness chart to describe a person based on what he thinks and what others think
+
+out of a list of 56 adjectives, chart out
+1. what i think i am, what i dont know about me
+2. what others think i am, what others dont know about me
+
+
+_________________________________________________
+intercultural communication
+_________________________________________________
+
+inter = between cultures
+intra = within a culture
+enculturation = learn your own culture
+acculturation = learn other culture
