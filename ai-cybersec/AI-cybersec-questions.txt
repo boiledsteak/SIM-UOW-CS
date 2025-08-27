@@ -115,3 +115,13 @@
 47. what is GAN ?
 
 48. how to detect GAN
+
+49. List limitations of traditional signature-based intrusion detection systems as discussed in this subject.
+
+50. Regarding adversarial examples, what is the difference between targeted attack and untargeted attack?
+
+51. Explain what universal adversarial perturbations (UAPs) are?
+
+52. Describe a strategy for generating black-box adversarial examples. Explain the intuition behind the strategy.
+
+53. Regarding adversarial examples, what is the difference between white-box attack, grey-box attack and black-box attack?
