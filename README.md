@@ -1,6 +1,7 @@
 # SIM-UOW-CS
 SIM UOW computer science cybersecurity + digital systems security
 
+
 * 3 months = 1 sem
 * 1 sem = 2 modules
 
@@ -9,6 +10,8 @@ Sem break during last 3 weeks of 3rd month. So essentially is 2 months for 2 mod
 Overall an okay course. Disappointed by admin, organisation, planning, resources, ambiguous assignments, unreasonable exams. But I wouldn't say I regret. I genuinely learned new things and I would like to believe there's some value to having this degree under my belt, even if it is not as prestigious. There aren't many other options for cybersecurity degrees in Singapore, and this course is the fastest. Perhaps my expectations are unrealistic. I am comparing heavily with my previous course in SP DISM.
 
 I am writing this repo to consolidate what I've learnt each sem, and also give advice to whoever takes this course. I guess for most of us, the goal of this course is to increase our chances of landing a higher pay job, or any job at all, within the cybersecurity industry. As of writing, I am still in the midst of studying this course so I will update when this degree has realised my investment
+
+*UPDATE* I found a job some time ago as a Cloud / DevOps Engineer. It's exactly what I have been building towards. Large company and good pay. Did I get the job solely because of this degree? Surely not. I guess it's right time right place, my entire portfolio, and one wildcard - Singaporean with high security clearance. So I guess this degree isn't useless lol. But this course.. is not great. It's okay if you have no better options. Beware
 
 
 
@@ -116,3 +119,6 @@ easy module with nice teacher, Ms Jasslyn
 - exam: MCQ + open ended
 
 Concepts taught are quite straightforward. I disagree a bit with the syllabus lol whats new. But Ms Jasslyn is nice and explains well. Not much to say - pay attention, attend classes, ask questions. This mod is quite 'English heavy', and you even need to do O lvl style 'PEEL'. International students with poor english struggled in my class. For me its just an elective I have to clear so I didn't put in a lot of effort
+
+## CSIT321 - FYP
+The mod is very grey. Allegedly no one fails this mod. It sucks ass because requirements are so ambiguous. And the worst is if u kena this person called Mr Premerajan. Apparently he is the few people that started this module but he is totally unqualified. He did not study IT or cybersecurity. He has not released any applications. He has no real track record of technical competency. Who the hell is he lol and yet he controls your grade. Fucked up module with fucked up school staff
